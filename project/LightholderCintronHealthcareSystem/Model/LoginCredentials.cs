@@ -13,5 +13,10 @@ namespace LightholderCintronHealthcareSystem.Model
             this.password = password ?? throw new ArgumentNullException(nameof(password), "can not be null");
         }
 
+        public bool CompareLoginCredentials(LoginCredentials credentials)
+        {
+            return username == credentials.username && password == credentials.password;
+        }
+
     }
 }

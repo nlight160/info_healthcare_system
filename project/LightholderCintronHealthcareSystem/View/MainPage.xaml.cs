@@ -1,9 +1,8 @@
 ﻿using System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using LightholderCintronHealthcareSystem.Model;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace LightholderCintronHealthcareSystem.View
 {
@@ -12,29 +11,46 @@ namespace LightholderCintronHealthcareSystem.View
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private LoginCredentials login;
+        private User user;
 
         public MainPage()
         {
             this.InitializeComponent();
         }
 
-        private void onLogin(object sender, Windows.UI.Xaml.RoutedEventArgs e) 
+        private async void onLogin(object sender, Windows.UI.Xaml.RoutedEventArgs e) 
         {
             if (UsernameTextBox.Text == String.Empty || UsernameTextBox.Text == null)
             {
                 InvalidLoginTextBlock.Visibility = Visibility.Visible;
+                this.clearTextBoxes();
             }
+
             if (PasswordTextBox.Text == String.Empty || PasswordTextBox.Text == null)
             {
                 InvalidLoginTextBlock.Visibility = Visibility.Visible;
+                this.clearTextBoxes();
             }
-            this.setLoginCredentials();
+
+            if (attemptLogin())
+            {
+                var messageDialog = new MessageDialog("Congrats! You logged in.");
+                await messageDialog.ShowAsync();
+            }
+
         }
 
-        private void setLoginCredentials()
+        private void clearTextBoxes()
         {
-            this.login = new LoginCredentials(UsernameTextBox.Text, PasswordTextBox.Text);
+            PasswordTextBox.Text = "";
+            UsernameTextBox.Text = "";
+        }
+
+        private bool attemptLogin()
+        {
+            var loginCredentials = new LoginCredentials(UsernameTextBox.Text, PasswordTextBox.Text);
+            this.user = new User(loginCredentials);
+            return this.user.VerifyUserExists();
         }
     }
 }
