@@ -5,7 +5,7 @@ namespace LightholderCintronHealthcareSystem.Model
     public class LoginCredentials
     {
         public string username { get; private set; }
-        public string password { get; private set; }
+        private string password { get; set; }
 
         public LoginCredentials(string username, string password)
         {

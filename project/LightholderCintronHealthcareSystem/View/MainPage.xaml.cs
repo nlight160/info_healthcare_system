@@ -11,31 +11,29 @@ namespace LightholderCintronHealthcareSystem.View
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private User user;
 
         public MainPage()
         {
             this.InitializeComponent();
         }
 
-        private async void onLogin(object sender, Windows.UI.Xaml.RoutedEventArgs e) 
+        private void onLogin(object sender, Windows.UI.Xaml.RoutedEventArgs e) 
         {
-            if (UsernameTextBox.Text == String.Empty || UsernameTextBox.Text == null)
+            if (UsernameTextBox.Text == string.Empty || UsernameTextBox.Text == null)
             {
                 InvalidLoginTextBlock.Visibility = Visibility.Visible;
                 this.clearTextBoxes();
             }
 
-            if (PasswordTextBox.Text == String.Empty || PasswordTextBox.Text == null)
+            if (PasswordTextBox.Text == string.Empty || PasswordTextBox.Text == null)
             {
                 InvalidLoginTextBlock.Visibility = Visibility.Visible;
                 this.clearTextBoxes();
             }
 
-            if (attemptLogin())
+            if (ViewModel.ViewModel.AttemptLogin(UsernameTextBox.Text, PasswordTextBox.Text))
             {
-                var messageDialog = new MessageDialog("Congrats! You logged in.");
-                await messageDialog.ShowAsync();
+                Frame.Navigate(typeof(MenuPage));
             }
 
         }
@@ -44,13 +42,6 @@ namespace LightholderCintronHealthcareSystem.View
         {
             PasswordTextBox.Text = "";
             UsernameTextBox.Text = "";
-        }
-
-        private bool attemptLogin()
-        {
-            var loginCredentials = new LoginCredentials(UsernameTextBox.Text, PasswordTextBox.Text);
-            this.user = new User(loginCredentials);
-            return this.user.VerifyUserExists();
         }
     }
 }
