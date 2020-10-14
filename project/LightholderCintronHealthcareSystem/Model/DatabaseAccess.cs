@@ -24,8 +24,10 @@ namespace LightholderCintronHealthcareSystem.Model
                             var lnameOrdinal = reader.GetOrdinal("lname");
                             if (!reader.HasRows)
                             {
+                                Console.WriteLine("No rows exist in table");
                                 return null;
                             }
+                            reader.Read();
                             return new List<string>
                                 {reader.GetString(fnameOrdinal), reader.GetString(lnameOrdinal)};
                         }

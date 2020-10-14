@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Store.Preview.InstallControl;
@@ -15,13 +16,18 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         public static bool AttemptLogin(string username, string password)
         {
             DatabaseAccess db = new DatabaseAccess();
-            var information =
+            var information = 
                 db.loginQuery(
                     "SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = " +
-                    username + " AND n.password = " + password + ";");
-            var loginCredentials = new LoginCredentials(information[0], information[1]);
-            ActiveUser = new User(loginCredentials);
-            return information != null;
+                    username + " AND n.password = " + "'" + password + "'" + ";");
+            
+            if (information != null)
+            {
+                var loginCredentials = new LoginCredentials(information[0], information[1]);
+                ActiveUser = new User(loginCredentials);
+                return true;
+            }
+            return false;
         }
     }
 }
