@@ -17,13 +17,11 @@ namespace LightholderCintronHealthcareSystem.Model
             {
                 throw new ArgumentNullException(nameof(firstname), "can not be null or empty");
             }
-
             this.Firstname = firstname;
             if (string.IsNullOrEmpty(lastname))
             {
                 throw new ArgumentNullException(nameof(lastname), "can not be null or empty");
             }
-
             this.Lastname = lastname;
             this.Address = address ?? throw new ArgumentNullException(nameof(address), "can not be null");
             if (birthdate.Date > DateTime.Today || birthdate == null)

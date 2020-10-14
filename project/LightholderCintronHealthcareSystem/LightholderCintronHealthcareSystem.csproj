@@ -128,6 +128,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\DatabaseAccess.cs" />
@@ -141,6 +142,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RegistrationPage.xaml.cs">
+      <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +173,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RegistrationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
