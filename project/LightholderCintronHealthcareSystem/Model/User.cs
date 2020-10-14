@@ -16,11 +16,11 @@ namespace LightholderCintronHealthcareSystem.Model
             this.Login = login ?? throw new ArgumentNullException(nameof(login), "can not be null");
         }
 
-        public bool VerifyUserExists()
-        {
-            //would use the real credentials we pull from text here
-           return dummyLogin.CompareLoginCredentials(Login);
-        }
+        //public bool verifyuserexists()
+        //{
+        //    //would use the real credentials we pull from text here
+        //    return dummylogin.comparelogincredentials(login);
+        //}
 
 
     }

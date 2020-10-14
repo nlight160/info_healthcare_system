@@ -4,19 +4,19 @@ namespace LightholderCintronHealthcareSystem.Model
 {
     public class LoginCredentials
     {
-        public string username { get; private set; }
-        private string password { get; set; }
+        public string firstname { get; private set; }
+        public string lastname { get; set; }
 
-        public LoginCredentials(string username, string password)
+        public LoginCredentials(string firstname, string lastname)
         {
-            this.username = username ?? throw new ArgumentNullException(nameof(username), "can not be null");
-            this.password = password ?? throw new ArgumentNullException(nameof(password), "can not be null");
+            this.firstname = firstname ?? throw new ArgumentNullException(nameof(firstname), "can not be null");
+            this.lastname = lastname ?? throw new ArgumentNullException(nameof(lastname), "can not be null");
         }
 
-        public bool CompareLoginCredentials(LoginCredentials credentials)
-        {
-            return username == credentials.username && password == credentials.password;
-        }
+        //public bool CompareLoginCredentials(LoginCredentials credentials)
+        //{
+        //    return username == credentials.username && password == credentials.password;
+        //}
 
     }
 }

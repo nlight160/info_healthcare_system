@@ -14,9 +14,14 @@ namespace LightholderCintronHealthcareSystem.ViewModel
 
         public static bool AttemptLogin(string username, string password)
         {
-            var loginCredentials = new LoginCredentials(username, password);
+            DatabaseAccess db = new DatabaseAccess();
+            var information =
+                db.loginQuery(
+                    "SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = " +
+                    username + " AND n.password = " + password + ";");
+            var loginCredentials = new LoginCredentials(information[0], information[1]);
             ActiveUser = new User(loginCredentials);
-            return ActiveUser.VerifyUserExists();
+            return information != null;
         }
     }
 }

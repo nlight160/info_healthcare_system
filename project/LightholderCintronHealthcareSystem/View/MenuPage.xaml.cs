@@ -26,7 +26,7 @@ namespace LightholderCintronHealthcareSystem.View
         public MenuPage()
         {
             this.InitializeComponent();
-            UserWelcomeTextBlock.Text = "Welcome, " + ViewModel.ViewModel.ActiveUser.Login.username;
+            UserWelcomeTextBlock.Text = "Welcome, " + ViewModel.ViewModel.ActiveUser.Login.firstname + ViewModel.ViewModel.ActiveUser.Login.lastname;
         }
     }
 }
