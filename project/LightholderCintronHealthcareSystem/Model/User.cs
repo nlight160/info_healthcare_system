@@ -8,19 +8,13 @@ namespace LightholderCintronHealthcareSystem.Model
 {
     public class User
     {
-        private readonly LoginCredentials dummyLogin = new LoginCredentials("john", "123");
-        public LoginCredentials Login { get; }
 
-        public User(LoginCredentials login)
+        public Nurse NurseInfo { get; }
+
+        public User(Nurse person)
         {
-            this.Login = login ?? throw new ArgumentNullException(nameof(login), "can not be null");
+            this.NurseInfo = person ?? throw new ArgumentNullException(nameof(person), "can not be null");
         }
-
-        //public bool verifyuserexists()
-        //{
-        //    //would use the real credentials we pull from text here
-        //    return dummylogin.comparelogincredentials(login);
-        //}
 
 
     }
