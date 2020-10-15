@@ -9,7 +9,7 @@ namespace LightholderCintronHealthcareSystem.Model
     /// <summary>
     /// Builds the query's that will be sent to the database.
     /// </summary>
-    class QueryBuilder
+    public class QueryBuilder
     {
         /// <summary>
         /// Builds the query to add a patient, first adds a person then a patient.
@@ -23,14 +23,14 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="zip">The zip.</param>
         /// <param name="phone">The phone.</param>
         /// <returns></returns>
-        public string addPaitent(string lname, string fname, string dob, string street, string city, string state, string zip,
+        public string addPatient(string lname, string fname, string dob, string street, string city, string state, string zip,
             string phone)
         {
             var createPerson =
-                $"INSERT INTO `person` (`personid`, `lname`, `fname`, `dob`, `street`, `city`, `state`, `city`, `state`, `zip`, `phone`) VALUES (null, {lname}, {fname}, {dob}, {street}, {city}, {state}, {zip}, {phone});";
-            var createPaitent =
-                $"INSERT INTO `paitent` (`paitentid`, `personid`) VALUES (null, SELECT `p.personid` FROM person p WHERE p.lname = {lname} AND p.fname = {fname} AND p.dob = {dob} AND p.phone = {phone});";
-            return createPerson + createPaitent;
+                $"INSERT INTO `person` (`personid`, `lname`, `fname`, `dob`, `street`, `city`, `state`, `zip`, `phone`) VALUES (null, \"{lname}\", \"{fname}\", \"{dob}\", \"{street}\", \"{city}\", \"{state}\", \"{zip}\", \"{phone}\");";
+            var createPatient =
+                $"INSERT INTO patient (patientid, personid) SELECT null, p.personid FROM person p WHERE p.lname = \"{lname}\" AND p.fname = \"{fname}\" AND p.dob = \"{dob}\" AND p.phone = \"{phone}\";";
+            return createPerson + createPatient;
         }
     }
 }

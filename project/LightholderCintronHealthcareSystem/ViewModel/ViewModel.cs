@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,15 @@ namespace LightholderCintronHealthcareSystem.ViewModel
                 return true;
             }
             return false;
+        }
+
+        public static void RegisterPatient(string lname, string fname, string dob, string street, string city, string state, string zip,
+                                            string phone)
+        {
+            QueryBuilder qb = new QueryBuilder();
+            DatabaseAccess db = new DatabaseAccess();
+            string query = qb.addPatient(lname, fname,  dob,  street,  city,  state,  zip, phone);
+            db.CreatePatient(query);
         }
 
         public static void Logout()

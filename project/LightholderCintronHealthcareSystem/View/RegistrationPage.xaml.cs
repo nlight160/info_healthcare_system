@@ -56,7 +56,10 @@ namespace LightholderCintronHealthcareSystem.View
 
         private void onRegister(object sender, RoutedEventArgs e)
         {
-
+            string date = BirthdateDatePicker.Date.Year + "-" + BirthdateDatePicker.Date.Month + "-" + BirthdateDatePicker.Date.Day;
+            ViewModel.ViewModel.RegisterPatient(LastnameTextBox.Text, FirstnameTextBox.Text, date, StreetTextBox.Text, CityTextBox.Text, 
+                StateComboBox.SelectedItem.ToString(), ZipCodeTextBox.Text, PhoneNumberTextBox.Text);
+            Frame.Navigate(typeof(MainPage));
         }
 
         private void clearInputs()
