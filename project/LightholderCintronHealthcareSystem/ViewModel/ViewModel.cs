@@ -25,7 +25,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             if (information != null)
             {
                 var loginCredentials = new Nurse(information[0], information[1]);
-                ActiveUser = new User(loginCredentials);
+                ActiveUser = new User(loginCredentials, int.Parse(username));
                 return true;
             }
             return false;

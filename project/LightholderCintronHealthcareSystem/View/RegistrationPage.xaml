@@ -36,6 +36,7 @@
             <x:String>Indiana</x:String>
             <x:String>Iowa</x:String>
         </ComboBox>
+        <TextBlock x:Name="UserTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" FontSize="20"/>
 
 
 

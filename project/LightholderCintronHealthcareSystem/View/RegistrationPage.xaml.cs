@@ -28,6 +28,8 @@ namespace LightholderCintronHealthcareSystem.View
             PhoneNumberTextBox.MaxLength = 10;
             ZipCodeTextBox.MaxLength = 5;
             BirthdateDatePicker.MaxYear = DateTimeOffset.Now;
+            UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
+                                 + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
 
         private void onKeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
