@@ -67,7 +67,7 @@ namespace LightholderCintronHealthcareSystem.View
             PhoneNumberTextBox.Text = "";
             StreetTextBox.Text = "";
             CityTextBox.Text = "";
-            StateTextBox.Text = "";
+            StateComboBox.SelectedItem = 0;
             ZipCodeTextBox.Text = "";
         }
     }
