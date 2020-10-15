@@ -17,7 +17,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         {
             DatabaseAccess db = new DatabaseAccess();
             var information = 
-                db.loginQuery(
+                db.LoginQuery(
                     "SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = " +
                     username + " AND n.password = " + "'" + password + "'" + ";");
             

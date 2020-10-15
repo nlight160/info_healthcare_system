@@ -133,6 +133,7 @@
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\DatabaseAccess.cs" />
     <Compile Include="Model\Nurse.cs" />
+    <Compile Include="Model\QueryBuilder.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -190,6 +191,9 @@
     </PackageReference>
     <PackageReference Include="MySqlConnector">
       <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.DataSetExtensions">
+      <Version>4.5.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
