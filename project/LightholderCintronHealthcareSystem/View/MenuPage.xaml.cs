@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using LightholderCintronHealthcareSystem.Model;
+
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,6 +11,9 @@ namespace LightholderCintronHealthcareSystem.View
     /// </summary>
     public sealed partial class MenuPage : Page
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuPage"/> class.
+        /// </summary>
         public MenuPage()
         {
             this.InitializeComponent();
@@ -30,12 +21,22 @@ namespace LightholderCintronHealthcareSystem.View
                                         + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
 
+        /// <summary>
+        /// Ons the logout.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onLogout(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
             ViewModel.ViewModel.Logout();
         }
 
+        /// <summary>
+        /// Called when [register patient].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void OnRegisterPatient(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(RegistrationPage));

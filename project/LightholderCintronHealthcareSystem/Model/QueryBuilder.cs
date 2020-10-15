@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace LightholderCintronHealthcareSystem.Model
 {
@@ -31,6 +27,17 @@ namespace LightholderCintronHealthcareSystem.Model
             var createPatient =
                 $"INSERT INTO patient (patientid, personid) SELECT null, p.personid FROM person p WHERE p.lname = \"{lname}\" AND p.fname = \"{fname}\" AND p.dob = \"{dob}\" AND p.phone = \"{phone}\";";
             return createPerson + createPatient;
+        }
+
+        /// <summary>
+        /// Builds the query for logging in.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
+        public string loginQuery(string username, string password)
+        {
+            return $"SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = {username} AND n.password = '{password}';";
         }
     }
 }

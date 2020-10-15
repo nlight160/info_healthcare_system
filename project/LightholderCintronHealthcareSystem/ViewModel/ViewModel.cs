@@ -1,26 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Store.Preview.InstallControl;
-using LightholderCintronHealthcareSystem.Model;
+﻿using LightholderCintronHealthcareSystem.Model;
 
 namespace LightholderCintronHealthcareSystem.ViewModel
 {
+    /// <summary>
+    /// View Model
+    /// </summary>
     public class ViewModel
     {
+        /// <summary>
+        /// Gets the active user.
+        /// </summary>
+        /// <value>
+        /// The active user.
+        /// </value>
         public static User ActiveUser { get; private set; }
 
+        /// <summary>
+        /// Attempts the login.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
         public static bool AttemptLogin(string username, string password)
         {
             DatabaseAccess db = new DatabaseAccess();
+            QueryBuilder builder = new QueryBuilder();
             var information = 
-                db.LoginQuery(
-                    "SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = " +
-                    username + " AND n.password = " + "'" + password + "'" + ";");
+                db.LoginQuery(builder.loginQuery(username, password));
             
             if (information != null)
             {
@@ -31,6 +37,17 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return false;
         }
 
+        /// <summary>
+        /// Registers the patient.
+        /// </summary>
+        /// <param name="lname">The lname.</param>
+        /// <param name="fname">The fname.</param>
+        /// <param name="dob">The dob.</param>
+        /// <param name="street">The street.</param>
+        /// <param name="city">The city.</param>
+        /// <param name="state">The state.</param>
+        /// <param name="zip">The zip.</param>
+        /// <param name="phone">The phone.</param>
         public static void RegisterPatient(string lname, string fname, string dob, string street, string city, string state, string zip,
                                             string phone)
         {
@@ -40,6 +57,9 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             db.CreatePatient(query);
         }
 
+        /// <summary>
+        /// Logouts this instance.
+        /// </summary>
         public static void Logout()
         {
             ActiveUser = null;

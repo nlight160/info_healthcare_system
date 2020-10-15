@@ -1,8 +1,5 @@
-﻿using System;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using LightholderCintronHealthcareSystem.Model;
 
 namespace LightholderCintronHealthcareSystem.View
 {
@@ -12,11 +9,19 @@ namespace LightholderCintronHealthcareSystem.View
     public sealed partial class MainPage : Page
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainPage"/> class.
+        /// </summary>
         public MainPage()
         {
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Ons the login.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="Windows.UI.Xaml.RoutedEventArgs"/> instance containing the event data.</param>
         private void onLogin(object sender, Windows.UI.Xaml.RoutedEventArgs e) 
         {
             if (UsernameTextBox.Text == string.Empty || UsernameTextBox.Text == null)
@@ -42,6 +47,9 @@ namespace LightholderCintronHealthcareSystem.View
 
         }
 
+        /// <summary>
+        /// Clears the text boxes.
+        /// </summary>
         private void clearTextBoxes()
         {
             PasswordTextBox.Text = "";
