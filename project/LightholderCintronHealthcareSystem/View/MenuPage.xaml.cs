@@ -37,7 +37,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private void OnRegisterPatient(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(RegistrationPage));
         }
     }
 }

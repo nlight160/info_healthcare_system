@@ -9,11 +9,11 @@ namespace LightholderCintronHealthcareSystem.Model
     public class Appointment
     {
         public DateTime AppointmentDateTime { get; }
-        public Patient Patient { get; }
+        public Person Patient { get; }
         public Doctor Doctor { get; }
         public string Description { get; }
 
-        public Appointment(Patient patient, Doctor doctor, DateTime appointmentDateTime, string description)
+        public Appointment(Person patient, Doctor doctor, DateTime appointmentDateTime, string description)
         {
             this.Patient = patient ?? throw new ArgumentNullException(nameof(patient), "can not be null");
             this.Doctor = doctor ?? throw new ArgumentNullException(nameof(doctor), "can not be null");
