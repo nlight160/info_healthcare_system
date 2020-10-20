@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,10 +21,11 @@ namespace LightholderCintronHealthcareSystem.View
         public RegistrationPage()
         {
             this.InitializeComponent();
-            PhoneNumberTextBox.MaxLength = 10;
-            ZipCodeTextBox.MaxLength = 5;
-            BirthdateDatePicker.MaxYear = DateTimeOffset.Now;
-            UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
+            this.RegisterButton.IsEnabled = false;
+            this.PhoneNumberTextBox.MaxLength = 10;
+            this.ZipCodeTextBox.MaxLength = 5;
+            this.BirthdateDatePicker.MaxYear = DateTimeOffset.Now;
+            this.UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                  + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
 
@@ -37,13 +41,13 @@ namespace LightholderCintronHealthcareSystem.View
                 e.Handled = false;
                 return;
             }
-            for (int i = 0; i < 10; i++)
-            {
-                if (e.Key.ToString() == string.Format("Number{0}", i))
-                {
-                    e.Handled = false;
-                    return;
-                }
+            Debug.WriteLine(e.Key);
+            var state = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift);
+            bool pressed = (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+            if (System.Text.RegularExpressions.Regex.IsMatch(e.Key.ToString(), "Number") && !pressed)
+            { 
+                e.Handled = false; 
+                return;
             }
             e.Handled = true;
         }
@@ -69,7 +73,7 @@ namespace LightholderCintronHealthcareSystem.View
             string date = BirthdateDatePicker.Date.Year + "-" + BirthdateDatePicker.Date.Month + "-" + BirthdateDatePicker.Date.Day;
             ViewModel.ViewModel.RegisterPatient(LastnameTextBox.Text, FirstnameTextBox.Text, date, StreetTextBox.Text, CityTextBox.Text, 
                 StateComboBox.SelectedItem.ToString(), ZipCodeTextBox.Text, PhoneNumberTextBox.Text);
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(MenuPage));
         }
 
         /// <summary>
@@ -85,6 +89,22 @@ namespace LightholderCintronHealthcareSystem.View
             CityTextBox.Text = "";
             StateComboBox.SelectedItem = 0;
             ZipCodeTextBox.Text = "";
+        }
+
+        private void onDeselectControl(object sender, RoutedEventArgs e)
+        {
+            this.RegisterButton.IsEnabled = this.checkControlsForCompletion();
+        }
+
+        private bool checkControlsForCompletion()
+        {
+            if (FirstnameTextBox.Text != "" && LastnameTextBox.Text != "" && PhoneNumberTextBox.Text != "" && StreetTextBox.Text != "" && CityTextBox.Text != "" 
+                && ZipCodeTextBox.Text != "" && StateComboBox.SelectedItem != null && !this.BirthdateDatePicker.Date.Equals(DateTimeOffset.MinValue))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
