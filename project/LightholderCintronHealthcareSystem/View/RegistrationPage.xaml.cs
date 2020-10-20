@@ -99,7 +99,7 @@ namespace LightholderCintronHealthcareSystem.View
         private bool checkControlsForCompletion()
         {
             if (FirstnameTextBox.Text != "" && LastnameTextBox.Text != "" && PhoneNumberTextBox.Text != "" && StreetTextBox.Text != "" && CityTextBox.Text != "" 
-                && ZipCodeTextBox.Text != "" && StateComboBox.SelectedItem != null && !this.BirthdateDatePicker.Date.Equals(DateTimeOffset.MinValue))
+                && ZipCodeTextBox.Text != "" && StateComboBox.SelectedItem != null && !this.BirthdateDatePicker.Date.Equals(DateTimeOffset.MinValue) && this.GenderComboBox.SelectedItem != null)
             {
                 return true;
             }

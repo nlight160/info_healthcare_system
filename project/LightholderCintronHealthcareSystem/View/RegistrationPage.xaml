@@ -11,15 +11,15 @@
     <Grid>
         <TextBox x:Name="FirstnameTextBox" HorizontalAlignment="Left" Margin="285,335,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="First Name" LostFocus="onDeselectControl"/>
         <TextBox x:Name="LastnameTextBox" HorizontalAlignment="Left" Margin="481,336,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Last Name" LostFocus="onDeselectControl"/>
-        <TextBox x:Name="ZipCodeTextBox" HorizontalAlignment="Left" Margin="913,468,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Zip Code" PreviewKeyDown = "onKeyDown" LostFocus="onDeselectControl"/>
-        <TextBox x:Name="CityTextBox" HorizontalAlignment="Left" Margin="548,468,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="City" LostFocus="onDeselectControl"/>
-        <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Left" Margin="1031,336,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" PlaceholderText="Phone Number" PreviewKeyDown="onKeyDown" LostFocus="onDeselectControl"/>
-        <TextBox x:Name="StreetTextBox" HorizontalAlignment="Left" Margin="366,468,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" PlaceholderText="Street" LostFocus="onDeselectControl"/>
-        <DatePicker x:Name="BirthdateDatePicker" Margin="687,335,0,0" VerticalAlignment="Top"  Width="299" LostFocus="onDeselectControl"/>
+        <TextBox x:Name="ZipCodeTextBox" HorizontalAlignment="Left" Margin="854,468,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Zip Code" PreviewKeyDown = "onKeyDown" LostFocus="onDeselectControl"/>
+        <TextBox x:Name="CityTextBox" HorizontalAlignment="Left" Margin="481,468,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="City" LostFocus="onDeselectControl"/>
+        <TextBox x:Name="PhoneNumberTextBox" HorizontalAlignment="Left" Margin="1043,468,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" PlaceholderText="Phone Number" PreviewKeyDown="onKeyDown" LostFocus="onDeselectControl"/>
+        <TextBox x:Name="StreetTextBox" HorizontalAlignment="Left" Margin="285,468,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Street" LostFocus="onDeselectControl"/>
+        <DatePicker x:Name="BirthdateDatePicker" Margin="888,336,0,0" VerticalAlignment="Top"  Width="299" LostFocus="onDeselectControl"/>
         <Button x:Name="RegisterButton" Content="Register" Margin="564,673,0,0" VerticalAlignment="Top" Click="onRegister"/>
         <Button x:Name="CancelButton" Content="Cancel" Margin="806,673,0,0" VerticalAlignment="Top" Click="onCancel"/>
         <TextBlock HorizontalAlignment="Left" Margin="548,130,0,0" Text="Register Patient" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="48"/>
-        <ComboBox x:Name="StateComboBox" Margin="747,468,0,0" Width="120" PlaceholderText="State" LostFocus="onDeselectControl">
+        <ComboBox x:Name="StateComboBox" Margin="687,468,0,0" Width="120" PlaceholderText="State" LostFocus="onDeselectControl">
             <x:String>Alabama</x:String>
             <x:String>Alaska</x:String>
             <x:String>Arizona</x:String>
@@ -37,6 +37,12 @@
             <x:String>Iowa</x:String>
         </ComboBox>
         <TextBlock x:Name="UserTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Height="24" FontSize="20"/>
+        <ComboBox x:Name="GenderComboBox" Margin="0,336,0,0" Width="120" HorizontalAlignment="Center" PlaceholderText="Gender" LostFocus="onDeselectControl">
+            <x:String>Male</x:String>
+            <x:String>Female</x:String>
+        </ComboBox>
+
+
 
 
 
