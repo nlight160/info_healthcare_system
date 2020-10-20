@@ -9,7 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="RegisterPatientButton" Content="Register Patient" HorizontalAlignment="Center" Margin="0,460,0,0" VerticalAlignment="Top" FontSize="20" Click="OnRegisterPatient"/>
+        <Button x:Name="RegisterPatientButton" Content="Register Patient" HorizontalAlignment="Center" Margin="0,460,0,0" VerticalAlignment="Top" FontSize="20" Click="onRegisterPatient"/>
+        <Button x:Name="ViewPatientsButton" Content="View Patients" Margin="0,528,0,0" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Center" Width="158" Click="onViewPatients"/>
         <TextBlock x:Name="UserWelcomeTextBlock" HorizontalAlignment="Center" Margin="0,200,0,0" Text="Welcome, ?????" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Segoe UI" FontSize="72"/>
         <Button x:Name="LogoutButton" Content="Logout" HorizontalAlignment="Center" Margin="0,696,0,0" VerticalAlignment="Top" FontSize="20" Width="157" Click="onLogout"/>
 
