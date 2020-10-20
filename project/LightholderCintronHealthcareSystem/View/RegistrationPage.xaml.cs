@@ -41,7 +41,6 @@ namespace LightholderCintronHealthcareSystem.View
                 e.Handled = false;
                 return;
             }
-            Debug.WriteLine(e.Key);
             var state = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift);
             bool pressed = (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
             if (System.Text.RegularExpressions.Regex.IsMatch(e.Key.ToString(), "Number") && !pressed)

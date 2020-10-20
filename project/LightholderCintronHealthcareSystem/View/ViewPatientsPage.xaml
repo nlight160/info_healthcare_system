@@ -11,7 +11,7 @@
     <Grid>
         <ListView x:Name="PatientListView" Margin="168,176,607,247" RequestedTheme="Default" BorderBrush="Black" Background="Black"/>
         <TextBlock x:Name="UserTextBlock" HorizontalAlignment="Left" Margin="0,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"/>
-        <Button x:Name="EditPatientButton" Content="Edit Patient" Margin="1001,308,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="EditPatientButton" Content="Edit Patient" Margin="1001,308,0,0" VerticalAlignment="Top" Click="onEditPatient"/>
         <Button x:Name="CancelButton" Content="Cancel" Margin="1119,308,319,0" VerticalAlignment="Top" Click="onCancel"/>
         <TextBlock HorizontalAlignment="Left" Margin="468,101,0,0" Text="Patients" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36"/>
         <TextBox x:Name="PatientSearchTextBox" HorizontalAlignment="Left" Margin="986,214,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient"/>

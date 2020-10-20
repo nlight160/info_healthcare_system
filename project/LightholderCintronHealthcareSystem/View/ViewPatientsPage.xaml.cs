@@ -33,5 +33,11 @@ namespace LightholderCintronHealthcareSystem.View
         {
             Frame.Navigate(typeof(MenuPage));
         }
+
+        private async void onEditPatient(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new EditPatientDialog();
+            await dialog.ShowAsync();
+        }
     }
 }
