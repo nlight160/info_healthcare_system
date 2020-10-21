@@ -84,7 +84,7 @@ namespace LightholderCintronHealthcareSystem.Model
                 throw new ArgumentException("Birthdate can not be null or after current date");
             }
             this.Birthdate = birthdate;
-            if (phoneNumber != null || phoneNumber.Length != 10 || !phoneNumber.All(char.IsNumber))
+            if (phoneNumber == null || phoneNumber.Length != 10 || !phoneNumber.All(char.IsNumber))
             {
                 throw new ArgumentException("Phone number must be 10 digits with no special characters and not null");
             }

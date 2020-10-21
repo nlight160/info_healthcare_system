@@ -134,6 +134,7 @@
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\DatabaseAccess.cs" />
     <Compile Include="Model\Nurse.cs" />
+    <Compile Include="Model\PatientManager.cs" />
     <Compile Include="Model\QueryBuilder.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\EditPatientDialog.xaml.cs">
