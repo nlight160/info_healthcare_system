@@ -20,13 +20,22 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="phone">The phone.</param>
         /// <returns></returns>
         public string addPatient(string lname, string fname, string dob, string street, string city, string state, string zip,
-            string phone)
+            string phone, Gender gender)
         {
             var createPerson =
                 $"INSERT INTO `person` (`personid`, `lname`, `fname`, `dob`, `street`, `city`, `state`, `zip`, `phone`) VALUES (null, \"{lname}\", \"{fname}\", \"{dob}\", \"{street}\", \"{city}\", \"{state}\", \"{zip}\", \"{phone}\");";
             var createPatient =
                 $"INSERT INTO patient (patientid, personid) SELECT null, p.personid FROM person p WHERE p.lname = \"{lname}\" AND p.fname = \"{fname}\" AND p.dob = \"{dob}\" AND p.phone = \"{phone}\";";
             return createPerson + createPatient;
+        }
+
+        private string getGenderAsString(Gender gender)
+        {
+            if (gender == 0)
+            {
+                return "Female";
+            }
+            return "Male";
         }
 
         /// <summary>

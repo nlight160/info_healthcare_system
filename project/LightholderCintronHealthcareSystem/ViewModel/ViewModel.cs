@@ -49,11 +49,11 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// <param name="zip">The zip.</param>
         /// <param name="phone">The phone.</param>
         public static void RegisterPatient(string lname, string fname, string dob, string street, string city, string state, string zip,
-                                            string phone)
+                                            string phone, Gender gender)
         {
             QueryBuilder qb = new QueryBuilder();
             DatabaseAccess db = new DatabaseAccess();
-            string query = qb.addPatient(lname, fname,  dob,  street,  city,  state,  zip, phone);
+            string query = qb.addPatient(lname, fname,  dob,  street,  city,  state,  zip, phone, gender);
             db.CreatePatient(query);
         }
 

@@ -18,6 +18,5 @@
         <Button x:Name="SearchButton" Content="Search" Margin="1215,214,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="ByNameCheckBox" Content="by name" Margin="986,176,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="ByDateCheckBox" Content="by date" Margin="1090,177,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ByBothCheckBox" Content="by both" Margin="1186,176,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

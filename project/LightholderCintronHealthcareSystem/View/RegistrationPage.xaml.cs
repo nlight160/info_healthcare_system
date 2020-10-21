@@ -4,6 +4,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using LightholderCintronHealthcareSystem.Model;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -69,10 +70,21 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onRegister(object sender, RoutedEventArgs e)
         {
+            Gender gender = this.getGender();
             string date = BirthdateDatePicker.Date.Year + "-" + BirthdateDatePicker.Date.Month + "-" + BirthdateDatePicker.Date.Day;
             ViewModel.ViewModel.RegisterPatient(LastnameTextBox.Text, FirstnameTextBox.Text, date, StreetTextBox.Text, CityTextBox.Text, 
-                StateComboBox.SelectedItem.ToString(), ZipCodeTextBox.Text, PhoneNumberTextBox.Text);
+                StateComboBox.SelectedItem.ToString(), ZipCodeTextBox.Text, PhoneNumberTextBox.Text, gender);
             Frame.Navigate(typeof(MenuPage));
+        }
+
+        private Gender getGender()
+        {
+            if (GenderComboBox.SelectedItem != null && GenderComboBox.SelectedItem.Equals("Female"))
+            {
+                return Gender.Female;
+            }
+
+            return Gender.Male;
         }
 
         /// <summary>

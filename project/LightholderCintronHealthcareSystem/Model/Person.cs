@@ -44,6 +44,8 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </value>
         public string PhoneNumber { get; set; }
 
+        public Gender Gender { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Person"/> class.
         /// </summary>
@@ -64,7 +66,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// or
         /// Phone number must be 10 digits with no special characters and not null
         /// </exception>
-        protected Person(string firstname, string lastname, DateTime birthdate, Address address, string phoneNumber)
+        protected Person(string firstname, string lastname, DateTime birthdate, Address address, string phoneNumber, Gender gender)
         {
             if (string.IsNullOrEmpty(firstname))
             {
@@ -87,6 +89,7 @@ namespace LightholderCintronHealthcareSystem.Model
                 throw new ArgumentException("Phone number must be 10 digits with no special characters and not null");
             }
             this.PhoneNumber = phoneNumber;
+            this.Gender = gender;
         }
 
         /// <summary>
