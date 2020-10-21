@@ -30,9 +30,9 @@ namespace LightholderCintronHealthcareSystem.View
         {
             this.InitializeComponent();
             this.patientManager = new PatientManager();
-            this.patientManager.Patients.Add(new Patient("Arnold", "Palmer", DateTime.Now, new Address("Street", "City", "zip"), "7776665555", Gender.Male));
-            this.patientManager.Patients.Add(new Patient("Zack", "Palmer", DateTime.Now, new Address("Street", "City", "zip"), "7776665555", Gender.Male));
-            this.patientManager.Patients.Add(new Patient("Hank", "Hill", DateTime.MinValue, new Address("Street", "City", "zip"), "7776665555", Gender.Male));
+            this.patientManager.Patients.Add(new Patient("Arnold", "Palmer", new Date("1960", "4", "6"), new Address("Street", "City","State", "zip"), "7776665555", Gender.Male));
+            this.patientManager.Patients.Add(new Patient("Zack", "Palmer", new Date("2010", "7", "10"), new Address("Street", "City", "State", "zip"), "7776665555", Gender.Male));
+            this.patientManager.Patients.Add(new Patient("Hank", "Hill", new Date("1500", "4", "6"), new Address("Street", "City", "State", "zip"), "7776665555", Gender.Male));
             this.PatientListView.ItemsSource = this.patientManager.Patients;
             this.UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
