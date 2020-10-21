@@ -71,16 +71,30 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return new Date(year, month, day);
         }
 
-        public static List<string> searchForPatients(string search, bool byName)
+        public static List<Patient> searchForPatients(string search, bool byName)
         {
-            var patientList = new List<string>();
+            var patientList = new List<Patient>();
+            List<int> patientids;
             if (byName)
             {
-                var patientids = new PatientDatabaseAccess().SearchPatientsWithName(search);
+                patientids = new PatientDatabaseAccess().SearchPatientsWithName(search);
+
+                
             }
             else
             {
+                patientids = new PatientDatabaseAccess().SearchPatientsWithName(search);
 
+            }
+
+            foreach (var patient in patientids)
+            {
+                var patientData = new PatientDatabaseAccess().GetPatientDataFromId(patient);
+                var fullDate = patientData[2].Split('-');
+                var date = new Date(fullDate[0], fullDate[1], fullDate[2]);
+                var address = new Address(patientData[3], patientData[4], patientData[5], patientData[6]);
+                var pt = new Patient(patientData[0], patientData[1], date, address, patientData[7], Gender.Male);
+                patientList.Add(pt);
             }
 
             return patientList;
