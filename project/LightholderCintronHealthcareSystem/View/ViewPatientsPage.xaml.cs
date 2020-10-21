@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LightholderCintronHealthcareSystem.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,9 +24,16 @@ namespace LightholderCintronHealthcareSystem.View
     /// </summary>
     public sealed partial class ViewPatientsPage : Page
     {
+        private PatientManager patientManager;
+
         public ViewPatientsPage()
         {
             this.InitializeComponent();
+            this.patientManager = new PatientManager();
+            this.patientManager.Patients.Add(new Patient("Arnold", "Palmer", DateTime.Now, new Address("Street", "City", "zip"), "7776665555", Gender.Male));
+            this.patientManager.Patients.Add(new Patient("Zack", "Palmer", DateTime.Now, new Address("Street", "City", "zip"), "7776665555", Gender.Male));
+            this.patientManager.Patients.Add(new Patient("Hank", "Hill", DateTime.MinValue, new Address("Street", "City", "zip"), "7776665555", Gender.Male));
+            this.PatientListView.ItemsSource = this.patientManager.Patients;
             this.UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
@@ -38,6 +47,39 @@ namespace LightholderCintronHealthcareSystem.View
         {
             ContentDialog dialog = new EditPatientDialog();
             await dialog.ShowAsync();
+        }
+
+        private void onSortByName(object sender, RoutedEventArgs e)
+        {
+            this.sortByNameAndDate();
+            this.patientManager.SortPatientsByName();
+            this.PatientListView.ItemsSource = this.patientManager.Patients;
+        }
+
+        private void onSortByDate(object sender, RoutedEventArgs e)
+        {
+            this.sortByNameAndDate();
+            this.patientManager.SortPatientsByDate();
+            this.PatientListView.ItemsSource = this.patientManager.Patients;
+        }
+
+        private void sortByNameAndDate()
+        {
+            if (this.checkIfBothSearchBoxesAreChecked())
+            {
+                this.patientManager.SortPatientsByNameAndDate();
+                this.PatientListView.ItemsSource = this.patientManager.Patients;
+            }
+        }
+
+        private bool checkIfBothSearchBoxesAreChecked()
+        {
+            if (this.ByDateCheckBox.IsChecked == true && this.ByNameCheckBox.IsChecked == true)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
