@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace LightholderCintronHealthcareSystem.Model
 {
-    public class PaitentDatabaseAccess
+    public class PatientDatabaseAccess
     {
         private const string ConStr = "server=160.10.25.16; port=3306; uid=cs3230f20j;" +
                                       "pwd=F1UgUzIjwlhLAQ9a;database=cs3230f20j;";
@@ -85,5 +85,40 @@ namespace LightholderCintronHealthcareSystem.Model
             }
         }
 
+        public List<int> SearchPatientsWithName(string name)
+        {
+            name = "%" + name + "%";
+            var patientList = new List<int>();
+            try
+            {
+                var query =
+                    "SELECT DISTINCT pt.patientid FROM patient pt, person p WHERE CONCAT(p.fname, p.lname) LIKE @name;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@name", name);
+                using var reader = cmd.ExecuteReader();
+                var patientidOrdinal = reader.GetOrdinal("patientid");
+                
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        patientList.Add(reader.GetInt32(patientidOrdinal));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return patientList;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the SearchPatientsWithName: " + ex.ToString());
+                return patientList;
+            }
+        }
     }
 }

@@ -132,7 +132,7 @@
     <Compile Include="Model\Date.cs" />
     <Compile Include="Model\Gender.cs" />
     <Compile Include="Model\NurseDatabaseAccess.cs" />
-    <Compile Include="Model\PaitentDatabaseAccess.cs" />
+    <Compile Include="Model\PatientDatabaseAccess.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\DatabaseAccess.cs" />

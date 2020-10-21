@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using LightholderCintronHealthcareSystem.Model;
 
 namespace LightholderCintronHealthcareSystem.ViewModel
@@ -51,16 +52,38 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         public static void RegisterPatient(string lname, string fname, Date dob, string street, string city, string state, string zip,
                                             string phone, Gender gender)
         {
-            var dba = new PaitentDatabaseAccess();
+            var dba = new PatientDatabaseAccess();
             Address a = new Address(street, city, state, zip);
             //$"{dob:yyyy MM dd}";
             Patient p = new Patient(fname, lname, dob, a, phone, gender);
             dba.CreatePatient(p);
         }
 
+        /// <summary>
+        /// Gets the date.
+        /// </summary>
+        /// <param name="year">The year.</param>
+        /// <param name="month">The month.</param>
+        /// <param name="day">The day.</param>
+        /// <returns></returns>
         public static Date GetDate(string year, string month, string day)
         {
             return new Date(year, month, day);
+        }
+
+        public static List<string> searchForPatients(string search, bool byName)
+        {
+            var patientList = new List<string>();
+            if (byName)
+            {
+                var patientids = new PatientDatabaseAccess().SearchPatientsWithName(search);
+            }
+            else
+            {
+
+            }
+
+            return patientList;
         }
 
         /// <summary>
