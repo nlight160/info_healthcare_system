@@ -173,5 +173,40 @@ namespace LightholderCintronHealthcareSystem.Model
                 return patientList;
             }
         }
+
+        public List<int> SearchPatientsWithDate(string date)
+        {
+            var patientList = new List<int>();
+            try
+            {
+                var query =
+                    "SELECT DISTINCT pt.patientid FROM patient pt, person p WHERE p.personid = pt.personid AND p.dob = @date;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@date", date);
+                using var reader = cmd.ExecuteReader();
+                var patientidOrdinal = reader.GetOrdinal("patientid");
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        patientList.Add(reader.GetInt32(patientidOrdinal));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return patientList;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the SearchPatientsWithName: " + ex.ToString());
+                return patientList;
+            }
+        }
     }
 }
