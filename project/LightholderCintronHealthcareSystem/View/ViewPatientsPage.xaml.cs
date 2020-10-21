@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LightholderCintronHealthcareSystem.Model;
+using SearchOption = LightholderCintronHealthcareSystem.Model.SearchOption;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,7 +35,7 @@ namespace LightholderCintronHealthcareSystem.View
             //this.patientManager.Patients.Add(new Patient("Zack", "Palmer", new Date("2010", "7", "10"), new Address("Street", "City", "State", "zip"), "7776665555", Gender.Male));
             //this.patientManager.Patients.Add(new Patient("Hank", "Hill", new Date("1500", "4", "6"), new Address("Street", "City", "State", "zip"), "7776665555", Gender.Male));
             //this.PatientListView.ItemsSource = this.patientManager.Patients;
-            this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients("", true);
+            this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients("", SearchOption.Name);
             this.UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }

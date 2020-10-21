@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Google.Protobuf.WellKnownTypes;
@@ -73,13 +74,27 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return new Date(year, month, day);
         }
 
-        public static List<Patient> searchForPatients(string search, bool byName)
+        public static List<Patient> searchForPatients(string search, SearchOption option)
         {
             var patientList = new List<Patient>();
             List<int> patientids;
-            patientids = byName
-                ? new PatientDatabaseAccess().SearchPatientsWithName(search)
-                : new PatientDatabaseAccess().SearchPatientsWithDate(search);
+
+            switch (option)
+            {
+                case SearchOption.Name:
+                    patientids = new PatientDatabaseAccess().SearchPatientsWithName(search);
+                    break;
+                case SearchOption.Date:
+                    patientids = new PatientDatabaseAccess().SearchPatientsWithDate(search);
+                    break;
+                case SearchOption.Both:
+                    var byName = new PatientDatabaseAccess().SearchPatientsWithName(search);
+                    var byDate = new PatientDatabaseAccess().SearchPatientsWithDate(search);
+                    patientids = byName.Intersect(byDate).ToList();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(option), option, null);
+            }
 
             foreach (var patient in patientids)
             {
