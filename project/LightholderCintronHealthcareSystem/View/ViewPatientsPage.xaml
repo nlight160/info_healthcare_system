@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ListView x:Name="PatientListView" Margin="168,176,607,247" RequestedTheme="Default">
+        <ListView x:Name="PatientListView" Margin="168,176,607,247" RequestedTheme="Default" HorizontalAlignment="Left">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -26,7 +26,7 @@
         <Button x:Name="EditPatientButton" Content="Edit Patient" Margin="1001,308,0,0" VerticalAlignment="Top" Click="onEditPatient"/>
         <Button x:Name="CancelButton" Content="Cancel" Margin="1119,308,319,0" VerticalAlignment="Top" Click="onCancel"/>
         <TextBlock HorizontalAlignment="Left" Margin="468,101,0,0" Text="Patients" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36"/>
-        <TextBox x:Name="PatientSearchTextBox" HorizontalAlignment="Left" Margin="986,214,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient"/>
+        <TextBox x:Name="PatientSearchTextBox" HorizontalAlignment="Left" Margin="986,214,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient" ToolTipService.ToolTip="Search using name or date in the format mm/dd/yyyy or mm-dd-yyyy"/>
         <Button x:Name="SearchButton" Content="Search" Margin="1215,214,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="ByNameCheckBox" Content="by name" Margin="986,176,0,0" VerticalAlignment="Top" Checked="onSortByName"/>
         <CheckBox x:Name="ByDateCheckBox" Content="by date" Margin="1090,177,0,0" VerticalAlignment="Top" Checked="onSortByDate"/>

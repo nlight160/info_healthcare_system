@@ -22,12 +22,13 @@ namespace LightholderCintronHealthcareSystem.Model
 
         public void SortPatientsByDate()
         {
-            this.Patients = this.Patients = this.Patients.OrderBy(x => x.Birthdate).ToList();
+            this.Patients = this.Patients = this.Patients.OrderBy(x => x.Birthdate.year).ThenBy(x => x.Birthdate.month).ThenBy(x => x.Birthdate.day).ToList();
         }
 
         public void SortPatientsByNameAndDate()
         {
-            this.Patients = this.Patients.OrderBy(x => x.Birthdate).ThenBy(x => x.Firstname + x.Lastname).ToList();
+            this.Patients = this.Patients.OrderBy(x => x.Birthdate.year).ThenBy(x => x.Birthdate.month).ThenBy(x => x.Birthdate.day)
+                .ThenBy(x => x.Firstname + x.Lastname).ToList();
         }
     }
 }
