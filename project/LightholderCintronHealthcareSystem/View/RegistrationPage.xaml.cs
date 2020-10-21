@@ -71,7 +71,9 @@ namespace LightholderCintronHealthcareSystem.View
         private void onRegister(object sender, RoutedEventArgs e)
         {
             Gender gender = this.getGender();
-            string date = BirthdateDatePicker.Date.Year + "-" + BirthdateDatePicker.Date.Month + "-" + BirthdateDatePicker.Date.Day;
+            var date = ViewModel.ViewModel.GetDate(BirthdateDatePicker.Date.Year.ToString(), BirthdateDatePicker.Date.Month.ToString(),
+                BirthdateDatePicker.Date.Day.ToString());
+            //var date = BirthdateDatePicker.Date.Year + "-" + BirthdateDatePicker.Date.Month + "-" + BirthdateDatePicker.Date.Day;
             ViewModel.ViewModel.RegisterPatient(LastnameTextBox.Text, FirstnameTextBox.Text, date, StreetTextBox.Text, CityTextBox.Text, 
                 StateComboBox.SelectedItem.ToString(), ZipCodeTextBox.Text, PhoneNumberTextBox.Text, gender);
             Frame.Navigate(typeof(MenuPage));

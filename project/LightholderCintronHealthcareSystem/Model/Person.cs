@@ -28,7 +28,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <value>
         /// The birthdate.
         /// </value>
-        public DateTime Birthdate { get; set; }
+        public Date Birthdate { get; set; }
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
@@ -66,7 +66,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// or
         /// Phone number must be 10 digits with no special characters and not null
         /// </exception>
-        protected Person(string firstname, string lastname, DateTime birthdate, Address address, string phoneNumber, Gender gender)
+        protected Person(string firstname, string lastname, Date birthdate, Address address, string phoneNumber, Gender gender)
         {
             if (string.IsNullOrEmpty(firstname))
             {
@@ -79,12 +79,12 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             this.Lastname = lastname;
             this.Address = address ?? throw new ArgumentNullException(nameof(address), "can not be null");
-            if (birthdate.Date > DateTime.Today || birthdate == null)
+            if (birthdate == null)
             {
                 throw new ArgumentException("Birthdate can not be null or after current date");
             }
             this.Birthdate = birthdate;
-            if (phoneNumber != null || phoneNumber.Length != 10 || !phoneNumber.All(char.IsNumber))
+            if (phoneNumber == null || phoneNumber.Length != 10 || !phoneNumber.All(char.IsNumber))
             {
                 throw new ArgumentException("Phone number must be 10 digits with no special characters and not null");
             }

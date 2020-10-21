@@ -22,6 +22,13 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </value>
         public string City { get; }
         /// <summary>
+        /// Gets the state.
+        /// </summary>
+        /// <value>
+        /// The state.
+        /// </value>
+        public string State { get; }
+        /// <summary>
         /// Gets the zip.
         /// </summary>
         /// <value>
@@ -42,7 +49,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// or
         /// street - can not be null or empty
         /// </exception>
-        public Address(string street, string city, string zip)
+        public Address(string street, string city, string state, string zip)
         {
             if (string.IsNullOrEmpty(zip))
             {
@@ -60,6 +67,11 @@ namespace LightholderCintronHealthcareSystem.Model
                 throw new ArgumentNullException(nameof(street), "can not be null or empty");
             }
             this.Street = street;
+            if (string.IsNullOrEmpty(state))
+            {
+                throw new ArgumentNullException(nameof(state), "can not be null or empty");
+            }
+            this.State = state;
         }
 
     }

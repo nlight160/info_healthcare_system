@@ -26,7 +26,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="specialty">The specialty.</param>
         /// <exception cref="ArgumentNullException">specialty - can not be null or empty</exception>
-        public Doctor(string firstname, string lastname, DateTime birthdate, Address address, string phoneNumber,
+        public Doctor(string firstname, string lastname, Date birthdate, Address address, string phoneNumber,
             Gender gender, string specialty) : base(firstname, lastname, birthdate, address, phoneNumber, gender)
         {
             if (string.IsNullOrEmpty(specialty))

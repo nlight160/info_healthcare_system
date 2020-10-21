@@ -129,7 +129,10 @@
     </Compile>
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Appointment.cs" />
+    <Compile Include="Model\Date.cs" />
     <Compile Include="Model\Gender.cs" />
+    <Compile Include="Model\NurseDatabaseAccess.cs" />
+    <Compile Include="Model\PaitentDatabaseAccess.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\DatabaseAccess.cs" />

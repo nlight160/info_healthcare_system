@@ -1,4 +1,5 @@
-﻿using LightholderCintronHealthcareSystem.Model;
+﻿using System.Globalization;
+using LightholderCintronHealthcareSystem.Model;
 
 namespace LightholderCintronHealthcareSystem.ViewModel
 {
@@ -23,10 +24,9 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// <returns></returns>
         public static bool AttemptLogin(string username, string password)
         {
-            DatabaseAccess db = new DatabaseAccess();
-            QueryBuilder builder = new QueryBuilder();
-            var information = 
-                db.LoginQuery(builder.loginQuery(username, password));
+            var dba = new NurseDatabaseAccess();
+            var information =
+                dba.AuthenticateLogin(username, password);
             
             if (information != null)
             {
@@ -48,13 +48,19 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// <param name="state">The state.</param>
         /// <param name="zip">The zip.</param>
         /// <param name="phone">The phone.</param>
-        public static void RegisterPatient(string lname, string fname, string dob, string street, string city, string state, string zip,
+        public static void RegisterPatient(string lname, string fname, Date dob, string street, string city, string state, string zip,
                                             string phone, Gender gender)
         {
-            QueryBuilder qb = new QueryBuilder();
-            DatabaseAccess db = new DatabaseAccess();
-            string query = qb.addPatient(lname, fname,  dob,  street,  city,  state,  zip, phone, gender);
-            db.CreatePatient(query);
+            var dba = new PaitentDatabaseAccess();
+            Address a = new Address(street, city, state, zip);
+            //$"{dob:yyyy MM dd}";
+            Patient p = new Patient(fname, lname, dob, a, phone, gender);
+            dba.CreatePatient(p);
+        }
+
+        public static Date GetDate(string year, string month, string day)
+        {
+            return new Date(year, month, day);
         }
 
         /// <summary>

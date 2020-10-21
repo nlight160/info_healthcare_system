@@ -16,7 +16,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="birthdate">The birthdate.</param>
         /// <param name="address">The address.</param>
         /// <param name="phoneNumber">The phone number.</param>
-        public Patient(string firstname, string lastname, DateTime birthdate, Address address, string phoneNumber, Gender gender) : base(firstname, lastname, birthdate, address, phoneNumber, gender)
+        public Patient(string firstname, string lastname, Date birthdate, Address address, string phoneNumber, Gender gender) : base(firstname, lastname, birthdate, address, phoneNumber, gender)
         {
         }
 
