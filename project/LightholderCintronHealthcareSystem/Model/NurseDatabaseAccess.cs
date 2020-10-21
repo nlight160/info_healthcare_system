@@ -26,12 +26,9 @@ namespace LightholderCintronHealthcareSystem.Model
                 conn.Open();
                 using var cmd = new MySqlCommand {CommandText = query, Connection = conn};
                 cmd.Prepare();
-                //cmd.Parameters.Add("@username", MySqlDbType.Int32);
                 cmd.Parameters.AddWithValue("@username", user);
                 cmd.Parameters.AddWithValue("@password", password);
-                //cmd.Parameters.Add("@password", MySqlDbType.VarChar);
-                //cmd.Parameters["@username"].Value = user;
-                //cmd.Parameters["@password"].Value = password;
+
                 using var reader = cmd.ExecuteReader();
                 var fnameOrdinal = reader.GetOrdinal("fname");
                 var lnameOrdinal = reader.GetOrdinal("lname");

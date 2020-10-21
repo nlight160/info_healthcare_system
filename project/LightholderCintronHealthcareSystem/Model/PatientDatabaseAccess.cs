@@ -19,6 +19,7 @@ namespace LightholderCintronHealthcareSystem.Model
             var state = p.Address.State;
             var zip = p.Address.Zip;
             var phone = p.PhoneNumber;
+            var gender = nameof(p.Gender);
             MySqlTransaction transaction = null;
             try
             {
@@ -28,27 +29,11 @@ namespace LightholderCintronHealthcareSystem.Model
                 using var cmd = new MySqlCommand {Connection = conn, Transaction = transaction};
 
                 var createPerson =
-                    "INSERT INTO `person` (`personid`, `lname`, `fname`, `dob`, `street`, `city`, `state`, `zip`, `phone`) VALUES (null, @lname, @fname, @dob, @street, @city, @state, @zip, @phone);";
+                    "INSERT INTO `person` (`personid`, `lname`, `fname`, `dob`, `street`, `city`, `state`, `zip`, `phone`, `gender`) VALUES (null, @lname, @fname, @dob, @street, @city, @state, @zip, @phone, @gender);";
                 var createPatient =
                     "INSERT INTO patient (patientid, personid) SELECT null, p.personid FROM person p WHERE p.lname = @lname AND p.fname = @fname AND p.dob = @dob AND p.phone = @phone;";
 
                 cmd.CommandText = createPerson;
-                //cmd.Parameters.Add("@lname", MySqlDbType.VarChar);
-                //cmd.Parameters.Add("@fname", MySqlDbType.VarChar);
-                //cmd.Parameters.Add("@dob", MySqlDbType.Date);
-                //cmd.Parameters.Add("@street", MySqlDbType.VarChar);
-                //cmd.Parameters.Add("@city", MySqlDbType.VarChar);
-                //cmd.Parameters.Add("@state", MySqlDbType.VarChar);
-                //cmd.Parameters.Add("@zip", MySqlDbType.VarChar);
-                //cmd.Parameters.Add("@phone", MySqlDbType.VarChar);
-                //cmd.Parameters["@lname"].Value = lname;
-                //cmd.Parameters["@fname"].Value = fname;
-                //cmd.Parameters["@dob"].Value = dob;
-                //cmd.Parameters["@street"].Value = street;
-                //cmd.Parameters["@city"].Value = city;
-                //cmd.Parameters["@state"].Value = state;
-                //cmd.Parameters["@zip"].Value = zip;
-                //cmd.Parameters["@phone"].Value = phone;
 
                 cmd.Parameters.AddWithValue("@lname", lname);
                 cmd.Parameters.AddWithValue("@fname", fname);
@@ -58,15 +43,11 @@ namespace LightholderCintronHealthcareSystem.Model
                 cmd.Parameters.AddWithValue("@state", state);
                 cmd.Parameters.AddWithValue("@zip", zip);
                 cmd.Parameters.AddWithValue("@phone", phone);
-
+                cmd.Parameters.AddWithValue("@gender", gender);
 
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = createPatient;
-                //cmd.Parameters.Add("@lname", MySqlDbType.VarChar);
-                //cmd.Parameters.Add("@fname", MySqlDbType.VarChar);
-                //cmd.Parameters.Add("@dob", MySqlDbType.Date);
-                //cmd.Parameters.Add("@phone", MySqlDbType.VarChar);
 
                 //Don't need the below lines but keeping them for now.
                 cmd.Parameters["@lname"].Value = lname;
@@ -92,7 +73,7 @@ namespace LightholderCintronHealthcareSystem.Model
             try
             {
                 var query =
-                    "SELECT DISTINCT p.fname, p.lname, p.dob, p.street, p.city, p.state, p.zip, p.phone FROM person p, patient pt WHERE p.personid = pt.personid AND pt.patientid = @patientid;";
+                    "SELECT DISTINCT p.fname, p.lname, p.dob, p.street, p.city, p.state, p.zip, p.phone, p.gender FROM person p, patient pt WHERE p.personid = pt.personid AND pt.patientid = @patientid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
@@ -107,6 +88,7 @@ namespace LightholderCintronHealthcareSystem.Model
                 var stateOrdinal = reader.GetOrdinal("state");
                 var zipOrdinal = reader.GetOrdinal("zip");
                 var phoneOrdinal = reader.GetOrdinal("phone");
+                var genderOrdinal = reader.GetOrdinal("gender");
 
                 if (reader.HasRows)
                 {
@@ -120,6 +102,7 @@ namespace LightholderCintronHealthcareSystem.Model
                     patientData.Add(reader.GetString(stateOrdinal));    //5
                     patientData.Add(reader.GetString(zipOrdinal));      //6
                     patientData.Add(reader.GetString(phoneOrdinal));    //7
+                    patientData.Add(reader.GetString(genderOrdinal));   //8
                 }
                 else
                 {
