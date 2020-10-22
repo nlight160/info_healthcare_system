@@ -79,6 +79,10 @@ namespace LightholderCintronHealthcareSystem.View
             Frame.Navigate(typeof(MenuPage));
         }
 
+        /// <summary>
+        /// Gets the gender.
+        /// </summary>
+        /// <returns></returns>
         private Gender getGender()
         {
             if (GenderComboBox.SelectedItem != null && GenderComboBox.SelectedItem.Equals("Female"))
@@ -104,11 +108,20 @@ namespace LightholderCintronHealthcareSystem.View
             ZipCodeTextBox.Text = "";
         }
 
+        /// <summary>
+        /// Ons the deselect control.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onDeselectControl(object sender, RoutedEventArgs e)
         {
             this.RegisterButton.IsEnabled = this.checkControlsForCompletion();
         }
 
+        /// <summary>
+        /// Checks the controls for completion.
+        /// </summary>
+        /// <returns></returns>
         private bool checkControlsForCompletion()
         {
             if (FirstnameTextBox.Text != "" && LastnameTextBox.Text != "" && PhoneNumberTextBox.Text != "" && StreetTextBox.Text != "" && CityTextBox.Text != "" 

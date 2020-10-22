@@ -41,11 +41,21 @@ namespace LightholderCintronHealthcareSystem.View
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
 
+        /// <summary>
+        /// Ons the cancel.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onCancel(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MenuPage));
         }
 
+        /// <summary>
+        /// Ons the edit patient.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onEditPatient(object sender, RoutedEventArgs e)
         {
             if (this.isItemSelected == true)
@@ -59,6 +69,11 @@ namespace LightholderCintronHealthcareSystem.View
 
         }
 
+        /// <summary>
+        /// Ons the name of the sort by.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onSortByName(object sender, RoutedEventArgs e)
         {
             this.sortByNameAndDate();
@@ -66,6 +81,11 @@ namespace LightholderCintronHealthcareSystem.View
             this.PatientListView.ItemsSource = this.patientManager.Patients;
         }
 
+        /// <summary>
+        /// Ons the sort by date.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onSortByDate(object sender, RoutedEventArgs e)
         {
             this.sortByNameAndDate();
@@ -73,6 +93,9 @@ namespace LightholderCintronHealthcareSystem.View
             this.PatientListView.ItemsSource = this.patientManager.Patients;
         }
 
+        /// <summary>
+        /// Sorts the by name and date.
+        /// </summary>
         private void sortByNameAndDate()
         {
             if (this.checkIfBothSearchBoxesAreChecked())
@@ -82,16 +105,21 @@ namespace LightholderCintronHealthcareSystem.View
             }
         }
 
+
+        /// <summary>
+        /// Checks if both search boxes are checked.
+        /// </summary>
+        /// <returns></returns>
         private bool checkIfBothSearchBoxesAreChecked()
         {
-            if (this.ByDateCheckBox.IsChecked == true && this.ByNameCheckBox.IsChecked == true)
-            {
-                return true;
-            }
-
-            return false;
+            return this.ByDateCheckBox.IsChecked == true && this.ByNameCheckBox.IsChecked == true;
         }
 
+        /// <summary>
+        /// Ons the selection change.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void onSelectionChange(object sender, SelectionChangedEventArgs e)
         {
             if (PatientListView.SelectedItem == null)
@@ -106,6 +134,11 @@ namespace LightholderCintronHealthcareSystem.View
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the SearchButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.PatientSearchTextBoxByDate.Text != "" && this.PatientSearchTextBoxByDate.Text != "")

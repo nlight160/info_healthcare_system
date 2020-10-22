@@ -4,11 +4,21 @@ using MySql.Data.MySqlClient;
 
 namespace LightholderCintronHealthcareSystem.Model
 {
+    /// <summary>
+    /// Patient Database access.
+    /// </summary>
     public class PatientDatabaseAccess
     {
+        /// <summary>
+        /// The con string
+        /// </summary>
         private const string ConStr = "server=160.10.25.16; port=3306; uid=cs3230f20j;" +
                                       "pwd=F1UgUzIjwlhLAQ9a;database=cs3230f20j;";
 
+        /// <summary>
+        /// Creates the patient.
+        /// </summary>
+        /// <param name="p">The p.</param>
         public void CreatePatient(Patient p)
         {
             var lname = p.Lastname;
@@ -66,6 +76,10 @@ namespace LightholderCintronHealthcareSystem.Model
             }
         }
 
+        /// <summary>
+        /// Updates the patient.
+        /// </summary>
+        /// <param name="p">The p.</param>
         public void UpdatePatient(Patient p)
         {
             var pid = p.Personid;
@@ -110,6 +124,11 @@ namespace LightholderCintronHealthcareSystem.Model
             }
         }
 
+        /// <summary>
+        /// Gets the patient data from identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         public List<string> GetPatientDataFromId(int id)
         {
             var patientData = new List<string>();
@@ -167,6 +186,11 @@ namespace LightholderCintronHealthcareSystem.Model
             return patientData;
         }
 
+        /// <summary>
+        /// Searches the name of the patients with.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
         public List<int> SearchPatientsWithName(string name)
         {
             name = "%" + name + "%";
@@ -203,6 +227,11 @@ namespace LightholderCintronHealthcareSystem.Model
             }
         }
 
+        /// <summary>
+        /// Searches the patients with date.
+        /// </summary>
+        /// <param name="date">The date.</param>
+        /// <returns></returns>
         public List<int> SearchPatientsWithDate(string date)
         {
             var patientList = new List<int>();

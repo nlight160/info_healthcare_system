@@ -29,13 +29,14 @@ namespace LightholderCintronHealthcareSystem.Model
             return createPerson + createPatient;
         }
 
+        /// <summary>
+        /// Gets the gender as string.
+        /// </summary>
+        /// <param name="gender">The gender.</param>
+        /// <returns></returns>
         private string getGenderAsString(Gender gender)
         {
-            if (gender == 0)
-            {
-                return "Female";
-            }
-            return "Male";
+            return gender == 0 ? "Female" : "Male";
         }
 
         /// <summary>

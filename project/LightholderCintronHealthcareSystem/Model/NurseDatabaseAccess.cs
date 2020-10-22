@@ -4,8 +4,14 @@ using MySql.Data.MySqlClient;
 
 namespace LightholderCintronHealthcareSystem.Model
 {
+    /// <summary>
+    /// Nurse databas access
+    /// </summary>
     public class NurseDatabaseAccess
     {
+        /// <summary>
+        /// The con string
+        /// </summary>
         private const string ConStr = "server=160.10.25.16; port=3306; uid=cs3230f20j;" +
                               "pwd=F1UgUzIjwlhLAQ9a;database=cs3230f20j;";
 

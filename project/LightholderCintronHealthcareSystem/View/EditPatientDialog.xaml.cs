@@ -21,10 +21,26 @@ using LightholderCintronHealthcareSystem.Model;
 
 namespace LightholderCintronHealthcareSystem.View
 {
+    /// <summary>
+    /// Edit Patient Dialog
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class EditPatientDialog : ContentDialog
     {
+        /// <summary>
+        /// Gets or sets the edited patient.
+        /// </summary>
+        /// <value>
+        /// The edited patient.
+        /// </value>
         public static Patient EditedPatient { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditPatientDialog"/> class.
+        /// </summary>
+        /// <param name="patient">The patient.</param>
         public EditPatientDialog(Patient patient)
         {
             this.InitializeComponent();
@@ -45,6 +61,11 @@ namespace LightholderCintronHealthcareSystem.View
             EditedPatient = patient;
         }
 
+        /// <summary>
+        /// Contents the dialog submit button click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="ContentDialogButtonClickEventArgs"/> instance containing the event data.</param>
         private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
 
@@ -59,16 +80,30 @@ namespace LightholderCintronHealthcareSystem.View
             this.Hide();
         }
 
+        /// <summary>
+        /// Contents the dialog cancel button click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="ContentDialogButtonClickEventArgs"/> instance containing the event data.</param>
         private void ContentDialog_CancelButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             this.Hide();
         }
 
+        /// <summary>
+        /// Ons the deselect control.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onDeselectControl(object sender, RoutedEventArgs e)
         {
             this.IsPrimaryButtonEnabled = this.checkControlsForCompletion();
         }
 
+        /// <summary>
+        /// Checks the controls for completion.
+        /// </summary>
+        /// <returns></returns>
         private bool checkControlsForCompletion()
         {
             if (FirstnameTextBox.Text != "" && LastnameTextBox.Text != "" && PhoneNumberTextBox.Text != "" && StreetTextBox.Text != "" && CityTextBox.Text != ""
@@ -80,6 +115,11 @@ namespace LightholderCintronHealthcareSystem.View
             return false;
         }
 
+        /// <summary>
+        /// Ons the key down.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="Windows.UI.Xaml.Input.KeyRoutedEventArgs"/> instance containing the event data.</param>
         private void onKeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
             if (e.Key.ToString().Equals("Back"))
