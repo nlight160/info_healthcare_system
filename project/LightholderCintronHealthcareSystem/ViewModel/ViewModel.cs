@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Google.Protobuf.WellKnownTypes;
@@ -106,7 +107,8 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             {
                 var patientData = new PatientDatabaseAccess().GetPatientDataFromId(patient);
                 var fullDate = patientData[2].Split(' ')[0].Split('/');
-                var date = new Date(fullDate[0], fullDate[1], fullDate[2]);
+                Debug.WriteLine(fullDate);
+                var date = new Date(fullDate[2], fullDate[0], fullDate[1]);
                 var address = new Address(patientData[3], patientData[4], patientData[5], patientData[6]);
                 var gender = patientData[8] == "Male" ? Gender.Male : Gender.Female;
                 var pt = new Patient(patientData[9], patientData[0], patientData[1], date, address, patientData[7], gender);
