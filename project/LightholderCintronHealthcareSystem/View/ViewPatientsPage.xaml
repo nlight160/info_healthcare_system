@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ListView x:Name="PatientListView" Margin="168,176,607,247" RequestedTheme="Default" HorizontalAlignment="Left">
+        <ListView x:Name="PatientListView" Margin="168,176,607,247" RequestedTheme="Default" HorizontalAlignment="Left" IsItemClickEnabled="True" SelectionMode="Single" SelectionChanged="onSelectionChange">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>

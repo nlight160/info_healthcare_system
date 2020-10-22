@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,6 +27,7 @@ namespace LightholderCintronHealthcareSystem.View
     public sealed partial class ViewPatientsPage : Page
     {
         //private PatientManager patientManager;
+        private bool isItemSelected = false; 
 
         public ViewPatientsPage()
         {
@@ -35,6 +37,7 @@ namespace LightholderCintronHealthcareSystem.View
             //this.patientManager.Patients.Add(new Patient("Zack", "Palmer", new Date("2010", "7", "10"), new Address("Street", "City", "State", "zip"), "7776665555", Gender.Male));
             //this.patientManager.Patients.Add(new Patient("Hank", "Hill", new Date("1500", "4", "6"), new Address("Street", "City", "State", "zip"), "7776665555", Gender.Male));
             //this.PatientListView.ItemsSource = this.patientManager.Patients;
+            this.EditPatientButton.IsEnabled = false;
             this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients("", SearchOption.Name);
             this.UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
@@ -47,8 +50,13 @@ namespace LightholderCintronHealthcareSystem.View
 
         private async void onEditPatient(object sender, RoutedEventArgs e)
         {
-            ContentDialog dialog = new EditPatientDialog();
-            await dialog.ShowAsync();
+            if (this.isItemSelected == true)
+            {
+                ContentDialog dialog = new EditPatientDialog(this.PatientListView.SelectedItem as Patient);
+                await dialog.ShowAsync();
+                this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients("", SearchOption.Name);
+            }
+            
         }
 
         private void onSortByName(object sender, RoutedEventArgs e)
@@ -82,6 +90,20 @@ namespace LightholderCintronHealthcareSystem.View
             }
 
             return false;
+        }
+
+        private void onSelectionChange(object sender, SelectionChangedEventArgs e)
+        {
+            if (PatientListView.SelectedItem == null)
+            {
+                this.isItemSelected = false;
+                this.EditPatientButton.IsEnabled = false;
+            }
+            else
+            {
+                this.isItemSelected = true;
+                this.EditPatientButton.IsEnabled = true;
+            }
         }
     }
 }

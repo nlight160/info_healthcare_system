@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LightholderCintronHealthcareSystem.Model;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,17 +23,38 @@ namespace LightholderCintronHealthcareSystem.View
 {
     public sealed partial class EditPatientDialog : ContentDialog
     {
-        public EditPatientDialog()
+        public static Patient EditedPatient { get; set; }
+
+        public EditPatientDialog(Patient patient)
         {
             this.InitializeComponent();
             this.PhoneNumberTextBox.MaxLength = 10;
             this.ZipCodeTextBox.MaxLength = 5;
             this.BirthdateDatePicker.MaxYear = DateTimeOffset.Now;
             this.IsPrimaryButtonEnabled = false;
+            this.FirstnameTextBox.Text = patient.Firstname;
+            this.LastnameTextBox.Text = patient.Lastname;
+            this.PhoneNumberTextBox.Text = patient.PhoneNumber;
+            this.StateComboBox.SelectedItem = patient.Address.State;
+            this.StreetTextBox.Text = patient.Address.Street;
+            this.CityTextBox.Text = patient.Address.City;
+            this.ZipCodeTextBox.Text = patient.Address.Zip;
+            this.BirthdateDatePicker.Date = new DateTime(int.Parse(patient.Birthdate.year),
+                int.Parse(patient.Birthdate.month), int.Parse(patient.Birthdate.day));
+            EditedPatient = patient;
         }
 
         private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+
+            EditedPatient.Firstname = this.FirstnameTextBox.Text;
+            EditedPatient.Lastname = this.LastnameTextBox.Text;
+            var date = ViewModel.ViewModel.GetDate(this.BirthdateDatePicker.Date.Year.ToString(), this.BirthdateDatePicker.Date.Month.ToString(),
+                this.BirthdateDatePicker.Date.Day.ToString());
+            EditedPatient.Birthdate = date;
+            EditedPatient.PhoneNumber = this.PhoneNumberTextBox.Text;
+            EditedPatient.Address = new Address(this.StreetTextBox.Text, this.CityTextBox.Text, this.ZipCodeTextBox.Text, this.StateComboBox.SelectedItem.ToString());
+            EditedPatient.Gender = this.GenderComboBox.SelectedItem == "Male" ? Gender.Male : Gender.Female;
             this.Hide();
         }
 
