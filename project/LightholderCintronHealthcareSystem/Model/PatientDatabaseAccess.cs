@@ -85,7 +85,7 @@ namespace LightholderCintronHealthcareSystem.Model
                 using var cmd = new MySqlCommand { Connection = conn};
 
                 var updatePaitent =
-                    "UPDATE `patient` SET `lname` = @lname, `fname` = @fname, `dob` = @dob, `street` = @street, `city` = @city, `zip` = @zip, `phone` = @phone`, `gender` = @gender WHERE `personid` = @pid;";
+                    "UPDATE person p SET p.lname = @lname, p.fname = @fname, p.dob = @dob, p.street = @street, p.city = @city, p.state = @state, p.zip = @zip, p.phone = @phone, p.gender = @gender WHERE p.personid = @pid;";
                 
                 cmd.CommandText = updatePaitent;
 

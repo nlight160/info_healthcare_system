@@ -53,7 +53,9 @@ namespace LightholderCintronHealthcareSystem.View
                 ContentDialog dialog = new EditPatientDialog(this.PatientListView.SelectedItem as Patient);
                 await dialog.ShowAsync();
             }
-            this.PatientListView.ItemsSource = this.patientManager.Patients;
+            ViewModel.ViewModel.UpdatePatient(EditPatientDialog.EditedPatient);
+            Debug.Print(EditPatientDialog.EditedPatient.Firstname);
+            this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string> { "" }, SearchOption.Name);
 
         }
 

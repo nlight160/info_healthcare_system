@@ -54,7 +54,7 @@ namespace LightholderCintronHealthcareSystem.View
                 this.BirthdateDatePicker.Date.Day.ToString());
             EditedPatient.Birthdate = date;
             EditedPatient.PhoneNumber = this.PhoneNumberTextBox.Text;
-            EditedPatient.Address = new Address(this.StreetTextBox.Text, this.CityTextBox.Text, this.ZipCodeTextBox.Text, this.StateComboBox.SelectedItem.ToString());
+            EditedPatient.Address = new Address(this.StreetTextBox.Text, this.CityTextBox.Text, this.StateComboBox.SelectedItem.ToString(), this.ZipCodeTextBox.Text);
             EditedPatient.Gender = this.GenderComboBox.SelectedItem == "Male" ? Gender.Male : Gender.Female;
             this.Hide();
         }
