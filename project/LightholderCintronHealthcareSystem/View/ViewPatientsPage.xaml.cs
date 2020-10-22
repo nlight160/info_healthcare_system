@@ -105,5 +105,25 @@ namespace LightholderCintronHealthcareSystem.View
                 this.EditPatientButton.IsEnabled = true;
             }
         }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.PatientSearchTextBoxByDate.Text != "" && this.PatientSearchTextBoxByDate.Text != "")
+            {
+                this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string> { this.PatientSearchTextBoxByName.Text, this.PatientSearchTextBoxByDate.Text }, SearchOption.Both);
+            }
+            else if (this.PatientSearchTextBoxByName.Text != "")
+            {
+                this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string> { this.PatientSearchTextBoxByName.Text }, SearchOption.Name);
+            }
+            else if (this.PatientSearchTextBoxByDate.Text != "")
+            {
+                this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string> { this.PatientSearchTextBoxByDate.Text }, SearchOption.Date);
+            }
+            else
+            {
+                this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string> { "" }, SearchOption.Name);
+            }
+        }
     }
 }
