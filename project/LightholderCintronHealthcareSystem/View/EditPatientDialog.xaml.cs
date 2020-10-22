@@ -37,6 +37,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.PhoneNumberTextBox.Text = patient.PhoneNumber;
             this.StateComboBox.SelectedItem = patient.Address.State;
             this.StreetTextBox.Text = patient.Address.Street;
+            this.GenderComboBox.SelectedItem = patient.Gender == Gender.Male ? "Male" : "Female";
             this.CityTextBox.Text = patient.Address.City;
             this.ZipCodeTextBox.Text = patient.Address.Zip;
             this.BirthdateDatePicker.Date = new DateTime(int.Parse(patient.Birthdate.year),
