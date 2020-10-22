@@ -29,7 +29,8 @@
         <TextBox x:Name="PatientSearchTextBoxByName" HorizontalAlignment="Left" Margin="986,214,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient by name" ToolTipService.ToolTip="Search using name"/>
         <Button x:Name="SearchButton" Content="Search" Margin="1216,239,0,0" VerticalAlignment="Top" Click="SearchButton_Click"/>
         <CheckBox x:Name="ByNameCheckBox" Content="by name" Margin="986,176,0,0" VerticalAlignment="Top" Checked="onSortByName"/>
-        <CheckBox x:Name="ByDateCheckBox" Content="by date" Margin="1090,177,0,0" VerticalAlignment="Top" Checked="onSortByDate"/>
+        <CheckBox x:Name="ByDateCheckBox" Content="by date" Margin="1111,176,0,0" VerticalAlignment="Top" Checked="onSortByDate"/>
         <TextBox x:Name="PatientSearchTextBoxByDate" HorizontalAlignment="Left" Margin="986,260,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient by date" ToolTipService.ToolTip="Search using date in the format mm/dd/yyyy or mm-dd-yyyy"/>
+        <TextBlock HorizontalAlignment="Left" Margin="922,183,0,0" Text="Sort By:" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>
