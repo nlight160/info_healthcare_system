@@ -10,7 +10,7 @@
     PrimaryButtonText="Submit"
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_SubmitButtonClick"
-    SecondaryButtonClick="ContentDialog_SubmitButtonClick"
+    SecondaryButtonClick="ContentDialog_CancelButtonClick"
     FullSizeDesired="True" Height="1012">
 
 

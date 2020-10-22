@@ -8,7 +8,7 @@ namespace LightholderCintronHealthcareSystem.Model
 {
     public class PatientManager
     {
-        public List<Patient> Patients { get; private set; }
+        public List<Patient> Patients { get; set; }
 
         public PatientManager()
         {
