@@ -81,7 +81,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             dba.UpdatePatient(p);
         }
 
-        public static List<Patient> searchForPatients(string search, SearchOption option)
+        public static List<Patient> searchForPatients(List<string> search, SearchOption option)
         {
             var patientList = new List<Patient>();
             List<int> patientids;
@@ -89,14 +89,14 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             switch (option)
             {
                 case SearchOption.Name:
-                    patientids = new PatientDatabaseAccess().SearchPatientsWithName(search);
+                    patientids = new PatientDatabaseAccess().SearchPatientsWithName(search[0]);
                     break;
                 case SearchOption.Date:
-                    patientids = new PatientDatabaseAccess().SearchPatientsWithDate(search);
+                    patientids = new PatientDatabaseAccess().SearchPatientsWithDate(search[0]);
                     break;
                 case SearchOption.Both:
-                    var byName = new PatientDatabaseAccess().SearchPatientsWithName(search);
-                    var byDate = new PatientDatabaseAccess().SearchPatientsWithDate(search);
+                    var byName = new PatientDatabaseAccess().SearchPatientsWithName(search[0]);
+                    var byDate = new PatientDatabaseAccess().SearchPatientsWithDate(search[1]);
                     patientids = byName.Intersect(byDate).ToList();
                     break;
                 default:
