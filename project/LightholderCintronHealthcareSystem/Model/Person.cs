@@ -8,6 +8,14 @@ namespace LightholderCintronHealthcareSystem.Model
     /// </summary>
     public abstract class Person
     {
+
+        /// <summary>
+        /// Gets or sets the personid.
+        /// </summary>
+        /// <value>
+        /// The personid.
+        /// </value>
+        public string Personid { get; set; }
         /// <summary>
         /// Gets or sets the firstname.
         /// </summary>
@@ -66,8 +74,13 @@ namespace LightholderCintronHealthcareSystem.Model
         /// or
         /// Phone number must be 10 digits with no special characters and not null
         /// </exception>
-        protected Person(string firstname, string lastname, Date birthdate, Address address, string phoneNumber, Gender gender)
+        protected Person(string personid, string firstname, string lastname, Date birthdate, Address address, string phoneNumber, Gender gender)
         {
+            if (string.IsNullOrEmpty(personid))
+            {
+                throw new ArgumentNullException(nameof(personid), "can not be null or empty");
+            }
+            this.Personid = personid;
             if (string.IsNullOrEmpty(firstname))
             {
                 throw new ArgumentNullException(nameof(firstname), "can not be null or empty");
