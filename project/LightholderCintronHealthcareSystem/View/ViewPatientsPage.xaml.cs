@@ -26,19 +26,17 @@ namespace LightholderCintronHealthcareSystem.View
     /// </summary>
     public sealed partial class ViewPatientsPage : Page
     {
-        //private PatientManager patientManager;
+        private readonly PatientManager patientManager;
         private bool isItemSelected = false; 
 
         public ViewPatientsPage()
         {
             this.InitializeComponent();
-            //this.patientManager = new PatientManager();
-            //this.patientManager.Patients.Add(new Patient("Arnold", "Palmer", new Date("1960", "4", "6"), new Address("Street", "City","State", "zip"), "7776665555", Gender.Male));
-            //this.patientManager.Patients.Add(new Patient("Zack", "Palmer", new Date("2010", "7", "10"), new Address("Street", "City", "State", "zip"), "7776665555", Gender.Male));
-            //this.patientManager.Patients.Add(new Patient("Hank", "Hill", new Date("1500", "4", "6"), new Address("Street", "City", "State", "zip"), "7776665555", Gender.Male));
+            this.patientManager = new PatientManager();
+            this.patientManager.Patients = ViewModel.ViewModel.searchForPatients(new List<string> { "" }, SearchOption.Name);
             //this.PatientListView.ItemsSource = this.patientManager.Patients;
             this.EditPatientButton.IsEnabled = false;
-            this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string>{""}, SearchOption.Name);
+            this.PatientListView.ItemsSource = this.patientManager.Patients;
             this.UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
@@ -54,31 +52,33 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 ContentDialog dialog = new EditPatientDialog(this.PatientListView.SelectedItem as Patient);
                 await dialog.ShowAsync();
-                this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string> { "" }, SearchOption.Name);
             }
-            
+            ViewModel.ViewModel.UpdatePatient(EditPatientDialog.EditedPatient);
+            Debug.Print(EditPatientDialog.EditedPatient.Firstname);
+            this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string> { "" }, SearchOption.Name);
+
         }
 
         private void onSortByName(object sender, RoutedEventArgs e)
         {
             this.sortByNameAndDate();
-            //this.patientManager.SortPatientsByName();
-            //this.PatientListView.ItemsSource = this.patientManager.Patients;
+            this.patientManager.SortPatientsByName();
+            this.PatientListView.ItemsSource = this.patientManager.Patients;
         }
 
         private void onSortByDate(object sender, RoutedEventArgs e)
         {
             this.sortByNameAndDate();
-            //this.patientManager.SortPatientsByDate();
-            //this.PatientListView.ItemsSource = this.patientManager.Patients;
+            this.patientManager.SortPatientsByDate();
+            this.PatientListView.ItemsSource = this.patientManager.Patients;
         }
 
         private void sortByNameAndDate()
         {
             if (this.checkIfBothSearchBoxesAreChecked())
             {
-                //this.patientManager.SortPatientsByNameAndDate();
-                //this.PatientListView.ItemsSource = this.patientManager.Patients;
+                this.patientManager.SortPatientsByNameAndDate();
+                this.PatientListView.ItemsSource = this.patientManager.Patients;
             }
         }
 

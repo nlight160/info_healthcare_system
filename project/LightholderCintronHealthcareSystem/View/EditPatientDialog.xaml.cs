@@ -37,6 +37,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.PhoneNumberTextBox.Text = patient.PhoneNumber;
             this.StateComboBox.SelectedItem = patient.Address.State;
             this.StreetTextBox.Text = patient.Address.Street;
+            this.GenderComboBox.SelectedItem = patient.Gender == Gender.Male ? "Male" : "Female";
             this.CityTextBox.Text = patient.Address.City;
             this.ZipCodeTextBox.Text = patient.Address.Zip;
             this.BirthdateDatePicker.Date = new DateTime(int.Parse(patient.Birthdate.year),
@@ -53,7 +54,7 @@ namespace LightholderCintronHealthcareSystem.View
                 this.BirthdateDatePicker.Date.Day.ToString());
             EditedPatient.Birthdate = date;
             EditedPatient.PhoneNumber = this.PhoneNumberTextBox.Text;
-            EditedPatient.Address = new Address(this.StreetTextBox.Text, this.CityTextBox.Text, this.ZipCodeTextBox.Text, this.StateComboBox.SelectedItem.ToString());
+            EditedPatient.Address = new Address(this.StreetTextBox.Text, this.CityTextBox.Text, this.StateComboBox.SelectedItem.ToString(), this.ZipCodeTextBox.Text);
             EditedPatient.Gender = this.GenderComboBox.SelectedItem == "Male" ? Gender.Male : Gender.Female;
             this.Hide();
         }
