@@ -38,7 +38,7 @@ namespace LightholderCintronHealthcareSystem.View
             //this.patientManager.Patients.Add(new Patient("Hank", "Hill", new Date("1500", "4", "6"), new Address("Street", "City", "State", "zip"), "7776665555", Gender.Male));
             //this.PatientListView.ItemsSource = this.patientManager.Patients;
             this.EditPatientButton.IsEnabled = false;
-            this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients("", SearchOption.Name);
+            this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string>{""}, SearchOption.Name);
             this.UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
@@ -54,7 +54,7 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 ContentDialog dialog = new EditPatientDialog(this.PatientListView.SelectedItem as Patient);
                 await dialog.ShowAsync();
-                this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients("", SearchOption.Name);
+                this.PatientListView.ItemsSource = ViewModel.ViewModel.searchForPatients(new List<string> { "" }, SearchOption.Name);
             }
             
         }
