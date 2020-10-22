@@ -66,6 +66,50 @@ namespace LightholderCintronHealthcareSystem.Model
             }
         }
 
+        public void UpdatePatient(Patient p)
+        {
+            var pid = p.Personid;
+            var lname = p.Lastname;
+            var fname = p.Firstname;
+            var dob = p.Birthdate.ToString();
+            var street = p.Address.Street;
+            var city = p.Address.City;
+            var state = p.Address.State;
+            var zip = p.Address.Zip;
+            var phone = p.PhoneNumber;
+            var gender = nameof(p.Gender);
+            try
+            {
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { Connection = conn};
+
+                var updatePaitent =
+                    "UPDATE `patient` SET `lname` = @lname, `fname` = @fname, `dob` = @dob, `street` = @street, `city` = @city, `zip` = @zip, `phone` = @phone`, `gender` = @gender WHERE `personid` = @pid;";
+                
+                cmd.CommandText = updatePaitent;
+
+                cmd.Parameters.AddWithValue("@lname", lname);
+                cmd.Parameters.AddWithValue("@fname", fname);
+                cmd.Parameters.AddWithValue("@dob", dob);
+                cmd.Parameters.AddWithValue("@street", street);
+                cmd.Parameters.AddWithValue("@city", city);
+                cmd.Parameters.AddWithValue("@state", state);
+                cmd.Parameters.AddWithValue("@zip", zip);
+                cmd.Parameters.AddWithValue("@phone", phone);
+                cmd.Parameters.AddWithValue("@gender", gender);
+                cmd.Parameters.AddWithValue("@pid", pid);
+
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the CreatePatient: " + ex.ToString());
+
+            }
+        }
+
         public List<string> GetPatientDataFromId(int id)
         {
             var patientData = new List<string>();
@@ -73,13 +117,14 @@ namespace LightholderCintronHealthcareSystem.Model
             try
             {
                 var query =
-                    "SELECT DISTINCT p.fname, p.lname, p.dob, p.street, p.city, p.state, p.zip, p.phone, p.gender FROM person p, patient pt WHERE p.personid = pt.personid AND pt.patientid = @patientid;";
+                    "SELECT DISTINCT p.personid, p.fname, p.lname, p.dob, p.street, p.city, p.state, p.zip, p.phone, p.gender FROM person p, patient pt WHERE p.personid = pt.personid AND pt.patientid = @patientid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@patientid", id);
                 using var reader = cmd.ExecuteReader();
+                var pidOrdinal = reader.GetOrdinal("personid");
                 var fnameOrdinal = reader.GetOrdinal("fname");
                 var lnameOrdinal = reader.GetOrdinal("lname");
                 var dobOrdinal = reader.GetOrdinal("dob");
@@ -103,6 +148,7 @@ namespace LightholderCintronHealthcareSystem.Model
                     patientData.Add(reader.GetString(zipOrdinal));      //6
                     patientData.Add(reader.GetString(phoneOrdinal));    //7
                     patientData.Add(reader.GetString(genderOrdinal));   //8
+                    patientData.Add(reader.GetString(pidOrdinal));      //9
                 }
                 else
                 {

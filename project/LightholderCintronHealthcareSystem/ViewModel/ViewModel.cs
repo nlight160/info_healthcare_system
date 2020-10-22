@@ -59,7 +59,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             var dba = new PatientDatabaseAccess();
             Address a = new Address(street, city, state, zip);
             //$"{dob:yyyy MM dd}";
-            Patient p = new Patient(fname, lname, dob, a, phone, gender);
+            Patient p = new Patient(null, fname, lname, dob, a, phone, gender);
             dba.CreatePatient(p);
         }
 
@@ -73,6 +73,12 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         public static Date GetDate(string year, string month, string day)
         {
             return new Date(year, month, day);
+        }
+
+        public static void UpdatePatient(Patient p)
+        {
+            var dba = new PatientDatabaseAccess();
+            dba.UpdatePatient(p);
         }
 
         public static List<Patient> searchForPatients(string search, SearchOption option)
@@ -105,7 +111,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
                 var date = new Date(fullDate[2], fullDate[0], fullDate[1]);
                 var address = new Address(patientData[3], patientData[4], patientData[5], patientData[6]);
                 var gender = patientData[8] == "Male" ? Gender.Male : Gender.Female;
-                var pt = new Patient(patientData[0], patientData[1], date, address, patientData[7], gender);
+                var pt = new Patient(patientData[9], patientData[0], patientData[1], date, address, patientData[7], gender);
                 patientList.Add(pt);
             }
 
