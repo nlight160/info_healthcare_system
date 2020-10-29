@@ -8,6 +8,15 @@ namespace LightholderCintronHealthcareSystem.Model
     /// <seealso cref="LightholderCintronHealthcareSystem.Model.Person" />
     public class Doctor : Person
     {
+
+        /// <summary>
+        /// Gets or sets the doctorid.
+        /// </summary>
+        /// <value>
+        /// The doctorid.
+        /// </value>
+        public string Doctorid { get; set; }
+
         /// <summary>
         /// Gets the specialty.
         /// </summary>

@@ -112,6 +112,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
                 var address = new Address(patientData[3], patientData[4], patientData[5], patientData[6]);
                 var gender = patientData[8] == "Male" ? Gender.Male : Gender.Female;
                 var pt = new Patient(patientData[9], patientData[0], patientData[1], date, address, patientData[7], gender);
+                pt.Patientid = patientData[10];
                 patientList.Add(pt);
             }
 

@@ -168,6 +168,7 @@ namespace LightholderCintronHealthcareSystem.Model
                     patientData.Add(reader.GetString(phoneOrdinal));    //7
                     patientData.Add(reader.GetString(genderOrdinal));   //8
                     patientData.Add(reader.GetString(pidOrdinal));      //9
+                    patientData.Add(id.ToString());                     //10
                 }
                 else
                 {

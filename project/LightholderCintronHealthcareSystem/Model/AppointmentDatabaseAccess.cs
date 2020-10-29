@@ -21,9 +21,9 @@ namespace LightholderCintronHealthcareSystem.Model
         public bool CreateAppointment(Appointment a)
         {
 
-            var patientid = a.Patient; //TODO need to add patient id to appointment or to patient.
+            var patientid = a.Patient.Personid;
             var date = a.AppointmentDateTime;
-            var doctorid = a.Doctor; //TODO need to add doctor id to either appointment or to doctor.
+            var doctorid = a.Doctor.Doctorid;
             var description = a.Description;
 
             try
@@ -63,7 +63,7 @@ namespace LightholderCintronHealthcareSystem.Model
         public bool updateAppointment(Appointment originalAppointment, Appointment newAppointment)
         {
 
-            var originalAppointmentid = originalAppointment.Patient; //TODO make appointmentid
+            var originalAppointmentid = originalAppointment.Appointmentid; //TODO make appointmentid
 
             var patientid = newAppointment.Patient;
             var date = newAppointment.AppointmentDateTime;
