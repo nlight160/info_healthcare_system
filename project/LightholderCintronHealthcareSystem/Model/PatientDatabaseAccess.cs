@@ -113,7 +113,7 @@ namespace LightholderCintronHealthcareSystem.Model
                 cmd.Parameters.AddWithValue("@phone", phone);
                 cmd.Parameters.AddWithValue("@gender", gender);
                 cmd.Parameters.AddWithValue("@pid", pid);
-
+                //TODO add confirmation
                 cmd.ExecuteNonQuery();
 
             }

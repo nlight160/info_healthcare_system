@@ -76,10 +76,6 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </exception>
         protected Person(string personid, string firstname, string lastname, Date birthdate, Address address, string phoneNumber, Gender gender)
         {
-            if (string.IsNullOrEmpty(personid))
-            {
-                throw new ArgumentNullException(nameof(personid), "can not be null or empty");
-            }
             this.Personid = personid;
             if (string.IsNullOrEmpty(firstname))
             {
