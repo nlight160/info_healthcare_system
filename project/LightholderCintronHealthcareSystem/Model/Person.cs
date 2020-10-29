@@ -54,14 +54,17 @@ namespace LightholderCintronHealthcareSystem.Model
 
         public Gender Gender { get; set; }
 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Person"/> class.
         /// </summary>
+        /// <param name="personid">The personid.</param>
         /// <param name="firstname">The firstname.</param>
         /// <param name="lastname">The lastname.</param>
         /// <param name="birthdate">The birthdate.</param>
         /// <param name="address">The address.</param>
         /// <param name="phoneNumber">The phone number.</param>
+        /// <param name="gender">The gender.</param>
         /// <exception cref="ArgumentNullException">
         /// firstname - can not be null or empty
         /// or
@@ -88,11 +91,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             this.Lastname = lastname;
             this.Address = address ?? throw new ArgumentNullException(nameof(address), "can not be null");
-            if (birthdate == null)
-            {
-                throw new ArgumentException("Birthdate can not be null or after current date");
-            }
-            this.Birthdate = birthdate;
+            this.Birthdate = birthdate ?? throw new ArgumentException("Birthdate can not be null or after current date");
             if (phoneNumber == null || phoneNumber.Length != 10 || !phoneNumber.All(char.IsNumber))
             {
                 throw new ArgumentException("Phone number must be 10 digits with no special characters and not null");

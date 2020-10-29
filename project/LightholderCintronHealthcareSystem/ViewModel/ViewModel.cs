@@ -1,10 +1,8 @@
-﻿using System;
+﻿using LightholderCintronHealthcareSystem.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using Google.Protobuf.WellKnownTypes;
-using LightholderCintronHealthcareSystem.Model;
 
 namespace LightholderCintronHealthcareSystem.ViewModel
 {
@@ -42,6 +40,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return false;
         }
 
+
         /// <summary>
         /// Registers the patient.
         /// </summary>
@@ -53,13 +52,14 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// <param name="state">The state.</param>
         /// <param name="zip">The zip.</param>
         /// <param name="phone">The phone.</param>
+        /// <param name="gender">The gender.</param>
         public static void RegisterPatient(string lname, string fname, Date dob, string street, string city, string state, string zip,
                                             string phone, Gender gender)
         {
             var dba = new PatientDatabaseAccess();
-            Address a = new Address(street, city, state, zip);
+            var a = new Address(street, city, state, zip);
             //$"{dob:yyyy MM dd}";
-            Patient p = new Patient(null, fname, lname, dob, a, phone, gender);
+            var p = new Patient(null, fname, lname, dob, a, phone, gender);
             dba.CreatePatient(p);
         }
 
@@ -81,7 +81,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             dba.UpdatePatient(p);
         }
 
-        public static List<Patient> searchForPatients(List<string> search, SearchOption option)
+        public static List<Patient> SearchForPatients(List<string> search, SearchOption option)
         {
             var patientList = new List<Patient>();
             List<int> patientids;
@@ -111,8 +111,8 @@ namespace LightholderCintronHealthcareSystem.ViewModel
                 var date = new Date(fullDate[2], fullDate[0], fullDate[1]);
                 var address = new Address(patientData[3], patientData[4], patientData[5], patientData[6]);
                 var gender = patientData[8] == "Male" ? Gender.Male : Gender.Female;
-                var pt = new Patient(patientData[9], patientData[0], patientData[1], date, address, patientData[7], gender);
-                pt.Patientid = patientData[10];
+                var pt = new Patient(patientData[9], patientData[0], patientData[1], date, address, patientData[7],
+                    gender) {Patientid = patientData[10]};
                 patientList.Add(pt);
             }
 
@@ -120,7 +120,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         }
 
         /// <summary>
-        /// Logouts this instance.
+        /// Log outs this instance.
         /// </summary>
         public static void Logout()
         {

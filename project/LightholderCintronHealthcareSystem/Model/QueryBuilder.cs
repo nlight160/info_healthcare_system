@@ -7,8 +7,9 @@ namespace LightholderCintronHealthcareSystem.Model
     /// </summary>
     public class QueryBuilder
     {
+
         /// <summary>
-        /// Builds the query to add a patient, first adds a person then a patient.
+        /// Adds the patient.
         /// </summary>
         /// <param name="lname">The lname.</param>
         /// <param name="fname">The fname.</param>
@@ -18,8 +19,9 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="state">The state.</param>
         /// <param name="zip">The zip.</param>
         /// <param name="phone">The phone.</param>
+        /// <param name="gender">The gender.</param>
         /// <returns></returns>
-        public string addPatient(string lname, string fname, string dob, string street, string city, string state, string zip,
+        public string AddPatient(string lname, string fname, string dob, string street, string city, string state, string zip,
             string phone, Gender gender)
         {
             var createPerson =
@@ -45,7 +47,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        public string loginQuery(string username, string password)
+        public string LoginQuery(string username, string password)
         {
             return $"SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = {username} AND n.password = '{password}';";
         }

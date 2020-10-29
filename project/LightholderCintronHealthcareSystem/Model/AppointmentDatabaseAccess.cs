@@ -1,7 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using MySql.Data.MySqlClient;
 
 namespace LightholderCintronHealthcareSystem.Model
 {
@@ -32,8 +30,7 @@ namespace LightholderCintronHealthcareSystem.Model
                 conn.Open();
                 using var cmd = new MySqlCommand { Connection = conn };
 
-                var makeAppointment =
-                    "INSERT INTO `appointment` (`patientid`, `date`, `doctorid`, `description`) VALUES (@patientid, @date, @doctorid, @description);";
+                const string makeAppointment = "INSERT INTO `appointment` (`patientid`, `date`, `doctorid`, `description`) VALUES (@patientid, @date, @doctorid, @description);";
                 cmd.CommandText = makeAppointment;
                 cmd.Parameters.AddWithValue("@patientid", patientid);
                 cmd.Parameters.AddWithValue("@date", date);
@@ -47,7 +44,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the CreatePatient: " + ex.ToString());
+                Console.WriteLine("Exception in the CreatePatient: " + ex);
                 return false;
             }
 
@@ -60,7 +57,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="originalAppointment">The original appointment.</param>
         /// <param name="newAppointment">The new appointment.</param>
         /// <returns></returns>
-        public bool updateAppointment(Appointment originalAppointment, Appointment newAppointment)
+        public bool UpdateAppointment(Appointment originalAppointment, Appointment newAppointment)
         {
 
             var originalAppointmentid = originalAppointment.Appointmentid; //TODO make appointmentid
@@ -76,8 +73,7 @@ namespace LightholderCintronHealthcareSystem.Model
                 conn.Open();
                 using var cmd = new MySqlCommand { Connection = conn };
 
-                var updateAppointment =
-                    "UPDATE `appointment` SET `patientid` = @patientid, `date` = @date, `doctorid` = @doctorid, `description` = @description WHERE `appointmentid` = @originalAppointmentid;";
+                const string updateAppointment = "UPDATE `appointment` SET `patientid` = @patientid, `date` = @date, `doctorid` = @doctorid, `description` = @description WHERE `appointmentid` = @originalAppointmentid;";
                 cmd.CommandText = updateAppointment;
                 cmd.Parameters.AddWithValue("@patientid", patientid);
                 cmd.Parameters.AddWithValue("@date", date);
@@ -90,7 +86,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the CreatePatient: " + ex.ToString());
+                Console.WriteLine("Exception in the CreatePatient: " + ex);
                 return false;
             }
         }

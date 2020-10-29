@@ -36,11 +36,13 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </value>
         public string Zip { get; }
 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Address"/> class.
         /// </summary>
         /// <param name="street">The street.</param>
         /// <param name="city">The city.</param>
+        /// <param name="state">The state.</param>
         /// <param name="zip">The zip.</param>
         /// <exception cref="ArgumentNullException">
         /// zip - can not be null or empty
@@ -48,6 +50,8 @@ namespace LightholderCintronHealthcareSystem.Model
         /// city - can not be null or empty
         /// or
         /// street - can not be null or empty
+        /// or
+        /// state - can not be null or empty
         /// </exception>
         public Address(string street, string city, string state, string zip)
         {

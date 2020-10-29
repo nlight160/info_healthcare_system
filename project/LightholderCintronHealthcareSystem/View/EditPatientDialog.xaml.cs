@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using LightholderCintronHealthcareSystem.Model;
+using System;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using LightholderCintronHealthcareSystem.Model;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -44,20 +32,20 @@ namespace LightholderCintronHealthcareSystem.View
         public EditPatientDialog(Patient patient)
         {
             this.InitializeComponent();
-            this.PhoneNumberTextBox.MaxLength = 10;
-            this.ZipCodeTextBox.MaxLength = 5;
-            this.BirthdateDatePicker.MaxYear = DateTimeOffset.Now;
+            this.phoneNumberTextBox.MaxLength = 10;
+            this.zipCodeTextBox.MaxLength = 5;
+            this.birthdateDatePicker.MaxYear = DateTimeOffset.Now;
             this.IsPrimaryButtonEnabled = false;
-            this.FirstnameTextBox.Text = patient.Firstname;
-            this.LastnameTextBox.Text = patient.Lastname;
-            this.PhoneNumberTextBox.Text = patient.PhoneNumber;
-            this.StateComboBox.SelectedItem = patient.Address.State;
-            this.StreetTextBox.Text = patient.Address.Street;
-            this.GenderComboBox.SelectedItem = patient.Gender == Gender.Male ? "Male" : "Female";
-            this.CityTextBox.Text = patient.Address.City;
-            this.ZipCodeTextBox.Text = patient.Address.Zip;
-            this.BirthdateDatePicker.Date = new DateTime(int.Parse(patient.Birthdate.year),
-                int.Parse(patient.Birthdate.month), int.Parse(patient.Birthdate.day));
+            this.firstnameTextBox.Text = patient.Firstname;
+            this.lastnameTextBox.Text = patient.Lastname;
+            this.phoneNumberTextBox.Text = patient.PhoneNumber;
+            this.stateComboBox.SelectedItem = patient.Address.State;
+            this.streetTextBox.Text = patient.Address.Street;
+            this.genderComboBox.SelectedItem = patient.Gender == Gender.Male ? "Male" : "Female";
+            this.cityTextBox.Text = patient.Address.City;
+            this.zipCodeTextBox.Text = patient.Address.Zip;
+            this.birthdateDatePicker.Date = new DateTime(int.Parse(patient.Birthdate.Year),
+                int.Parse(patient.Birthdate.Month), int.Parse(patient.Birthdate.Day));
             EditedPatient = patient;
         }
 
@@ -69,14 +57,14 @@ namespace LightholderCintronHealthcareSystem.View
         private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
 
-            EditedPatient.Firstname = this.FirstnameTextBox.Text;
-            EditedPatient.Lastname = this.LastnameTextBox.Text;
-            var date = ViewModel.ViewModel.GetDate(this.BirthdateDatePicker.Date.Year.ToString(), this.BirthdateDatePicker.Date.Month.ToString(),
-                this.BirthdateDatePicker.Date.Day.ToString());
+            EditedPatient.Firstname = this.firstnameTextBox.Text;
+            EditedPatient.Lastname = this.lastnameTextBox.Text;
+            var date = ViewModel.ViewModel.GetDate(this.birthdateDatePicker.Date.Year.ToString(), this.birthdateDatePicker.Date.Month.ToString(),
+                this.birthdateDatePicker.Date.Day.ToString());
             EditedPatient.Birthdate = date;
-            EditedPatient.PhoneNumber = this.PhoneNumberTextBox.Text;
-            EditedPatient.Address = new Address(this.StreetTextBox.Text, this.CityTextBox.Text, this.StateComboBox.SelectedItem.ToString(), this.ZipCodeTextBox.Text);
-            EditedPatient.Gender = this.GenderComboBox.SelectedItem == "Male" ? Gender.Male : Gender.Female;
+            EditedPatient.PhoneNumber = this.phoneNumberTextBox.Text;
+            EditedPatient.Address = new Address(this.streetTextBox.Text, this.cityTextBox.Text, this.stateComboBox.SelectedItem.ToString(), this.zipCodeTextBox.Text);
+            EditedPatient.Gender = this.genderComboBox.SelectedItem == "Male" ? Gender.Male : Gender.Female;
             this.Hide();
         }
 
@@ -106,13 +94,8 @@ namespace LightholderCintronHealthcareSystem.View
         /// <returns></returns>
         private bool checkControlsForCompletion()
         {
-            if (FirstnameTextBox.Text != "" && LastnameTextBox.Text != "" && PhoneNumberTextBox.Text != "" && StreetTextBox.Text != "" && CityTextBox.Text != ""
-                && ZipCodeTextBox.Text != "" && StateComboBox.SelectedItem != null && !this.BirthdateDatePicker.Date.Equals(DateTimeOffset.MinValue) && this.GenderComboBox.SelectedItem != null)
-            {
-                return true;
-            }
-
-            return false;
+            return this.firstnameTextBox.Text != "" && this.lastnameTextBox.Text != "" && this.phoneNumberTextBox.Text != "" && this.streetTextBox.Text != "" && this.cityTextBox.Text != ""
+                   && this.zipCodeTextBox.Text != "" && this.stateComboBox.SelectedItem != null && !this.birthdateDatePicker.Date.Equals(DateTimeOffset.MinValue) && this.genderComboBox.SelectedItem != null;
         }
 
         /// <summary>
@@ -128,7 +111,7 @@ namespace LightholderCintronHealthcareSystem.View
                 return;
             }
             var state = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift);
-            bool pressed = (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+            var pressed = (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
             if (System.Text.RegularExpressions.Regex.IsMatch(e.Key.ToString(), "Number") && !pressed)
             {
                 e.Handled = false;

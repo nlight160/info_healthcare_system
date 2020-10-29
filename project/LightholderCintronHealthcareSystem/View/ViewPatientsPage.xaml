@@ -2,14 +2,13 @@
     x:Class="LightholderCintronHealthcareSystem.View.ViewPatientsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:LightholderCintronHealthcareSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ListView x:Name="PatientListView" Margin="168,176,607,247" RequestedTheme="Default" HorizontalAlignment="Left" IsItemClickEnabled="True" SelectionMode="Single" SelectionChanged="onSelectionChange">
+        <ListView x:Name="patientListView" Margin="168,176,607,247" RequestedTheme="Default" HorizontalAlignment="Left" IsItemClickEnabled="True" SelectionMode="Single" SelectionChanged="onSelectionChange">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -22,15 +21,15 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock x:Name="UserTextBlock" HorizontalAlignment="Left" Margin="0,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"/>
-        <Button x:Name="EditPatientButton" Content="Edit Patient" Margin="1001,306,0,0" VerticalAlignment="Top" Click="onEditPatient"/>
-        <Button x:Name="CancelButton" Content="Cancel" Margin="1120,306,0,0" VerticalAlignment="Top" Click="onCancel" RenderTransformOrigin="1.033,0.562"/>
+        <TextBlock x:Name="userTextBlock" HorizontalAlignment="Left" Margin="0,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"/>
+        <Button x:Name="editPatientButton" Content="Edit Patient" Margin="1001,306,0,0" VerticalAlignment="Top" Click="onEditPatient"/>
+        <Button x:Name="cancelButton" Content="Cancel" Margin="1120,306,0,0" VerticalAlignment="Top" Click="onCancel" RenderTransformOrigin="1.033,0.562"/>
         <TextBlock HorizontalAlignment="Left" Margin="468,101,0,0" Text="Patients" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36"/>
-        <TextBox x:Name="PatientSearchTextBoxByName" HorizontalAlignment="Left" Margin="986,214,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient by name" ToolTipService.ToolTip="Search using name"/>
-        <Button x:Name="SearchButton" Content="Search" Margin="1216,239,0,0" VerticalAlignment="Top" Click="SearchButton_Click"/>
-        <CheckBox x:Name="ByNameCheckBox" Content="by name" Margin="986,176,0,0" VerticalAlignment="Top" Checked="onSortByName"/>
-        <CheckBox x:Name="ByDateCheckBox" Content="by date" Margin="1111,176,0,0" VerticalAlignment="Top" Checked="onSortByDate"/>
-        <TextBox x:Name="PatientSearchTextBoxByDate" HorizontalAlignment="Left" Margin="986,260,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient by date" ToolTipService.ToolTip="Search using date in the format mm/dd/yyyy or mm-dd-yyyy"/>
+        <TextBox x:Name="patientSearchTextBoxByName" HorizontalAlignment="Left" Margin="986,214,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient by name" ToolTipService.ToolTip="Search using name"/>
+        <Button x:Name="searchButton" Content="Search" Margin="1216,239,0,0" VerticalAlignment="Top" Click="SearchButton_Click"/>
+        <CheckBox x:Name="byNameCheckBox" Content="by name" Margin="986,176,0,0" VerticalAlignment="Top" Checked="onSortByName"/>
+        <CheckBox x:Name="byDateCheckBox" Content="by date" Margin="1111,176,0,0" VerticalAlignment="Top" Checked="onSortByDate"/>
+        <TextBox x:Name="patientSearchTextBoxByDate" HorizontalAlignment="Left" Margin="986,260,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient by date" ToolTipService.ToolTip="Search using date in the format mm/dd/yyyy or mm-dd-yyyy"/>
         <TextBlock HorizontalAlignment="Left" Margin="922,183,0,0" Text="Sort By:" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
 </Page>

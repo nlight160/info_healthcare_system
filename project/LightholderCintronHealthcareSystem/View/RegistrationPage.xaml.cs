@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using LightholderCintronHealthcareSystem.Model;
+using System;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using LightholderCintronHealthcareSystem.Model;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -22,11 +21,11 @@ namespace LightholderCintronHealthcareSystem.View
         public RegistrationPage()
         {
             this.InitializeComponent();
-            this.RegisterButton.IsEnabled = false;
-            this.PhoneNumberTextBox.MaxLength = 10;
-            this.ZipCodeTextBox.MaxLength = 5;
-            this.BirthdateDatePicker.MaxYear = DateTimeOffset.Now;
-            this.UserTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
+            this.registerButton.IsEnabled = false;
+            this.phoneNumberTextBox.MaxLength = 10;
+            this.zipCodeTextBox.MaxLength = 5;
+            this.birthdateDatePicker.MaxYear = DateTimeOffset.Now;
+            this.userTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                  + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
 
@@ -43,7 +42,7 @@ namespace LightholderCintronHealthcareSystem.View
                 return;
             }
             var state = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift);
-            bool pressed = (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+            var pressed = (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
             if (System.Text.RegularExpressions.Regex.IsMatch(e.Key.ToString(), "Number") && !pressed)
             { 
                 e.Handled = false; 
@@ -70,12 +69,12 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onRegister(object sender, RoutedEventArgs e)
         {
-            Gender gender = this.getGender();
-            var date = ViewModel.ViewModel.GetDate(BirthdateDatePicker.Date.Year.ToString(), BirthdateDatePicker.Date.Month.ToString(),
-                BirthdateDatePicker.Date.Day.ToString());
+            var gender = this.getGender();
+            var date = ViewModel.ViewModel.GetDate(this.birthdateDatePicker.Date.Year.ToString(), this.birthdateDatePicker.Date.Month.ToString(),
+                this.birthdateDatePicker.Date.Day.ToString());
             //var date = BirthdateDatePicker.Date.Year + "-" + BirthdateDatePicker.Date.Month + "-" + BirthdateDatePicker.Date.Day;
-            ViewModel.ViewModel.RegisterPatient(LastnameTextBox.Text, FirstnameTextBox.Text, date, StreetTextBox.Text, CityTextBox.Text, 
-                StateComboBox.SelectedItem.ToString(), ZipCodeTextBox.Text, PhoneNumberTextBox.Text, gender);
+            ViewModel.ViewModel.RegisterPatient(this.lastnameTextBox.Text, this.firstnameTextBox.Text, date, this.streetTextBox.Text, this.cityTextBox.Text, 
+                this.stateComboBox.SelectedItem.ToString(), this.zipCodeTextBox.Text, this.phoneNumberTextBox.Text, gender);
             Frame.Navigate(typeof(MenuPage));
         }
 
@@ -85,7 +84,7 @@ namespace LightholderCintronHealthcareSystem.View
         /// <returns></returns>
         private Gender getGender()
         {
-            if (GenderComboBox.SelectedItem != null && GenderComboBox.SelectedItem.Equals("Female"))
+            if (this.genderComboBox.SelectedItem != null && this.genderComboBox.SelectedItem.Equals("Female"))
             {
                 return Gender.Female;
             }
@@ -98,14 +97,14 @@ namespace LightholderCintronHealthcareSystem.View
         /// </summary>
         private void clearInputs()
         {
-            FirstnameTextBox.Text = "";
-            LastnameTextBox.Text = "";
-            BirthdateDatePicker.Date = DateTimeOffset.Now;
-            PhoneNumberTextBox.Text = "";
-            StreetTextBox.Text = "";
-            CityTextBox.Text = "";
-            StateComboBox.SelectedItem = 0;
-            ZipCodeTextBox.Text = "";
+            this.firstnameTextBox.Text = "";
+            this.lastnameTextBox.Text = "";
+            this.birthdateDatePicker.Date = DateTimeOffset.Now;
+            this.phoneNumberTextBox.Text = "";
+            this.streetTextBox.Text = "";
+            this.cityTextBox.Text = "";
+            this.stateComboBox.SelectedItem = 0;
+            this.zipCodeTextBox.Text = "";
         }
 
         /// <summary>
@@ -115,7 +114,7 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onDeselectControl(object sender, RoutedEventArgs e)
         {
-            this.RegisterButton.IsEnabled = this.checkControlsForCompletion();
+            this.registerButton.IsEnabled = this.checkControlsForCompletion();
         }
 
         /// <summary>
@@ -124,13 +123,8 @@ namespace LightholderCintronHealthcareSystem.View
         /// <returns></returns>
         private bool checkControlsForCompletion()
         {
-            if (FirstnameTextBox.Text != "" && LastnameTextBox.Text != "" && PhoneNumberTextBox.Text != "" && StreetTextBox.Text != "" && CityTextBox.Text != "" 
-                && ZipCodeTextBox.Text != "" && StateComboBox.SelectedItem != null && !this.BirthdateDatePicker.Date.Equals(DateTimeOffset.MinValue) && this.GenderComboBox.SelectedItem != null)
-            {
-                return true;
-            }
-
-            return false;
+            return this.firstnameTextBox.Text != "" && this.lastnameTextBox.Text != "" && this.phoneNumberTextBox.Text != "" && this.streetTextBox.Text != "" && this.cityTextBox.Text != "" 
+                   && this.zipCodeTextBox.Text != "" && this.stateComboBox.SelectedItem != null && !this.birthdateDatePicker.Date.Equals(DateTimeOffset.MinValue) && this.genderComboBox.SelectedItem != null;
         }
     }
 }

@@ -25,14 +25,18 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </value>
         public string Specialty { get; }
 
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Doctor"/> class.
         /// </summary>
+        /// <param name="personid">The personid.</param>
         /// <param name="firstname">The firstname.</param>
         /// <param name="lastname">The lastname.</param>
         /// <param name="birthdate">The birthdate.</param>
         /// <param name="address">The address.</param>
         /// <param name="phoneNumber">The phone number.</param>
+        /// <param name="gender">The gender.</param>
         /// <param name="specialty">The specialty.</param>
         /// <exception cref="ArgumentNullException">specialty - can not be null or empty</exception>
         public Doctor(string personid, string firstname, string lastname, Date birthdate, Address address, string phoneNumber,

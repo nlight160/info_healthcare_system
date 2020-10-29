@@ -29,7 +29,7 @@ namespace LightholderCintronHealthcareSystem.Model
             var state = p.Address.State;
             var zip = p.Address.Zip;
             var phone = p.PhoneNumber;
-            var gender = nameof(p.Gender);
+            const string gender = nameof(p.Gender);
             MySqlTransaction transaction = null;
             try
             {
@@ -38,10 +38,8 @@ namespace LightholderCintronHealthcareSystem.Model
                 transaction = conn.BeginTransaction();
                 using var cmd = new MySqlCommand {Connection = conn, Transaction = transaction};
 
-                var createPerson =
-                    "INSERT INTO `person` (`personid`, `lname`, `fname`, `dob`, `street`, `city`, `state`, `zip`, `phone`, `gender`) VALUES (null, @lname, @fname, @dob, @street, @city, @state, @zip, @phone, @gender);";
-                var createPatient =
-                    "INSERT INTO patient (patientid, personid) SELECT null, p.personid FROM person p WHERE p.lname = @lname AND p.fname = @fname AND p.dob = @dob AND p.phone = @phone;";
+                const string createPerson = "INSERT INTO `person` (`personid`, `lname`, `fname`, `dob`, `street`, `city`, `state`, `zip`, `phone`, `gender`) VALUES (null, @lname, @fname, @dob, @street, @city, @state, @zip, @phone, @gender);";
+                const string createPatient = "INSERT INTO patient (patientid, personid) SELECT null, p.personid FROM person p WHERE p.lname = @lname AND p.fname = @fname AND p.dob = @dob AND p.phone = @phone;";
 
                 cmd.CommandText = createPerson;
 
@@ -70,7 +68,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the CreatePatient: " + ex.ToString());
+                Console.WriteLine("Exception in the CreatePatient: " + ex);
                 transaction?.Rollback();
 
             }
@@ -91,15 +89,14 @@ namespace LightholderCintronHealthcareSystem.Model
             var state = p.Address.State;
             var zip = p.Address.Zip;
             var phone = p.PhoneNumber;
-            var gender = nameof(p.Gender);
+            const string gender = nameof(p.Gender);
             try
             {
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { Connection = conn};
 
-                var updatePaitent =
-                    "UPDATE person p SET p.lname = @lname, p.fname = @fname, p.dob = @dob, p.street = @street, p.city = @city, p.state = @state, p.zip = @zip, p.phone = @phone, p.gender = @gender WHERE p.personid = @pid;";
+                const string updatePaitent = "UPDATE person p SET p.lname = @lname, p.fname = @fname, p.dob = @dob, p.street = @street, p.city = @city, p.state = @state, p.zip = @zip, p.phone = @phone, p.gender = @gender WHERE p.personid = @pid;";
                 
                 cmd.CommandText = updatePaitent;
 
@@ -119,7 +116,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the CreatePatient: " + ex.ToString());
+                Console.WriteLine("Exception in the CreatePatient: " + ex);
 
             }
         }
@@ -135,8 +132,7 @@ namespace LightholderCintronHealthcareSystem.Model
 
             try
             {
-                var query =
-                    "SELECT DISTINCT p.personid, p.fname, p.lname, p.dob, p.street, p.city, p.state, p.zip, p.phone, p.gender FROM person p, patient pt WHERE p.personid = pt.personid AND pt.patientid = @patientid;";
+                const string query = "SELECT DISTINCT p.personid, p.fname, p.lname, p.dob, p.street, p.city, p.state, p.zip, p.phone, p.gender FROM person p, patient pt WHERE p.personid = pt.personid AND pt.patientid = @patientid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
@@ -178,13 +174,9 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the SearchPatientsWithName: " + ex.ToString());
+                Console.WriteLine("Exception in the SearchPatientsWithName: " + ex);
                 return patientData;
             }
-
-
-
-            return patientData;
         }
 
         /// <summary>
@@ -198,8 +190,7 @@ namespace LightholderCintronHealthcareSystem.Model
             var patientList = new List<int>();
             try
             {
-                var query =
-                    "SELECT DISTINCT pt.patientid FROM patient pt, person p WHERE CONCAT(p.fname, p.lname) LIKE @name AND p.personid = pt.personid;";
+                const string query = "SELECT DISTINCT pt.patientid FROM patient pt, person p WHERE CONCAT(p.fname, p.lname) LIKE @name AND p.personid = pt.personid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
@@ -223,7 +214,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the SearchPatientsWithName: " + ex.ToString());
+                Console.WriteLine("Exception in the SearchPatientsWithName: " + ex);
                 return patientList;
             }
         }
@@ -238,8 +229,7 @@ namespace LightholderCintronHealthcareSystem.Model
             var patientList = new List<int>();
             try
             {
-                var query =
-                    "SELECT DISTINCT pt.patientid FROM patient pt, person p WHERE p.personid = pt.personid AND p.dob = @date;";
+                const string query = "SELECT DISTINCT pt.patientid FROM patient pt, person p WHERE p.personid = pt.personid AND p.dob = @date;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
@@ -263,7 +253,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the SearchPatientsWithName: " + ex.ToString());
+                Console.WriteLine("Exception in the SearchPatientsWithName: " + ex);
                 return patientList;
             }
         }

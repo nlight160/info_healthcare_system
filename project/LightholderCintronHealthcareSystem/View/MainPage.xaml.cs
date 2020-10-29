@@ -22,26 +22,26 @@ namespace LightholderCintronHealthcareSystem.View
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="Windows.UI.Xaml.RoutedEventArgs"/> instance containing the event data.</param>
-        private void onLogin(object sender, Windows.UI.Xaml.RoutedEventArgs e) 
+        private void onLogin(object sender, RoutedEventArgs e) 
         {
-            if (UsernameTextBox.Text == string.Empty || UsernameTextBox.Text == null)
+            if (string.IsNullOrEmpty(this.usernameTextBox.Text))
             {
-                InvalidLoginTextBlock.Visibility = Visibility.Visible;
+                this.invalidLoginTextBlock.Visibility = Visibility.Visible;
                 this.clearTextBoxes();
             }
 
-            if (PasswordTextBox.Text == string.Empty || PasswordTextBox.Text == null)
+            if (string.IsNullOrEmpty(this.passwordTextBox.Text))
             {
-                InvalidLoginTextBlock.Visibility = Visibility.Visible;
+                this.invalidLoginTextBlock.Visibility = Visibility.Visible;
                 this.clearTextBoxes();
             }
-            if (ViewModel.ViewModel.AttemptLogin(UsernameTextBox.Text.Trim(), PasswordTextBox.Text.Trim()))
+            if (ViewModel.ViewModel.AttemptLogin(this.usernameTextBox.Text.Trim(), this.passwordTextBox.Text.Trim()))
             {
                 Frame.Navigate(typeof(MenuPage));
             }
             else
             {
-                InvalidLoginTextBlock.Visibility = Visibility.Visible;
+                this.invalidLoginTextBlock.Visibility = Visibility.Visible;
                 this.clearTextBoxes();
             }
 
@@ -52,8 +52,8 @@ namespace LightholderCintronHealthcareSystem.View
         /// </summary>
         private void clearTextBoxes()
         {
-            PasswordTextBox.Text = "";
-            UsernameTextBox.Text = "";
+            this.passwordTextBox.Text = "";
+            this.usernameTextBox.Text = "";
         }
     }
 }

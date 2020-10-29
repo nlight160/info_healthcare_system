@@ -13,21 +13,21 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <value>
         /// The year.
         /// </value>
-        public string year { get; set; }
+        public string Year { get; set; }
         /// <summary>
         /// Gets or sets the month.
         /// </summary>
         /// <value>
         /// The month.
         /// </value>
-        public string month { get; set; }
+        public string Month { get; set; }
         /// <summary>
         /// Gets or sets the day.
         /// </summary>
         /// <value>
         /// The day.
         /// </value>
-        public string day { get; set; }
+        public string Day { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Date"/> class.
@@ -57,9 +57,9 @@ namespace LightholderCintronHealthcareSystem.Model
                 throw new ArgumentNullException(nameof(day), "can not be null or empty");
             }
 
-            this.year = year.PadLeft(4, '0');
-            this.month = month.PadLeft(2, '0');
-            this.day = day.PadLeft(2, '0');
+            this.Year = year.PadLeft(4, '0');
+            this.Month = month.PadLeft(2, '0');
+            this.Day = day.PadLeft(2, '0');
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </returns>
         public override string ToString()
         {
-            return this.year + "-" + this.month + "-" + this.day;
+            return this.Year + "-" + this.Month + "-" + this.Day;
         }
     }
 }

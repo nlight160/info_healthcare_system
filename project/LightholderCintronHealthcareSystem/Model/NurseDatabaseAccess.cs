@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 namespace LightholderCintronHealthcareSystem.Model
 {
     /// <summary>
-    /// Nurse databas access
+    /// Nurse database access
     /// </summary>
     public class NurseDatabaseAccess
     {
@@ -23,11 +23,11 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <returns></returns>
         public List<string> AuthenticateLogin(string username, string password)
         {
-            var user = int.Parse(username);
+            
             try
             {
-                var query =
-                    "SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = @username AND n.password = @password;";
+                var user = int.Parse(username);
+                const string query = "SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = @username AND n.password = @password;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand {CommandText = query, Connection = conn};
@@ -49,7 +49,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the AuthenticateLogin: " + ex.ToString());
+                Console.WriteLine("Exception in the AuthenticateLogin: " + ex);
                 return null;
             }
         }

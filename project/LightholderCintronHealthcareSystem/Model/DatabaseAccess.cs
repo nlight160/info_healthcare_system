@@ -7,12 +7,12 @@ namespace LightholderCintronHealthcareSystem.Model
     /// <summary>
     /// This is the DAL of this program for now. We plan on upgrading it later once our planning is done.
     /// </summary>
-    class DatabaseAccess
+    internal class DatabaseAccess
     {
         /// <summary>
         /// The con string
         /// </summary>
-        const string conStr = "server=160.10.25.16; port=3306; uid=cs3230f20j;" +
+        private const string ConStr = "server=160.10.25.16; port=3306; uid=cs3230f20j;" +
                               "pwd=F1UgUzIjwlhLAQ9a;database=cs3230f20j;";
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace LightholderCintronHealthcareSystem.Model
         {
             try
             {
-                using var conn = new MySqlConnection(conStr);
+                using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand(query, conn);
                 using var reader = cmd.ExecuteReader();
@@ -41,7 +41,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the loginQuery: " + ex.ToString());
+                Console.WriteLine("Exception in the loginQuery: " + ex);
                 return null;
             }
         }
@@ -55,7 +55,7 @@ namespace LightholderCintronHealthcareSystem.Model
         {
             try
             {
-                using var conn = new MySqlConnection(conStr);
+                using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand(query, conn);
                 var check = cmd.ExecuteNonQuery();
@@ -66,7 +66,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the loginQuery: " + ex.ToString());
+                Console.WriteLine("Exception in the loginQuery: " + ex);
             }
         }
     }

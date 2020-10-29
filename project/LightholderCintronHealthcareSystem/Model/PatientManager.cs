@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LightholderCintronHealthcareSystem.Model
 {
@@ -40,7 +37,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </summary>
         public void SortPatientsByDate()
         {
-            this.Patients = this.Patients = this.Patients.OrderBy(x => x.Birthdate.year).ThenBy(x => x.Birthdate.month).ThenBy(x => x.Birthdate.day).ToList();
+            this.Patients = this.Patients = this.Patients.OrderBy(x => x.Birthdate.Year).ThenBy(x => x.Birthdate.Month).ThenBy(x => x.Birthdate.Day).ToList();
         }
 
         /// <summary>
@@ -48,7 +45,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </summary>
         public void SortPatientsByNameAndDate()
         {
-            this.Patients = this.Patients.OrderBy(x => x.Birthdate.year).ThenBy(x => x.Birthdate.month).ThenBy(x => x.Birthdate.day)
+            this.Patients = this.Patients.OrderBy(x => x.Birthdate.Year).ThenBy(x => x.Birthdate.Month).ThenBy(x => x.Birthdate.Day)
                 .ThenBy(x => x.Firstname + x.Lastname).ToList();
         }
     }

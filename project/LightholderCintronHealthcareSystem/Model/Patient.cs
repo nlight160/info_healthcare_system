@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LightholderCintronHealthcareSystem.Model
+﻿namespace LightholderCintronHealthcareSystem.Model
 {
     /// <summary>
     /// Patient class
