@@ -142,8 +142,8 @@
     <Compile Include="Model\QueryBuilder.cs" />
     <Compile Include="Model\SearchOption.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
-    <Compile Include="View\ContentDialog1.xaml.cs">
-      <DependentUpon>ContentDialog1.xaml</DependentUpon>
+    <Compile Include="View\AddAppointmentDialog.xaml.cs">
+      <DependentUpon>AddAppointmentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditPatientDialog.xaml.cs">
       <DependentUpon>EditPatientDialog.xaml</DependentUpon>
@@ -185,7 +185,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="View\ContentDialog1.xaml">
+    <Page Include="View\AddAppointmentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
