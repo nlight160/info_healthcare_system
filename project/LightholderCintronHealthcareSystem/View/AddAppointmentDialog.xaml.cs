@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LightholderCintronHealthcareSystem.Model;
 using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
 using LightholderCintronHealthcareSystem.Model.People;
 using Org.BouncyCastle.Asn1.Cms;
@@ -24,10 +25,13 @@ namespace LightholderCintronHealthcareSystem.View
 {
     public sealed partial class AddAppointmentDialog : ContentDialog
     {
+        private Patient patient;
+        private List<string> doctorParamterList;
 
         public AddAppointmentDialog(Patient patient)
         {
             this.InitializeComponent();
+            this.patient = patient;
             this.IsPrimaryButtonEnabled = false;
             this.patientFirstNameTextBlock.Text = patient.Firstname;
             this.patientLastNameTextBlock.Text = patient.Lastname;
@@ -39,7 +43,10 @@ namespace LightholderCintronHealthcareSystem.View
 
         private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            throw new NotImplementedException();
+            AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
+            var doctor = new Doctor(this.doctorParamterList[0], this.doctorParamterList[1], "");
+            doctor.Doctorid = this.doctorParamterList[10];
+            adb.CreateAppointment(new Appointment(this.patient, doctor, this.dateDatePicker.Date.DateTime, this.descriptionTextBox.Text));
         }
 
         private void ContentDialog_CancelButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -52,17 +59,16 @@ namespace LightholderCintronHealthcareSystem.View
             DoctorDatabaseAccess ddb = new DoctorDatabaseAccess();
             if (!string.IsNullOrEmpty(doctorIdTextBox.Text) && !string.IsNullOrWhiteSpace(doctorIdTextBox.Text))
             {
-                var doctor = ddb.GetDoctorDataFromId(int.Parse(this.doctorIdTextBox.Text));
+                this.doctorParamterList = ddb.GetDoctorDataFromId(int.Parse(this.doctorIdTextBox.Text));
                 try 
                 {
-                
-                    this.doctorFirstNameTextBlock.Text = doctor[0];
-                    this.doctorLastNameTextBlock.Text = doctor[1];
+                    this.doctorFirstNameTextBlock.Text = this.doctorParamterList[0];
+                    this.doctorLastNameTextBlock.Text = this.doctorParamterList[1];
                 }
                 catch(ArgumentOutOfRangeException exception)
                 {
                     Debug.WriteLine(exception.Message);
-                    MessageDialog notFounDialog = new MessageDialog("A doctor with the ID provided was not found.", "Doctor not found!");
+                    MessageDialog notFounDialog = new MessageDialog("A doctorParamterList with the ID provided was not found.", "Doctor not found!");
                     await notFounDialog.ShowAsync();
                 }
                 
