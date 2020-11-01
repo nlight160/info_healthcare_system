@@ -22,8 +22,8 @@
             </ListView.ItemTemplate>
         </ListView>
         <TextBlock x:Name="userTextBlock" HorizontalAlignment="Left" Margin="0,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"/>
-        <Button x:Name="editPatientButton" Content="Edit Patient" Margin="1001,306,0,0" VerticalAlignment="Top" Click="onEditPatient"/>
-        <Button x:Name="cancelButton" Content="Cancel" Margin="1120,306,0,0" VerticalAlignment="Top" Click="onCancel" RenderTransformOrigin="1.033,0.562"/>
+        <Button x:Name="editPatientButton" Content="Edit Patient" Margin="1001,306,0,0" VerticalAlignment="Top" Click="onEditPatient" Width="180"/>
+        <Button x:Name="cancelButton" Content="Cancel" Margin="1061,562,0,0" VerticalAlignment="Top" Click="onCancel" RenderTransformOrigin="1.033,0.562"/>
         <TextBlock HorizontalAlignment="Left" Margin="468,101,0,0" Text="Patients" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="36"/>
         <TextBox x:Name="patientSearchTextBoxByName" HorizontalAlignment="Left" Margin="986,214,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient by name" ToolTipService.ToolTip="Search using name"/>
         <Button x:Name="searchButton" Content="Search" Margin="1216,239,0,0" VerticalAlignment="Top" Click="SearchButton_Click"/>
@@ -32,5 +32,7 @@
         <TextBox x:Name="patientSearchTextBoxByDate" HorizontalAlignment="Left" Margin="986,260,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient by date" ToolTipService.ToolTip="Search using date in the format mm/dd/yyyy or mm-dd-yyyy"/>
         <TextBlock HorizontalAlignment="Left" Margin="922,183,0,0" Text="Sort By:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="AddAppointmentButton" Content="Add Appointment" Margin="1001,366,0,0" VerticalAlignment="Top" Width="180" Click="onAddAppointment"/>
+        <Button x:Name="EditAppointmentButton" Content="Edit Appointment" Margin="1001,433,0,0" VerticalAlignment="Top" Width="180" Click="onEditAppointment"/>
+        <Button x:Name="DeleteAppointmentButton" Content="Delete Appointment" Margin="1001,500,0,0" VerticalAlignment="Top" Width="180" Click="onDeleteAppointment"/>
     </Grid>
 </Page>

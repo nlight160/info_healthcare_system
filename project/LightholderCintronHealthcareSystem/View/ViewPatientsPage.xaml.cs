@@ -161,5 +161,19 @@ namespace LightholderCintronHealthcareSystem.View
                 await dialog.ShowAsync();
             }
         }
+
+        private async void onEditAppointment(object sender, RoutedEventArgs e)
+        {
+            if (this.isItemSelected)
+            {
+                ContentDialog dialog = new AddAppointmentDialog(this.patientListView.SelectedItem as Patient);
+                await dialog.ShowAsync();
+            }
+        }
+
+        private void onDeleteAppointment(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
