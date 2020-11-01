@@ -162,6 +162,9 @@
     <Compile Include="View\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RecordCheckupDialog.xaml.cs">
+      <DependentUpon>RecordCheckupDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
@@ -207,6 +210,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RecordCheckupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

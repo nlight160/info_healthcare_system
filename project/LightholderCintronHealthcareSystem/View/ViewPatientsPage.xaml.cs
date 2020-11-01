@@ -28,6 +28,9 @@ namespace LightholderCintronHealthcareSystem.View
             //this.PatientListView.ItemsSource = this.patientManager.Patients;
             this.editPatientButton.IsEnabled = false;
             this.AddAppointmentButton.IsEnabled = false;
+            this.EditAppointmentButton.IsEnabled = false;
+            this.DeleteAppointmentButton.IsEnabled = false;
+            this.RecordCheckupButton.IsEnabled = false;
             this.patientListView.ItemsSource = this.patientManager.Patients;
             this.userTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
@@ -119,12 +122,18 @@ namespace LightholderCintronHealthcareSystem.View
                 this.isItemSelected = false;
                 this.editPatientButton.IsEnabled = false;
                 this.AddAppointmentButton.IsEnabled = false;
+                this.EditAppointmentButton.IsEnabled = false;
+                this.DeleteAppointmentButton.IsEnabled = false;
+                this.RecordCheckupButton.IsEnabled = false;
             }
             else
             {
                 this.isItemSelected = true;
                 this.editPatientButton.IsEnabled = true;
                 this.AddAppointmentButton.IsEnabled = true;
+                this.EditAppointmentButton.IsEnabled = true;
+                this.DeleteAppointmentButton.IsEnabled = true;
+                this.RecordCheckupButton.IsEnabled = true;
             }
         }
 
@@ -172,6 +181,11 @@ namespace LightholderCintronHealthcareSystem.View
         }
 
         private void onDeleteAppointment(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void onRecordCheckup(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
