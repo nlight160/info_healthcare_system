@@ -60,7 +60,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         public bool UpdateAppointment(Appointment originalAppointment, Appointment newAppointment)
         {
 
-            var originalAppointmentid = originalAppointment.Appointmentid; //TODO make appointmentid
+            var originalAppointmentid = originalAppointment.Appointmentid;
 
             var patientid = newAppointment.Patient;
             var date = newAppointment.AppointmentDateTime;

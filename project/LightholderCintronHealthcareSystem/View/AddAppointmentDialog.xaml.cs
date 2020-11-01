@@ -44,9 +44,9 @@ namespace LightholderCintronHealthcareSystem.View
         private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
-            var doctor = new Doctor(this.doctorParamterList[0], this.doctorParamterList[1], "");
+            var doctor = new Doctor(this.doctorParamterList[0], this.doctorParamterList[1], "General");
             doctor.Doctorid = this.doctorParamterList[10];
-            adb.CreateAppointment(new Appointment(this.patient, doctor, this.dateDatePicker.Date.DateTime, this.descriptionTextBox.Text));
+            adb.CreateAppointment(new Appointment(null, this.patient, doctor, this.dateDatePicker.Date.DateTime, this.descriptionTextBox.Text));
         }
 
         private void ContentDialog_CancelButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
