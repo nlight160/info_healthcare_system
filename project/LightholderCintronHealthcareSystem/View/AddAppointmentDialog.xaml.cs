@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LightholderCintronHealthcareSystem.Model.People;
+using Org.BouncyCastle.Asn1.Cms;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,6 +24,12 @@ namespace LightholderCintronHealthcareSystem.View
         public AddAppointmentDialog(Patient patient)
         {
             this.InitializeComponent();
+            this.patientFirstNameTextBlock.Text = patient.Firstname;
+            this.patientLastNameTextBlock.Text = patient.Lastname;
+            this.patientIdTextBlock.Text = patient.Patientid;
+            this.dateDatePicker.MinYear = DateTimeOffset.Now;
+            this.doctorFirstNameTextBlock.Text = "";
+            this.doctorLastNameTextBlock.Text = "";
         }
 
         private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -32,7 +39,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private void ContentDialog_CancelButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            throw new NotImplementedException();
+            Hide();
         }
     }
 }

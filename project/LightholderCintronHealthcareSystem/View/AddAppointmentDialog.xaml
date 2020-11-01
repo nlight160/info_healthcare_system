@@ -13,7 +13,7 @@
     FullSizeDesired="True" Height="1012">
 
     <Grid Height="600" VerticalAlignment="Top">
-        <TextBox x:Name="patientIdTextBox" HorizontalAlignment="Center" Margin="0,29,0,0" Width="150"  PlaceholderText="Patient ID" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock x:Name="patientIdTextBlock" HorizontalAlignment="Center" Margin="0,29,0,0" Width="150" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,5,0,0" Text="Enter Patient ID Below" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,66,0,0" Text="Patient First Name" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="174,66,0,0" Text="Patient Last Name" TextWrapping="Wrap" VerticalAlignment="Top"/>
