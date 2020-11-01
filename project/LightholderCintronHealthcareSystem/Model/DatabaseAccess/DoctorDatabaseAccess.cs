@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
 namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
+    /// <summary>
+    /// Doctor database access
+    /// </summary>
     public class DoctorDatabaseAccess
     {
         private const string ConStr = "server=160.10.25.16; port=3306; uid=cs3230f20j;" +
                                       "pwd=F1UgUzIjwlhLAQ9a;database=cs3230f20j;";
 
+        /// <summary>
+        /// Gets the doctor data from identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         public List<string> GetDoctorDataFromId(int id)
         {
             var doctorData = new List<string>();

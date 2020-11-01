@@ -130,6 +130,7 @@
     <Compile Include="Model\Checkup.cs" />
     <Compile Include="Model\DatabaseAccess\CheckupDatabaseAccess.cs" />
     <Compile Include="Model\DatabaseAccess\DoctorDatabaseAccess.cs" />
+    <Compile Include="Model\DatabaseAccess\SpecialtyDatabaseAccess.cs" />
     <Compile Include="Model\People\Address.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\DatabaseAccess\AppointmentDatabaseAccess.cs" />
