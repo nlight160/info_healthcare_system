@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using LightholderCintronHealthcareSystem.Model.People;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -19,7 +20,7 @@ namespace LightholderCintronHealthcareSystem.View
 {
     public sealed partial class AddAppointmentDialog : ContentDialog
     {
-        public AddAppointmentDialog()
+        public AddAppointmentDialog(Patient patient)
         {
             this.InitializeComponent();
         }

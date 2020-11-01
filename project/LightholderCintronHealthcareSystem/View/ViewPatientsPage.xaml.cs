@@ -27,6 +27,7 @@ namespace LightholderCintronHealthcareSystem.View
             };
             //this.PatientListView.ItemsSource = this.patientManager.Patients;
             this.editPatientButton.IsEnabled = false;
+            this.AddAppointmentButton.IsEnabled = false;
             this.patientListView.ItemsSource = this.patientManager.Patients;
             this.userTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
@@ -117,11 +118,13 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 this.isItemSelected = false;
                 this.editPatientButton.IsEnabled = false;
+                this.AddAppointmentButton.IsEnabled = false;
             }
             else
             {
                 this.isItemSelected = true;
                 this.editPatientButton.IsEnabled = true;
+                this.AddAppointmentButton.IsEnabled = true;
             }
         }
 
@@ -147,6 +150,15 @@ namespace LightholderCintronHealthcareSystem.View
             else
             {
                 this.patientListView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { "" }, SearchOption.Name);
+            }
+        }
+
+        private async void onAddAppointment(object sender, RoutedEventArgs e)
+        {
+            if (this.isItemSelected)
+            {
+                ContentDialog dialog = new AddAppointmentDialog(this.patientListView.SelectedItem as Patient);
+                await dialog.ShowAsync();
             }
         }
     }
