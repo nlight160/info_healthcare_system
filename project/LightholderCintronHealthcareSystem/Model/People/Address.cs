@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LightholderCintronHealthcareSystem.Model
+namespace LightholderCintronHealthcareSystem.Model.People
 {
     /// <summary>
     /// Address class

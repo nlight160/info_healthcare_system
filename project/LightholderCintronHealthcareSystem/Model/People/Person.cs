@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace LightholderCintronHealthcareSystem.Model
+namespace LightholderCintronHealthcareSystem.Model.People
 {
     /// <summary>
     /// Person class

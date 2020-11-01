@@ -1,4 +1,4 @@
-﻿namespace LightholderCintronHealthcareSystem.Model
+﻿namespace LightholderCintronHealthcareSystem.Model.People
 {
     /// <summary>
     /// Gender enum

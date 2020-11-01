@@ -1,5 +1,7 @@
 ﻿
 
+using LightholderCintronHealthcareSystem.Model.People;
+
 namespace LightholderCintronHealthcareSystem.Model
 {
     /// <summary>

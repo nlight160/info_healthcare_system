@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using LightholderCintronHealthcareSystem.Model.People;
 using MySql.Data.MySqlClient;
 
-namespace LightholderCintronHealthcareSystem.Model
+namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
     /// <summary>
     /// Patient Database access.

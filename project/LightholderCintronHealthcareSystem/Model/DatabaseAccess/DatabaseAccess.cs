@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace LightholderCintronHealthcareSystem.Model
+namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
     /// <summary>
     /// This is the DAL of this program for now. We plan on upgrading it later once our planning is done.

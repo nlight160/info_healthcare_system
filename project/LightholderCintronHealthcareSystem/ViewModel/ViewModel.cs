@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
+using LightholderCintronHealthcareSystem.Model.People;
 
 namespace LightholderCintronHealthcareSystem.ViewModel
 {

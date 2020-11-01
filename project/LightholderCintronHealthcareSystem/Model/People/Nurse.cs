@@ -1,9 +1,9 @@
-﻿namespace LightholderCintronHealthcareSystem.Model
+﻿namespace LightholderCintronHealthcareSystem.Model.People
 {
     /// <summary>
     /// Nurse class
     /// </summary>
-    /// <seealso cref="LightholderCintronHealthcareSystem.Model.Person" />
+    /// <seealso cref="Person" />
     public class Nurse : Person
     {
 

@@ -1,7 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
+using MySql.Data.MySqlClient;
 
-namespace LightholderCintronHealthcareSystem.Model
+namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
     /// <summary>
     /// Appointment Database access.

@@ -127,17 +127,17 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\People\Address.cs" />
     <Compile Include="Model\Appointment.cs" />
-    <Compile Include="Model\AppointmentDatabaseAccess.cs" />
-    <Compile Include="Model\Date.cs" />
-    <Compile Include="Model\Gender.cs" />
-    <Compile Include="Model\NurseDatabaseAccess.cs" />
-    <Compile Include="Model\PatientDatabaseAccess.cs" />
-    <Compile Include="Model\Patient.cs" />
-    <Compile Include="Model\Doctor.cs" />
-    <Compile Include="Model\DatabaseAccess.cs" />
-    <Compile Include="Model\Nurse.cs" />
+    <Compile Include="Model\DatabaseAccess\AppointmentDatabaseAccess.cs" />
+    <Compile Include="Model\People\Date.cs" />
+    <Compile Include="Model\People\Gender.cs" />
+    <Compile Include="Model\DatabaseAccess\NurseDatabaseAccess.cs" />
+    <Compile Include="Model\DatabaseAccess\PatientDatabaseAccess.cs" />
+    <Compile Include="Model\People\Patient.cs" />
+    <Compile Include="Model\People\Doctor.cs" />
+    <Compile Include="Model\DatabaseAccess\DatabaseAccess.cs" />
+    <Compile Include="Model\People\Nurse.cs" />
     <Compile Include="Model\PatientManager.cs" />
     <Compile Include="Model\QueryBuilder.cs" />
     <Compile Include="Model\SearchOption.cs" />
@@ -151,7 +151,7 @@
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\People\Person.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MenuPage.xaml.cs">

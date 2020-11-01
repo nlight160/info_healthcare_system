@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace LightholderCintronHealthcareSystem.Model
+namespace LightholderCintronHealthcareSystem.Model.People
 {
     /// <summary>
     /// Doctor class
     /// </summary>
-    /// <seealso cref="LightholderCintronHealthcareSystem.Model.Person" />
+    /// <seealso cref="Person" />
     public class Doctor : Person
     {
 
