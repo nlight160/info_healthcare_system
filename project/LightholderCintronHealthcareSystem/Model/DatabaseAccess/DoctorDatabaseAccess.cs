@@ -14,7 +14,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
         public List<string> GetDoctorDataFromId(int id)
         {
-            var patientData = new List<string>();
+            var doctorData = new List<string>();
 
             try
             {
@@ -23,7 +23,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
                 cmd.Prepare();
-                cmd.Parameters.AddWithValue("@patientid", id);
+                cmd.Parameters.AddWithValue("@doctorid", id);
                 using var reader = cmd.ExecuteReader();
                 var pidOrdinal = reader.GetOrdinal("personid");
                 var fnameOrdinal = reader.GetOrdinal("fname");
@@ -40,28 +40,28 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 {
                     //Should only have one row so no while here.
                     reader.Read();
-                    patientData.Add(reader.GetString(fnameOrdinal));    //0
-                    patientData.Add(reader.GetString(lnameOrdinal));    //1
-                    patientData.Add(reader.GetString(dobOrdinal));      //2
-                    patientData.Add(reader.GetString(streetOrdinal));   //3
-                    patientData.Add(reader.GetString(cityOrdinal));     //4
-                    patientData.Add(reader.GetString(stateOrdinal));    //5
-                    patientData.Add(reader.GetString(zipOrdinal));      //6
-                    patientData.Add(reader.GetString(phoneOrdinal));    //7
-                    patientData.Add(reader.GetString(genderOrdinal));   //8
-                    patientData.Add(reader.GetString(pidOrdinal));      //9
-                    patientData.Add(id.ToString());                     //10
+                    doctorData.Add(reader.GetString(fnameOrdinal));    //0
+                    doctorData.Add(reader.GetString(lnameOrdinal));    //1
+                    doctorData.Add(reader.GetString(dobOrdinal));      //2
+                    doctorData.Add(reader.GetString(streetOrdinal));   //3
+                    doctorData.Add(reader.GetString(cityOrdinal));     //4
+                    doctorData.Add(reader.GetString(stateOrdinal));    //5
+                    doctorData.Add(reader.GetString(zipOrdinal));      //6
+                    doctorData.Add(reader.GetString(phoneOrdinal));    //7
+                    doctorData.Add(reader.GetString(genderOrdinal));   //8
+                    doctorData.Add(reader.GetString(pidOrdinal));      //9
+                    doctorData.Add(id.ToString());                     //10
                 }
                 else
                 {
                     Console.WriteLine("No rows exist in table");
                 }
-                return patientData;
+                return doctorData;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in the SearchPatientsWithName: " + ex);
-                return patientData;
+                Console.WriteLine("Exception in the GetDoctorDataById: " + ex);
+                return doctorData;
             }
         }
     }
