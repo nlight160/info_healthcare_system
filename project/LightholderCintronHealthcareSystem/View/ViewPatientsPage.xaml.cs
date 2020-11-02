@@ -33,7 +33,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.EditAppointmentButton.IsEnabled = false;
             this.DeleteAppointmentButton.IsEnabled = false;
             this.RecordCheckupButton.IsEnabled = false;
-            this.patientListView.ItemsSource = this.patientManager.Patients;
+            this.patientDataView.ItemsSource = this.patientManager.Patients;
             this.userTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
@@ -57,12 +57,12 @@ namespace LightholderCintronHealthcareSystem.View
         {
             if (this.isItemSelected)
             {
-                ContentDialog dialog = new EditPatientDialog(this.patientListView.SelectedItem as Patient);
+                ContentDialog dialog = new EditPatientDialog(this.patientDataView.SelectedItem as Patient);
                 await dialog.ShowAsync();
             }
             ViewModel.ViewModel.UpdatePatient(EditPatientDialog.EditedPatient);
             Debug.Print(EditPatientDialog.EditedPatient.Firstname);
-            this.patientListView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { "" }, SearchOption.Name);
+            this.patientDataView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { "" }, SearchOption.Name);
 
         }
 
@@ -75,7 +75,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
             this.sortByNameAndDate();
             this.patientManager.SortPatientsByName();
-            this.patientListView.ItemsSource = this.patientManager.Patients;
+            this.patientDataView.ItemsSource = this.patientManager.Patients;
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
             this.sortByNameAndDate();
             this.patientManager.SortPatientsByDate();
-            this.patientListView.ItemsSource = this.patientManager.Patients;
+            this.patientDataView.ItemsSource = this.patientManager.Patients;
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace LightholderCintronHealthcareSystem.View
             if (this.checkIfBothSearchBoxesAreChecked())
             {
                 this.patientManager.SortPatientsByNameAndDate();
-                this.patientListView.ItemsSource = this.patientManager.Patients;
+                this.patientDataView.ItemsSource = this.patientManager.Patients;
             }
         }
 
@@ -119,7 +119,7 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void onSelectionChange(object sender, SelectionChangedEventArgs e)
         {
-            if (this.patientListView.SelectedItem == null)
+            if (this.patientDataView.SelectedItem == null)
             {
                 this.isItemSelected = false;
                 this.editPatientButton.IsEnabled = false;
@@ -148,19 +148,19 @@ namespace LightholderCintronHealthcareSystem.View
         {
             if (this.patientSearchTextBoxByDate.Text != "" && this.patientSearchTextBoxByDate.Text != "")
             {
-                this.patientListView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { this.patientSearchTextBoxByName.Text, this.patientSearchTextBoxByDate.Text }, SearchOption.Both);
+                this.patientDataView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { this.patientSearchTextBoxByName.Text, this.patientSearchTextBoxByDate.Text }, SearchOption.Both);
             }
             else if (this.patientSearchTextBoxByName.Text != "")
             {
-                this.patientListView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { this.patientSearchTextBoxByName.Text }, SearchOption.Name);
+                this.patientDataView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { this.patientSearchTextBoxByName.Text }, SearchOption.Name);
             }
             else if (this.patientSearchTextBoxByDate.Text != "")
             {
-                this.patientListView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { this.patientSearchTextBoxByDate.Text }, SearchOption.Date);
+                this.patientDataView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { this.patientSearchTextBoxByDate.Text }, SearchOption.Date);
             }
             else
             {
-                this.patientListView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { "" }, SearchOption.Name);
+                this.patientDataView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { "" }, SearchOption.Name);
             }
         }
 
@@ -168,7 +168,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
             if (this.isItemSelected)
             {
-                ContentDialog dialog = new AddAppointmentDialog(this.patientListView.SelectedItem as Patient);
+                ContentDialog dialog = new AddAppointmentDialog(this.patientDataView.SelectedItem as Patient);
                 await dialog.ShowAsync();
             }
         }
@@ -177,7 +177,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
             if (this.isItemSelected)
             {
-                ContentDialog dialog = new AddAppointmentDialog(this.patientListView.SelectedItem as Patient);
+                ContentDialog dialog = new AddAppointmentDialog(this.patientDataView.SelectedItem as Patient);
                 await dialog.ShowAsync();
             }
         }
@@ -187,7 +187,7 @@ namespace LightholderCintronHealthcareSystem.View
             AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
             if (this.isItemSelected)
             {
-                Patient patient = this.patientListView.SelectedItem as Patient;
+                Patient patient = this.patientDataView.SelectedItem as Patient;
                 bool success = adb.DeleteAppointment(patient);
                 if (success == true)
                 {
@@ -208,7 +208,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
             if (this.isItemSelected)
             {
-                ContentDialog dialog = new RecordCheckupDialog(this.patientListView.SelectedItem as Patient);
+                ContentDialog dialog = new RecordCheckupDialog(this.patientDataView.SelectedItem as Patient);
                 await dialog.ShowAsync();
             }
         }
