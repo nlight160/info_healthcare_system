@@ -55,7 +55,6 @@ namespace LightholderCintronHealthcareSystem.View
             }
             else
             {
-                this.dateDatePicker.MinYear = DateTimeOffset.Now;
                 this.dateDatePicker.Date = DateTimeOffset.Now;
                 this.timeTimePicker.Time = TimeSpan.Zero;
             }
@@ -65,6 +64,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.patientFirstNameTextBlock.Text = patient.Firstname;
             this.patientLastNameTextBlock.Text = patient.Lastname;
             this.patientIdTextBlock.Text = patient.Patientid;
+            this.dateDatePicker.MinYear = DateTimeOffset.Now;
 
 
         }
@@ -123,7 +123,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private bool checkForCompetion()
         {
-            return this.doctorIdTextBox.Text != "" &&
+            return this.doctorIdTextBox.Text != "" && this.dateDatePicker.Date.Month >= DateTime.Now.Month && this.dateDatePicker.Date.Day >= DateTime.Now.Day &&
                    this.descriptionTextBox.Text != "";
         }
 
