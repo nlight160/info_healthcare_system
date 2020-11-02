@@ -123,8 +123,9 @@ namespace LightholderCintronHealthcareSystem.View
 
         private bool checkForCompetion()
         {
-            return this.doctorIdTextBox.Text != "" && this.dateDatePicker.Date.Month >= DateTime.Now.Month && this.dateDatePicker.Date.Day >= DateTime.Now.Day &&
-                   this.descriptionTextBox.Text != "";
+            return this.doctorIdTextBox.Text != "" && this.dateDatePicker.Date.Month >= DateTime.Now.Month && this.dateDatePicker.Date.Day >= DateTime.Now.Day 
+                   && this.timeTimePicker.Time.Hours > DateTime.Now.Hour && this.timeTimePicker.Time.Minutes > DateTime.Now.Minute 
+                   && this.descriptionTextBox.Text != "";
         }
 
         private void onDeselectControl(object sender, RoutedEventArgs e)

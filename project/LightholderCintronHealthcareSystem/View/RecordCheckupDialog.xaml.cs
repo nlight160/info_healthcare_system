@@ -33,7 +33,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.IsPrimaryButtonEnabled = false;
             this.PatientIdAndNameTextBlock.Text = "Patient: " + patient.Patientid + ", " + patient.Firstname + " " +
                 patient.Lastname;
-            this.DoctorNameAndIdTextBlock.Text = "Doctor: ";
+            this.DoctorNameAndIdTextBlock.Text = "Doctor: "
             this.patient = patient;
 
         }
