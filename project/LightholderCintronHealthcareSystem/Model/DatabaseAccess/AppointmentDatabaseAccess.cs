@@ -21,7 +21,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         public bool CreateAppointment(Appointment a)
         {
 
-            var patientid = a.Patient.Personid;
+            var patientid = a.Patient.Patientid;
             var date = a.AppointmentDateTime;
             var doctorid = a.Doctor.Doctorid;
             var description = a.Description;
