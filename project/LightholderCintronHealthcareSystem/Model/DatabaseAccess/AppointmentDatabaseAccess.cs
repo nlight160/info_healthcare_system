@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using LightholderCintronHealthcareSystem.Model.People;
 using MySql.Data.MySqlClient;
 
@@ -92,6 +93,11 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Deletes the appointment.
+        /// </summary>
+        /// <param name="patient">The patient.</param>
+        /// <returns></returns>
         public bool DeleteAppointment(Patient patient)
         {
             var patientid = patient.Patientid; 
@@ -106,20 +112,61 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 cmd.Parameters.AddWithValue("@patientid", patientid);
 
                 var confirmation = cmd.ExecuteNonQuery();
-                if (confirmation == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return confirmation == 1;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the DeleteAppointment: " + ex);
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Gets the appointment.
+        /// </summary>
+        /// <param name="patientid">The patient identifier.</param>
+        /// <returns></returns>
+        public List<string> GetAppointmentFromPatientid(int patientid)
+        {
+
+            var specialtyName = new List<string>();
+            try
+            {
+                const string query = "SELECT a.appointmentid, a.date, a.doctorid, a.description FROM appointment a WHERE a.patientid = @patientid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@patientid", patientid);
+                using var reader = cmd.ExecuteReader();
+                var appointmentidOrdinal = reader.GetOrdinal("appointmentid");
+                var dateOrdinal = reader.GetOrdinal("date");
+                var doctoridOrdinal = reader.GetOrdinal("doctorid");
+                var descriptionOrdinal = reader.GetOrdinal("description");
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    specialtyName.Add(reader.GetString(appointmentidOrdinal));  //0
+                    specialtyName.Add(patientid.ToString());                    //1
+                    specialtyName.Add(reader.GetString(dateOrdinal));           //2
+                    specialtyName.Add(reader.GetString(doctoridOrdinal));       //3
+                    specialtyName.Add(reader.GetString(descriptionOrdinal));    //4
+
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return specialtyName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the GetAppointment: " + ex);
+                return specialtyName;
+            }
+
+
         }
 
     }
