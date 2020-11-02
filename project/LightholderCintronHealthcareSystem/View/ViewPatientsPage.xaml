@@ -1,26 +1,54 @@
 ﻿<Page
-    x:Class="LightholderCintronHealthcareSystem.View.ViewPatientsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    x:Class="LightholderCintronHealthcareSystem.View.ViewPatientsPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ListView x:Name="patientListView" Margin="168,176,607,247" RequestedTheme="Default" HorizontalAlignment="Left" IsItemClickEnabled="True" SelectionMode="Single" SelectionChanged="onSelectionChange">
+
+        <Custom:DataGrid x:Name="patientDataView" AutoGenerateColumns="False" IsReadOnly="True" RequestedTheme="Default" HorizontalAlignment="Left" Height="600" Margin="372,183,0,0" VerticalAlignment="Top" SelectionChanged="onSelectionChange">
+            <Custom:DataGrid.Columns>
+                <Custom:DataGridTextColumn
+                    Header="First Name"
+                    Width="SizeToHeader"
+                    Binding="{Binding Firstname}"
+                />
+                <Custom:DataGridTextColumn
+                    Header="Last Name"
+                    Width="SizeToHeader"
+                    Binding="{Binding Lastname}"
+                />
+                <Custom:DataGridTextColumn
+                    Header="Date of Birth"
+                    Width="SizeToHeader"
+                    Binding="{Binding Birthdate}"
+                />
+
+
+
+            </Custom:DataGrid.Columns>
+
+        </Custom:DataGrid>
+
+        <!--<ListView x:Name="patientListView" Margin="168,176,607,247" RequestedTheme="Default" HorizontalAlignment="Left" IsItemClickEnabled="True" SelectionMode="Single" SelectionChanged="onSelectionChange">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <StackPanel>
-                            <TextBlock Text="{Binding Firstname}"></TextBlock>
-                            <TextBlock Text="{Binding Lastname}"></TextBlock>
-                            <TextBlock Text="{Binding Birthdate}"></TextBlock>
+                            <TextBlock Text="{Binding Firstname}"/>
+                            <TextBlock Text="{Binding Lastname}"/>
+                            <TextBlock Text="{Binding Birthdate}"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
+
+
         <TextBlock x:Name="userTextBlock" HorizontalAlignment="Left" Margin="0,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"/>
         <Button x:Name="editPatientButton" Content="Edit Patient" Margin="1001,306,0,0" VerticalAlignment="Top" Click="onEditPatient" Width="180"/>
         <Button x:Name="cancelButton" Content="Cancel" Margin="1061,644,0,0" VerticalAlignment="Top" Click="onCancel" RenderTransformOrigin="1.033,0.562"/>
@@ -35,5 +63,8 @@
         <Button x:Name="EditAppointmentButton" Content="Edit Appointment" Margin="1001,433,0,0" VerticalAlignment="Top" Width="180" Click="onEditAppointment"/>
         <Button x:Name="DeleteAppointmentButton" Content="Delete Appointment" Margin="1001,500,0,0" VerticalAlignment="Top" Width="180" Click="onDeleteAppointment"/>
         <Button x:Name="RecordCheckupButton" Content="Record Checkup" Margin="1001,564,0,0" VerticalAlignment="Top" Width="180" Click="onRecordCheckup"/>
+
+
+
     </Grid>
 </Page>

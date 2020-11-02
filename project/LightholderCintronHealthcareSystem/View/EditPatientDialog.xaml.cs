@@ -2,6 +2,7 @@
 using System;
 using Windows.System;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using LightholderCintronHealthcareSystem.Model.People;
@@ -55,7 +56,7 @@ namespace LightholderCintronHealthcareSystem.View
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="ContentDialogButtonClickEventArgs"/> instance containing the event data.</param>
-        private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
 
             EditedPatient.Firstname = this.firstnameTextBox.Text;
@@ -66,6 +67,21 @@ namespace LightholderCintronHealthcareSystem.View
             EditedPatient.PhoneNumber = this.phoneNumberTextBox.Text;
             EditedPatient.Address = new Address(this.streetTextBox.Text, this.cityTextBox.Text, this.stateComboBox.SelectedItem.ToString(), this.zipCodeTextBox.Text);
             EditedPatient.Gender = this.genderComboBox.SelectedItem.ToString() == "Male" ? Gender.Male : Gender.Female;
+            var isSuccessful = ViewModel.ViewModel.UpdatePatient(EditedPatient);
+
+            if (isSuccessful)
+            {
+                var deleteAlert =
+                    new MessageDialog("Patient " + EditedPatient.Firstname + " " + EditedPatient.Lastname + " was edited successfully!", "Edit successful");
+                await deleteAlert.ShowAsync();
+            }
+            else
+            {
+                var deleteAlert =
+                    new MessageDialog("Patient " + EditedPatient.Firstname + " " + EditedPatient.Lastname + " was not edited successfully.", "Edit failed");
+                await deleteAlert.ShowAsync();
+            }
+
             this.Hide();
         }
 

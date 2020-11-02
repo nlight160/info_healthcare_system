@@ -20,7 +20,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         /// Creates the patient.
         /// </summary>
         /// <param name="p">The p.</param>
-        public void CreatePatient(Patient p)
+        public bool CreatePatient(Patient p)
         {
             var lname = p.Lastname;
             var fname = p.Firstname;
@@ -54,7 +54,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 cmd.Parameters.AddWithValue("@phone", phone);
                 cmd.Parameters.AddWithValue("@gender", gender);
 
-                cmd.ExecuteNonQuery();
+                var confirmation = cmd.ExecuteNonQuery();
 
                 cmd.CommandText = createPatient;
 
@@ -63,15 +63,15 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 cmd.Parameters["@fname"].Value = fname;
                 cmd.Parameters["@dob"].Value = dob;
                 cmd.Parameters["@phone"].Value = phone;
-                cmd.ExecuteNonQuery();
+                confirmation += cmd.ExecuteNonQuery();
                 transaction.Commit();
-                
+                return confirmation == 2;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the CreatePatient: " + ex);
                 transaction?.Rollback();
-
+                return false;
             }
         }
 
@@ -79,7 +79,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         /// Updates the patient.
         /// </summary>
         /// <param name="p">The p.</param>
-        public void UpdatePatient(Patient p)
+        public bool UpdatePatient(Patient p)
         {
             var pid = p.Personid;
             var lname = p.Lastname;
@@ -112,13 +112,14 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 cmd.Parameters.AddWithValue("@gender", gender);
                 cmd.Parameters.AddWithValue("@pid", pid);
                 //TODO add confirmation
-                cmd.ExecuteNonQuery();
+                var confirmation = cmd.ExecuteNonQuery();
+                return confirmation == 1;
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the CreatePatient: " + ex);
-
+                return false;
             }
         }
 
