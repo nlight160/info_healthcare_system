@@ -189,7 +189,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
             if (this.isItemSelected)
             {
-                ContentDialog dialog = new RecordCheckupDialog();
+                ContentDialog dialog = new RecordCheckupDialog(this.patientListView.SelectedItem as Patient);
                 await dialog.ShowAsync();
             }
         }

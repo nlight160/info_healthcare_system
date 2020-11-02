@@ -9,19 +9,24 @@ namespace LightholderCintronHealthcareSystem.Model
 {
     class Checkup
     {
-        public int CheckupId { get; set; }
-        public Appointment Appointment { get; set; }
+        public int? CheckupId { get; set; }
+        public int AppointmentId { get; set; }
         public int Systolic { get; set; }
         public int Diastolic { get; set; }
-        public double Temperature { get; set; }
-        public double Weight { get; set; }
+        public decimal Temperature { get; set; }
+        public decimal Weight { get; set; }
         public int Pulse { get; set; }
         public string Diagnosis { get; set; }
 
-        public Checkup(int checkupId, Appointment appointment, int systolic, int diastolic, double temperature,
-            double weight, int pulse, string diagnosis)
+        public Checkup(int? checkupId, int appointmentId, int systolic, int diastolic, decimal temperature,
+            decimal weight, int pulse, string diagnosis)
         {
-            Appointment = appointment ?? throw new ArgumentNullException(nameof(appointment), "Appointment can not be null");
+            if (appointmentId < 0)
+            {
+                throw new ArgumentException("appointmentId must be greater than 0");
+            }
+
+            AppointmentId = appointmentId;
             if (systolic < 0)
             {
                 throw new ArgumentException("Systolic must be greater than 0");
