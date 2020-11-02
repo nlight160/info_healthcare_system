@@ -26,6 +26,7 @@ namespace LightholderCintronHealthcareSystem.View
 {
     public sealed partial class RecordCheckupDialog : ContentDialog
     {
+        private Patient patient;
         public RecordCheckupDialog(Patient patient)
         {
             this.InitializeComponent();
@@ -33,15 +34,18 @@ namespace LightholderCintronHealthcareSystem.View
             this.PatientIdAndNameTextBlock.Text = "Patient: " + patient.Patientid + ", " + patient.Firstname + " " +
                 patient.Lastname;
             this.DoctorNameAndIdTextBlock.Text = "Doctor: ";
+            this.patient = patient;
 
         }
 
         private async void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             CheckupDatabaseAccess cdb = new CheckupDatabaseAccess();
+            AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
+            int patientid = int.Parse(this.patient.Patientid);
             try
             {
-                cdb.CreateCheckup(new Checkup(null, 1, int.Parse(this.SystolicTextBox.Text), //TODO get the actual appointment id
+                cdb.CreateCheckup(new Checkup(null, int.Parse(adb.GetAppointmentFromPatientid(patientid)[0]), int.Parse(this.SystolicTextBox.Text),
                     int.Parse(this.DiastolicTextBox.Text), decimal.Parse(this.TemperatureTextBox.Text),
                     decimal.Parse(this.WeightTextBox.Text), int.Parse(this.PulseTextBox.Text), DiagnosisTextBox.Text));
             }
