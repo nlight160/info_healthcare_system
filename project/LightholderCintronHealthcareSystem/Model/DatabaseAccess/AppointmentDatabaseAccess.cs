@@ -1,4 +1,5 @@
 ﻿using System;
+using LightholderCintronHealthcareSystem.Model.People;
 using MySql.Data.MySqlClient;
 
 namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
@@ -87,6 +88,36 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the CreatePatient: " + ex);
+                return false;
+            }
+        }
+
+        public bool DeleteAppointment(Patient patient)
+        {
+            var patientid = patient.Patientid; 
+            try
+            {
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { Connection = conn };
+
+                const string deleteAppointment = "DELETE FROM `appointment` WHERE `patientid` = @patientid;";
+                cmd.CommandText = deleteAppointment;
+                cmd.Parameters.AddWithValue("@patientid", patientid);
+
+                var confirmation = cmd.ExecuteNonQuery();
+                if (confirmation == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the DeleteAppointment: " + ex);
                 return false;
             }
         }

@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
 using LightholderCintronHealthcareSystem.Model.People;
 using SearchOption = LightholderCintronHealthcareSystem.Model.SearchOption;
 
@@ -180,9 +182,26 @@ namespace LightholderCintronHealthcareSystem.View
             }
         }
 
-        private void onDeleteAppointment(object sender, RoutedEventArgs e)
+        private async void onDeleteAppointment(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
+            if (this.isItemSelected)
+            {
+                Patient patient = this.patientListView.SelectedItem as Patient;
+                bool success = adb.DeleteAppointment(patient);
+                if (success == true)
+                {
+                    MessageDialog deleteAlert =
+                        new MessageDialog("Appointment for " + patient.Firstname + " " + patient.Lastname + " was deleted successfully!", "Delete successful");
+                    await deleteAlert.ShowAsync();
+                }
+                else
+                {
+                    MessageDialog deleteFailedAlert =
+                        new MessageDialog("Appointment for " + patient.Firstname + " " + patient.Lastname + " could not be deleted. Patient has no appointments.", "Deletion failed");
+                    await deleteFailedAlert.ShowAsync();
+                }
+            }
         }
 
         private async void onRecordCheckup(object sender, RoutedEventArgs e)

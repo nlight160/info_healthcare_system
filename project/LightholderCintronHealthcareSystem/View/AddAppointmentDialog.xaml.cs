@@ -44,8 +44,12 @@ namespace LightholderCintronHealthcareSystem.View
         private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
-            var doctor = new Doctor(this.doctorParamterList[0], this.doctorParamterList[1], "General");
-            doctor.Doctorid = this.doctorParamterList[10];
+            SpecialtyDatabaseAccess sdb = new SpecialtyDatabaseAccess();
+            int doctorid = int.Parse(this.doctorParamterList[10]);
+            var doctor = new Doctor(this.doctorParamterList[0], this.doctorParamterList[1], "General") //sdb.GetSpecialtyName(sdb.GetDoctorSpecialtiesId(doctorid)[0])) There is no column for specialty
+            {
+                Doctorid = this.doctorParamterList[10]
+            };
             adb.CreateAppointment(new Appointment(null, this.patient, doctor, this.dateDatePicker.Date.DateTime, this.descriptionTextBox.Text));
         }
 
