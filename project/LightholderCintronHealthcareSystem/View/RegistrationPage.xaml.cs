@@ -2,6 +2,7 @@
 using System;
 using Windows.System;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using LightholderCintronHealthcareSystem.Model.People;
@@ -68,14 +69,28 @@ namespace LightholderCintronHealthcareSystem.View
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void onRegister(object sender, RoutedEventArgs e)
+        private async void onRegister(object sender, RoutedEventArgs e)
         {
             var gender = this.getGender();
             var date = ViewModel.ViewModel.GetDate(this.birthdateDatePicker.Date.Year.ToString(), this.birthdateDatePicker.Date.Month.ToString(),
                 this.birthdateDatePicker.Date.Day.ToString());
             //var date = BirthdateDatePicker.Date.Year + "-" + BirthdateDatePicker.Date.Month + "-" + BirthdateDatePicker.Date.Day;
-            ViewModel.ViewModel.RegisterPatient(this.lastnameTextBox.Text, this.firstnameTextBox.Text, date, this.streetTextBox.Text, this.cityTextBox.Text, 
+            var isSuccessful = ViewModel.ViewModel.RegisterPatient(this.lastnameTextBox.Text, this.firstnameTextBox.Text, date, this.streetTextBox.Text, this.cityTextBox.Text, 
                 this.stateComboBox.SelectedItem.ToString(), this.zipCodeTextBox.Text, this.phoneNumberTextBox.Text, gender);
+
+            if (isSuccessful)
+            {
+                var deleteAlert =
+                    new MessageDialog("Patient " + this.firstnameTextBox.Text + " " + this.lastnameTextBox.Text + " was added successfully!", "Add successful");
+                await deleteAlert.ShowAsync();
+            }
+            else
+            {
+                var deleteAlert =
+                    new MessageDialog("Patient " + this.firstnameTextBox.Text + " " + this.lastnameTextBox.Text + " was not added successfully.", "Add failed");
+                await deleteAlert.ShowAsync();
+            }
+
             Frame.Navigate(typeof(MenuPage));
         }
 

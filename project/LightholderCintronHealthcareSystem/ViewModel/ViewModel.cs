@@ -55,14 +55,14 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// <param name="zip">The zip.</param>
         /// <param name="phone">The phone.</param>
         /// <param name="gender">The gender.</param>
-        public static void RegisterPatient(string lname, string fname, Date dob, string street, string city, string state, string zip,
+        public static bool RegisterPatient(string lname, string fname, Date dob, string street, string city, string state, string zip,
                                             string phone, Gender gender)
         {
             var dba = new PatientDatabaseAccess();
             var a = new Address(street, city, state, zip);
             //$"{dob:yyyy MM dd}";
             var p = new Patient(null, fname, lname, dob, a, phone, gender);
-            dba.CreatePatient(p);
+            return dba.CreatePatient(p);
         }
 
         /// <summary>
@@ -77,10 +77,10 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return new Date(year, month, day);
         }
 
-        public static void UpdatePatient(Patient p)
+        public static bool UpdatePatient(Patient p)
         {
             var dba = new PatientDatabaseAccess();
-            dba.UpdatePatient(p);
+            return dba.UpdatePatient(p);
         }
 
         public static List<Patient> SearchForPatients(List<string> search, SearchOption option)

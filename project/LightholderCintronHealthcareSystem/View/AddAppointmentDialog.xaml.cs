@@ -41,7 +41,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.timeTimePicker.Time = TimeSpan.Zero;
         }
 
-        private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
             SpecialtyDatabaseAccess sdb = new SpecialtyDatabaseAccess();
@@ -50,7 +50,19 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 Doctorid = this.doctorParamterList[10]
             };
-            adb.CreateAppointment(new Appointment(null, this.patient, doctor, this.dateDatePicker.Date.DateTime, this.descriptionTextBox.Text));
+            var isSuccessful = adb.CreateAppointment(new Appointment(null, this.patient, doctor, this.dateDatePicker.Date.DateTime, this.descriptionTextBox.Text));
+            if (isSuccessful)
+            {
+                var deleteAlert =
+                    new MessageDialog("Appointment for " + this.patientFirstNameTextBlock.Text + " " + this.patientLastNameTextBlock.Text + " was added successfully!", "Add successful");
+                await deleteAlert.ShowAsync();
+            }
+            else
+            {
+                var deleteAlert =
+                    new MessageDialog("Appointment for " + this.patientFirstNameTextBlock.Text + " " + this.patientLastNameTextBlock.Text + " was not added successfully.", "Add failed");
+                await deleteAlert.ShowAsync();
+            }
         }
 
         private void ContentDialog_CancelButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
