@@ -30,7 +30,7 @@ namespace LightholderCintronHealthcareSystem.View
             //this.PatientListView.ItemsSource = this.patientManager.Patients;
             this.editPatientButton.IsEnabled = false;
             this.AddAppointmentButton.IsEnabled = false;
-            this.EditAppointmentButton.IsEnabled = false;
+            
             this.DeleteAppointmentButton.IsEnabled = false;
             this.RecordCheckupButton.IsEnabled = false;
             this.patientDataView.ItemsSource = this.patientManager.Patients;
@@ -124,7 +124,7 @@ namespace LightholderCintronHealthcareSystem.View
                 this.isItemSelected = false;
                 this.editPatientButton.IsEnabled = false;
                 this.AddAppointmentButton.IsEnabled = false;
-                this.EditAppointmentButton.IsEnabled = false;
+                
                 this.DeleteAppointmentButton.IsEnabled = false;
                 this.RecordCheckupButton.IsEnabled = false;
             }
@@ -133,7 +133,7 @@ namespace LightholderCintronHealthcareSystem.View
                 this.isItemSelected = true;
                 this.editPatientButton.IsEnabled = true;
                 this.AddAppointmentButton.IsEnabled = true;
-                this.EditAppointmentButton.IsEnabled = true;
+                
                 this.DeleteAppointmentButton.IsEnabled = true;
                 this.RecordCheckupButton.IsEnabled = true;
             }
