@@ -28,7 +28,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <value>
         /// The patient.
         /// </value>
-        public Person Patient { get; }
+        public Patient Patient { get; }
         /// <summary>
         /// Gets the doctor.
         /// </summary>
@@ -60,8 +60,9 @@ namespace LightholderCintronHealthcareSystem.Model
         /// description - can not be null or empty
         /// </exception>
         /// <exception cref="ArgumentException">Birthdate can not be null or after current date</exception>
-        public Appointment(int? appointmentId, Person patient, Doctor doctor, DateTime appointmentDateTime, string description)
+        public Appointment(int? appointmentId, Patient patient, Doctor doctor, DateTime appointmentDateTime, string description)
         {
+            this.Appointmentid = appointmentId;
             this.Patient = patient ?? throw new ArgumentNullException(nameof(patient), "can not be null");
             this.Doctor = doctor ?? throw new ArgumentNullException(nameof(doctor), "can not be null");
             if (appointmentDateTime.Date < DateTime.Today || appointmentDateTime == null)

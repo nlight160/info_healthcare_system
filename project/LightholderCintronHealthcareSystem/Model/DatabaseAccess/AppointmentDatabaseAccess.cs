@@ -64,9 +64,9 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
             var originalAppointmentid = originalAppointment.Appointmentid;
 
-            var patientid = newAppointment.Patient;
+            var patientid = newAppointment.Patient.Patientid;
             var date = newAppointment.AppointmentDateTime;
-            var doctorid = newAppointment.Doctor;
+            var doctorid = newAppointment.Doctor.Doctorid;
             var description = newAppointment.Description;
 
             try
