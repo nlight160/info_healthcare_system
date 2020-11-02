@@ -7,10 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="Record Checkup"
-    PrimaryButtonText="Button1"
-    SecondaryButtonText="Button2"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    PrimaryButtonText="Submit"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_SubmitButtonClick"
+    SecondaryButtonClick="ContentDialog_CancelButtonClick">
 
     <Grid Height="375" VerticalAlignment="Top">
         <TextBlock x:Name="PatientIdAndNameTextBlock" HorizontalAlignment="Left" Margin="32,37,0,0" Text="Patient name + id" TextWrapping="Wrap" VerticalAlignment="Top" Width="153"/>

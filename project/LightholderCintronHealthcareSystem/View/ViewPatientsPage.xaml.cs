@@ -185,9 +185,13 @@ namespace LightholderCintronHealthcareSystem.View
             throw new NotImplementedException();
         }
 
-        private void onRecordCheckup(object sender, RoutedEventArgs e)
+        private async void onRecordCheckup(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (this.isItemSelected)
+            {
+                ContentDialog dialog = new RecordCheckupDialog();
+                await dialog.ShowAsync();
+            }
         }
     }
 }
