@@ -121,6 +121,23 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return patientList;
         }
 
+        public static bool checkForDoctorDoubleBook(DateTime requestedTime, int doctorid)
+        {
+            var adb = new AppointmentDatabaseAccess();
+            var takenAppointments = adb.GetAppointmentTimeFromDoctorid(doctorid);
+            var appointmentDuration = 30; //In minutes
+            foreach (var takenAppointment in takenAppointments)
+            {
+                var takenDate = DateTime.Parse(takenAppointment);
+                var unavailable = requestedTime - takenDate;
+                if (Math.Abs(unavailable.TotalSeconds) <= appointmentDuration * 60) //&& unavailable.TotalSeconds > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Log outs this instance.
         /// </summary>

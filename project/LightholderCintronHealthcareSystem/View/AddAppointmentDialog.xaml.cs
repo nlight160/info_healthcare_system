@@ -44,7 +44,7 @@ namespace LightholderCintronHealthcareSystem.View
             if (appointmentAlreadyExists)
             {
                 this.doctorParameterList = ddb.GetDoctorDataFromId(int.Parse(appointmentParameters[3]));
-                var doctor = new Doctor(this.doctorParameterList[0], this.doctorParameterList[1], "General");
+                var doctor = new Doctor(this.doctorParameterList[0], this.doctorParameterList[1], "General"); //TODO change specialty to whats in database.
                 this.appointment = new Appointment(int.Parse(appointmentParameters[0]), this.patient, doctor, DateTime.Parse(appointmentParameters[2]), appointmentParameters[4]);
                 this.doctorIdTextBox.Text = this.doctorParameterList[10];
                 this.dateDatePicker.Date = this.appointment.AppointmentDateTime.Date;
@@ -92,6 +92,9 @@ namespace LightholderCintronHealthcareSystem.View
                 MessageDialog updateAppointmentDialog = new MessageDialog("Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " has been updated.", "Appointment Updated");
                 await updateAppointmentDialog.ShowAsync();
             }
+
+            MessageDialog testDialog = new MessageDialog("Is it double booked?" + (this.checkForDoctorDoubleBook() == true? "yes": "no"), "New appointment added!");
+            await testDialog.ShowAsync();
 
         }
 
@@ -174,6 +177,13 @@ namespace LightholderCintronHealthcareSystem.View
 
 
         }
+
+        private bool checkForDoctorDoubleBook()
+        {
+            var requestedTime = this.dateDatePicker.Date.Add(this.timeTimePicker.Time).DateTime;
+            return ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(this.doctorIdTextBox.Text));
+        }
+
 
         private void onDeselectControl(object sender, RoutedEventArgs e)
         {
