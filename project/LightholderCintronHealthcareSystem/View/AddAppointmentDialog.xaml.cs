@@ -123,9 +123,56 @@ namespace LightholderCintronHealthcareSystem.View
 
         private bool checkForCompetion()
         {
-            return this.doctorIdTextBox.Text != "" && this.dateDatePicker.Date.Month >= DateTime.Now.Month && this.dateDatePicker.Date.Day >= DateTime.Now.Day 
-                   && this.timeTimePicker.Time.Hours > DateTime.Now.Hour && this.timeTimePicker.Time.Minutes > DateTime.Now.Minute 
-                   && this.descriptionTextBox.Text != "";
+            return this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "" && (this.checkForDate() || !this.checkForDate() && this.checkForTime());
+        }
+
+        private bool checkForTime()
+        {
+            if (this.timeTimePicker.Time.Hours == DateTime.Now.Hour)
+            {
+                if (this.timeTimePicker.Time.Minutes == DateTime.Now.Minute)
+                {
+                    return false;
+                }
+
+                if (this.dateDatePicker.Date.Minute <= DateTime.Now.Minute)
+                {
+                    return false;
+                }
+            }
+            if (this.timeTimePicker.Time.Hours < DateTime.Now.Hour)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
+        private bool checkForDate()
+        {
+            if (this.dateDatePicker.Date.Year == DateTime.Now.Year)
+            {
+                if (this.dateDatePicker.Date.Month < DateTime.Now.Month)
+                {
+                    return false;
+                }
+                if (this.dateDatePicker.Date.Month == DateTime.Now.Month)
+                {
+                    if (this.dateDatePicker.Date.Day < DateTime.Now.Day)
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (this.dateDatePicker.Date.Year < DateTime.Now.Year)
+            {
+                return false;
+            }
+
+            return true;
+
+
         }
 
         private void onDeselectControl(object sender, RoutedEventArgs e)
