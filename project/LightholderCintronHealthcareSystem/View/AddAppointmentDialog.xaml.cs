@@ -32,10 +32,16 @@ namespace LightholderCintronHealthcareSystem.View
         private AppointmentDatabaseAccess adb;
         private Appointment appointment;
         private bool appointmentAlreadyExists;
+        private ToolTip dateTip;
+        
 
         public AddAppointmentDialog(Patient patient)
         {
             this.InitializeComponent();
+            this.dateTip = new ToolTip();
+            
+            ToolTipService.SetToolTip(this.dateDatePicker, this.dateTip);
+
             this.patient = patient;
             this.adb = new AppointmentDatabaseAccess();
             this.ddb = new DoctorDatabaseAccess();
@@ -93,6 +99,7 @@ namespace LightholderCintronHealthcareSystem.View
                 await updateAppointmentDialog.ShowAsync();
             }
 
+            this.dateTip.IsOpen = false;
             MessageDialog testDialog = new MessageDialog("Is it double booked?" + (this.checkForDoctorDoubleBook() == true? "yes": "no"), "New appointment added!");
             await testDialog.ShowAsync();
 
@@ -100,6 +107,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private void ContentDialog_CancelButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            this.dateTip.IsOpen = false;
             Hide();
         }
 
@@ -126,7 +134,14 @@ namespace LightholderCintronHealthcareSystem.View
 
         private bool checkForCompetion()
         {
-            return (!this.checkForDoctorDoubleBook()) && this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "" && this.checkForDate();
+            if (!this.checkForDate())
+            {
+                this.dateTip.Content = "Date/Time must be in the future not the past.";
+                this.dateTip.IsOpen = true;
+                return false;
+            }
+            this.dateTip.IsOpen = false;
+            return (!this.checkForDoctorDoubleBook()) && this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "";
         }
 
         private bool checkForTime()
@@ -154,6 +169,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private bool checkForDate()
         {
+            var returnValue = false;
             if (this.dateDatePicker.Date.Year == DateTime.Now.Year)
             {
                 if (this.dateDatePicker.Date.Month < DateTime.Now.Month)
@@ -189,17 +205,21 @@ namespace LightholderCintronHealthcareSystem.View
                 return true;
             }
             var requestedTime = this.dateDatePicker.Date.Date.Add(this.timeTimePicker.Time);
-            return ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(this.doctorIdTextBox.Text));
+            if (ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(this.doctorIdTextBox.Text)))
+            {
+                this.dateTip.Content = "Doctor already booked for this Date/Time.";
+                this.dateTip.IsOpen = true;
+                return true;
+            }
+            this.dateTip.IsOpen = false;
+            return false;
+
         }
 
 
         private void onDeselectControl(object sender, RoutedEventArgs e)
         {
             this.IsPrimaryButtonEnabled = this.checkForCompetion();
-            if (!string.IsNullOrEmpty(this.doctorIdTextBox.Text))
-            {
-
-            }
         }
     }
 }
