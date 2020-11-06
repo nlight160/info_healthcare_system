@@ -126,7 +126,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private bool checkForCompetion()
         {
-            return this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "" && (this.checkForDate() || !this.checkForDate() && this.checkForTime());
+            return (!this.checkForDoctorDoubleBook()) && this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "" && this.checkForDate();
         }
 
         private bool checkForTime()
@@ -166,6 +166,10 @@ namespace LightholderCintronHealthcareSystem.View
                     {
                         return false;
                     }
+                    if (this.dateDatePicker.Date.Day == DateTime.Now.Day)
+                    {
+                        return this.checkForTime();
+                    }
                 }
             }
             if (this.dateDatePicker.Date.Year < DateTime.Now.Year)
@@ -180,7 +184,11 @@ namespace LightholderCintronHealthcareSystem.View
 
         private bool checkForDoctorDoubleBook()
         {
-            var requestedTime = this.dateDatePicker.Date.Add(this.timeTimePicker.Time).DateTime;
+            if (string.IsNullOrEmpty(this.doctorIdTextBox.Text))
+            {
+                return true;
+            }
+            var requestedTime = this.dateDatePicker.Date.Date.Add(this.timeTimePicker.Time);
             return ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(this.doctorIdTextBox.Text));
         }
 
@@ -188,6 +196,10 @@ namespace LightholderCintronHealthcareSystem.View
         private void onDeselectControl(object sender, RoutedEventArgs e)
         {
             this.IsPrimaryButtonEnabled = this.checkForCompetion();
+            if (!string.IsNullOrEmpty(this.doctorIdTextBox.Text))
+            {
+
+            }
         }
     }
 }
