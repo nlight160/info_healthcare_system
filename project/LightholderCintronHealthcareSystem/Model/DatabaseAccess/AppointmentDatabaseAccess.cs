@@ -93,23 +93,18 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             }
         }
 
-        /// <summary>
-        /// Deletes the appointment.
-        /// </summary>
-        /// <param name="patient">The patient.</param>
-        /// <returns></returns>
-        public bool DeleteAppointment(Patient patient)
+       
+        public bool DeleteAppointment(int appointmentid)
         {
-            var patientid = patient.Patientid; 
             try
             {
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { Connection = conn };
 
-                const string deleteAppointment = "DELETE FROM `appointment` WHERE `patientid` = @patientid;";
+                const string deleteAppointment = "DELETE FROM `appointment` WHERE `appointmentid` = @appointmentid;";
                 cmd.CommandText = deleteAppointment;
-                cmd.Parameters.AddWithValue("@patientid", patientid);
+                cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
 
                 var confirmation = cmd.ExecuteNonQuery();
                 return confirmation == 1;

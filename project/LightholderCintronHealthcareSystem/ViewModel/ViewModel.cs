@@ -122,6 +122,13 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return patientList;
         }
 
+        public static bool deleteAppointment(int appointmentid)
+        {
+            AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
+
+            return adb.DeleteAppointment(appointmentid);
+        }
+
         public static bool checkForDoctorDoubleBook(DateTime requestedTime, int doctorid)
         {
             var adb = new AppointmentDatabaseAccess();
