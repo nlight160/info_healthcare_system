@@ -1,40 +1,38 @@
-﻿using System;
+﻿using LightholderCintronHealthcareSystem.Model;
+using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
+using LightholderCintronHealthcareSystem.Model.People;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using LightholderCintronHealthcareSystem.Model;
-using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
-using LightholderCintronHealthcareSystem.Model.People;
-using Org.BouncyCastle.Asn1.Cms;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LightholderCintronHealthcareSystem.View
 {
+    /// <summary>
+    /// Add appointment dialog
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class AddAppointmentDialog : ContentDialog
     {
-        private Patient patient;
-        private Doctor doctor;
+        private readonly Patient patient;
         private List<string> doctorParameterList;
-        private DoctorDatabaseAccess ddb;
-        private AppointmentDatabaseAccess adb;
-        private Appointment appointment;
-        private bool appointmentAlreadyExists;
-        private ToolTip dateTip;
-        
+        private readonly DoctorDatabaseAccess ddb;
+        private readonly AppointmentDatabaseAccess adb;
+        private readonly Appointment appointment;
+        private readonly bool appointmentAlreadyExists;
+        private readonly ToolTip dateTip;
 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddAppointmentDialog"/> class.
+        /// </summary>
+        /// <param name="patient">The patient.</param>
         public AddAppointmentDialog(Patient patient)
         {
             this.InitializeComponent();
@@ -76,42 +74,56 @@ namespace LightholderCintronHealthcareSystem.View
 
         }
 
+        /// <summary>
+        /// Contents the dialog submit button click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="ContentDialogButtonClickEventArgs"/> instance containing the event data.</param>
         private async void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            SpecialtyDatabaseAccess sdb = new SpecialtyDatabaseAccess();
             var doctor = new Doctor(this.doctorParameterList[0], this.doctorParameterList[1], "General") //sdb.GetSpecialtyName(sdb.GetDoctorSpecialtiesId(doctorid)[0])) There is no column for specialty
             {
                 Doctorid = this.doctorParameterList[10]
             };
-            DateTime dateTime = new DateTime(this.dateDatePicker.Date.Year, this.dateDatePicker.Date.Month, this.dateDatePicker.Date.Day, this.timeTimePicker.Time.Hours, this.timeTimePicker.Time.Minutes, 0);
+            var dateTime = new DateTime(this.dateDatePicker.Date.Year, this.dateDatePicker.Date.Month, this.dateDatePicker.Date.Day, this.timeTimePicker.Time.Hours, this.timeTimePicker.Time.Minutes, 0);
             var newAppointment = new Appointment(null, this.patient, doctor, dateTime,
                 this.descriptionTextBox.Text);
-            if (!appointmentAlreadyExists)
+            if (!this.appointmentAlreadyExists)
             {
                 
                 this.adb.CreateAppointment(newAppointment);
-                MessageDialog newAppointmentDialog = new MessageDialog("A new appointment was created for " + this.patient.Firstname + " " + this.patient.Lastname, "New appointment added!");
+                var newAppointmentDialog = new MessageDialog("A new appointment was created for " + this.patient.Firstname + " " + this.patient.Lastname, "New appointment added!");
                 await newAppointmentDialog.ShowAsync();
             }
             else
             {
                 this.adb.UpdateAppointment(this.appointment, newAppointment);
-                MessageDialog updateAppointmentDialog = new MessageDialog("Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " has been updated.", "Appointment Updated");
+                var updateAppointmentDialog = new MessageDialog("Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " has been updated.", "Appointment Updated");
                 await updateAppointmentDialog.ShowAsync();
             }
 
             this.dateTip.IsOpen = false;
-            MessageDialog testDialog = new MessageDialog("Is it double booked?" + (this.checkForDoctorDoubleBook() == true? "yes": "no"), "New appointment added!");
+            var testDialog = new MessageDialog("Is it double booked?" + (this.checkForDoctorDoubleBook()? "yes": "no"), "New appointment added!");
             await testDialog.ShowAsync();
 
         }
 
+        /// <summary>
+        /// Contents the dialog cancel button click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="ContentDialogButtonClickEventArgs"/> instance containing the event data.</param>
         private void ContentDialog_CancelButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             this.dateTip.IsOpen = false;
             Hide();
         }
 
+        /// <summary>
+        /// Ons the deselect doctor identifier text block.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onDeselectDoctorIdTextBlock(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(doctorIdTextBox.Text) && !string.IsNullOrWhiteSpace(doctorIdTextBox.Text))
@@ -133,6 +145,10 @@ namespace LightholderCintronHealthcareSystem.View
             this.IsPrimaryButtonEnabled = this.checkForCompetion();
         }
 
+        /// <summary>
+        /// Checks for competion.
+        /// </summary>
+        /// <returns></returns>
         private bool checkForCompetion()
         {
             if (!this.checkForDate())
@@ -142,9 +158,13 @@ namespace LightholderCintronHealthcareSystem.View
                 return false;
             }
             this.dateTip.IsOpen = false;
-            return (!this.checkForDoctorDoubleBook()) && this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "";
+            return !this.checkForDoctorDoubleBook() && this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "";
         }
 
+        /// <summary>
+        /// Checks for time.
+        /// </summary>
+        /// <returns></returns>
         private bool checkForTime()
         {
             if (this.timeTimePicker.Time.Hours == DateTime.Now.Hour)
@@ -159,15 +179,13 @@ namespace LightholderCintronHealthcareSystem.View
                     return false;
                 }
             }
-            if (this.timeTimePicker.Time.Hours < DateTime.Now.Hour)
-            {
-                return false;
-            }
-
-            return true;
-
+            return this.timeTimePicker.Time.Hours >= DateTime.Now.Hour;
         }
 
+        /// <summary>
+        /// Checks for date.
+        /// </summary>
+        /// <returns></returns>
         private bool checkForDate()
         {
             if (this.dateDatePicker.Date.Year == DateTime.Now.Year)
@@ -188,16 +206,13 @@ namespace LightholderCintronHealthcareSystem.View
                     }
                 }
             }
-            if (this.dateDatePicker.Date.Year < DateTime.Now.Year)
-            {
-                return false;
-            }
-
-            return true;
-
-
+            return this.dateDatePicker.Date.Year >= DateTime.Now.Year;
         }
 
+        /// <summary>
+        /// Checks for doctor double book.
+        /// </summary>
+        /// <returns></returns>
         private bool checkForDoctorDoubleBook()
         {
             if (string.IsNullOrEmpty(this.doctorIdTextBox.Text))
@@ -217,6 +232,11 @@ namespace LightholderCintronHealthcareSystem.View
         }
 
 
+        /// <summary>
+        /// Ons the deselect control.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onDeselectControl(object sender, RoutedEventArgs e)
         {
             this.IsPrimaryButtonEnabled = this.checkForCompetion();

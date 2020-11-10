@@ -1,7 +1,6 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
-using LightholderCintronHealthcareSystem.Model.People;
-using MySql.Data.MySqlClient;
 
 namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
@@ -93,7 +92,12 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             }
         }
 
-       
+
+        /// <summary>
+        /// Deletes the appointment.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
         public bool DeleteAppointment(int appointmentid)
         {
             try
@@ -142,7 +146,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
                 while (reader.Read())
                 {
-                    var singleAppointment = new List<String>();
+                    var singleAppointment = new List<string>();
                     singleAppointment.Add(reader.GetString(appointmentidOrdinal));  //0
                     singleAppointment.Add(patientid.ToString());                    //1
                     singleAppointment.Add(reader.GetString(dateOrdinal));           //2
@@ -160,7 +164,12 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         }
 
 
-        public DateTime GetAppointmentTimeFromAppointmnetid(int appointmentid)
+        /// <summary>
+        /// Gets the appointment time from appointmnetid.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
+        public DateTime GetAppointmentTimeFromAppointmentid(int appointmentid)
         {
 
             var appointmentTime = new DateTime();
@@ -194,6 +203,11 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Gets the appointment time from doctorid.
+        /// </summary>
+        /// <param name="doctorid">The doctorid.</param>
+        /// <returns></returns>
         public List<string> GetAppointmentTimeFromDoctorid(int doctorid)
         {
 

@@ -30,7 +30,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             var state = p.Address.State;
             var zip = p.Address.Zip;
             var phone = p.PhoneNumber;
-            string gender = p.Gender == Gender.Male ? "Male" : "Female";
+            var gender = p.Gender == Gender.Male ? "Male" : "Female";
             MySqlTransaction transaction = null;
             try
             {
@@ -90,7 +90,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             var state = p.Address.State;
             var zip = p.Address.Zip;
             var phone = p.PhoneNumber;
-            string gender = p.Gender == Gender.Male ? "Male" : "Female";
+            var gender = p.Gender == Gender.Male ? "Male" : "Female";
             try
             {
                 using var conn = new MySqlConnection(ConStr);

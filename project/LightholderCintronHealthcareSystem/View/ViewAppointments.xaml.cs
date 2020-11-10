@@ -1,30 +1,28 @@
 ﻿using LightholderCintronHealthcareSystem.Model;
-using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
 using LightholderCintronHealthcareSystem.Model.People;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LightholderCintronHealthcareSystem.View
 {
+    /// <summary>
+    /// View appointment class.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class ViewAppointments : ContentDialog
     {
-        private Patient patient;
+        private readonly Patient patient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewAppointments"/> class.
+        /// </summary>
+        /// <param name="patient">The patient.</param>
         public ViewAppointments(Patient patient)
         {
             this.InitializeComponent();
@@ -33,6 +31,9 @@ namespace LightholderCintronHealthcareSystem.View
             
             this.Title += this.patient.Firstname + " " + this.patient.Lastname;
         }
+        /// <summary>
+        /// Checks if no appointments.
+        /// </summary>
         private void checkIfNoAppointments()
         {
 
@@ -42,12 +43,20 @@ namespace LightholderCintronHealthcareSystem.View
         {
         }
 
+        /// <summary>
+        /// Refreshes the data view.
+        /// </summary>
         private void refreshDataView()
         {
             this.appointmnetDataView.ItemsSource = ViewModel.ViewModel.getAppointmentsFromPatient(int.Parse(this.patient.Patientid));
             this.checkIfNoAppointments();
         }
 
+        /// <summary>
+        /// Ons the add appointment.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onAddAppointment(object sender, RoutedEventArgs e)
         {
 
@@ -56,6 +65,11 @@ namespace LightholderCintronHealthcareSystem.View
             this.refreshDataView();
         }
 
+        /// <summary>
+        /// Ons the edit appointment.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onEditAppointment(object sender, RoutedEventArgs e)
         {
             var dialog = new AddAppointmentDialog(this.patient);
@@ -63,36 +77,62 @@ namespace LightholderCintronHealthcareSystem.View
             this.refreshDataView();
         }
 
-        private async void onDeleteAppointment(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Ons the delete appointment.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void onDeleteAppointment(object sender, RoutedEventArgs e)
         {
 
-            AppointmentDataGrid selectedAppointment = this.appointmnetDataView.SelectedItem as AppointmentDataGrid;
-            var appointmentid = selectedAppointment.appointmentid;
-
-            var success = ViewModel.ViewModel.deleteAppointment(appointmentid);
-            var content = "";
-            var title = "";
-
-            if (success)
+            var selectedAppointment = this.appointmnetDataView.SelectedItem as AppointmentDataGrid;
+            string content;
+            string title;
+            if (selectedAppointment != null)
             {
-                content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was deleted successfully!";
-                title = "Delete successful";
+                var appointmentid = selectedAppointment.Appointmentid;
+
+                var success = ViewModel.ViewModel.deleteAppointment(appointmentid);
+                
+
+                if (success)
+                {
+                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was deleted successfully!";
+                    title = "Delete successful";
+                }
+                else
+                {
+                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " could not be deleted.";
+                    title = "Deletion failed";
+                }
+                
+                this.refreshDataView();
             }
             else
             {
-                content = "Appointment for " + patient.Firstname + " " + patient.Lastname + " could not be deleted.";
-                title = "Deletion failed";
+                content = "No selected appointment.";
+                title = "Select appointment";
             }
-            this.confirmation(content, title);
-            this.refreshDataView();
+            confirmation(content, title);
+
         }
 
-        private async void confirmation(string content, string title)
+        /// <summary>
+        /// Confirmations the specified content.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        /// <param name="title">The title.</param>
+        private static async void confirmation(string content, string title)
         {
-            MessageDialog alert = new MessageDialog(content, title);
+            var alert = new MessageDialog(content, title);
             await alert.ShowAsync();
         }
 
+        /// <summary>
+        /// Ons the record checkup.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onRecordCheckup(object sender, RoutedEventArgs e)
         { 
             ContentDialog dialog = new RecordCheckupDialog(this.patient);

@@ -1,11 +1,10 @@
 ﻿using LightholderCintronHealthcareSystem.Model;
+using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
+using LightholderCintronHealthcareSystem.Model.People;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
-using LightholderCintronHealthcareSystem.Model.People;
-using System.Runtime.CompilerServices;
 
 namespace LightholderCintronHealthcareSystem.ViewModel
 {
@@ -84,6 +83,13 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return dba.UpdatePatient(p);
         }
 
+        /// <summary>
+        /// Searches for patients.
+        /// </summary>
+        /// <param name="search">The search.</param>
+        /// <param name="option">The option.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">option - null</exception>
         public static List<Patient> SearchForPatients(List<string> search, SearchOption option)
         {
             var patientList = new List<Patient>();
@@ -122,18 +128,29 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return patientList;
         }
 
+        /// <summary>
+        /// Deletes the appointment.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
         public static bool deleteAppointment(int appointmentid)
         {
-            AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
+            var adb = new AppointmentDatabaseAccess();
 
             return adb.DeleteAppointment(appointmentid);
         }
 
+        /// <summary>
+        /// Checks for doctor double book.
+        /// </summary>
+        /// <param name="requestedTime">The requested time.</param>
+        /// <param name="doctorid">The doctorid.</param>
+        /// <returns></returns>
         public static bool checkForDoctorDoubleBook(DateTime requestedTime, int doctorid)
         {
             var adb = new AppointmentDatabaseAccess();
             var takenAppointments = adb.GetAppointmentTimeFromDoctorid(doctorid);
-            var appointmentDuration = 30; //In minutes
+            const int appointmentDuration = 30; //In minutes
             foreach (var takenAppointment in takenAppointments)
             {
                 var takenDate = DateTime.Parse(takenAppointment);
@@ -146,18 +163,22 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return false;
         }
 
+        /// <summary>
+        /// Gets the appointments from patient.
+        /// </summary>
+        /// <param name="patientid">The patientid.</param>
+        /// <returns></returns>
         public static List<AppointmentDataGrid> getAppointmentsFromPatient(int patientid)
         {
             var adb = new AppointmentDatabaseAccess();
-            var pdb = new PatientDatabaseAccess();
             var ddb = new DoctorDatabaseAccess();
             var appointmentList = adb.GetAppointmentFromPatientid(patientid);
             var appointments = new List<AppointmentDataGrid>();
             foreach (var appointment in appointmentList)
             {
-                var appointmentid = Int32.Parse(appointment[0]);
+                var appointmentid = int.Parse(appointment[0]);
                 var dateTime = DateTime.Parse(appointment[2]);
-                var doctorData = ddb.GetDoctorDataFromId(Int32.Parse(appointment[3]));
+                var doctorData = ddb.GetDoctorDataFromId(int.Parse(appointment[3]));
                 var doctorName = doctorData[0] + " " + doctorData[1];
                 var description = appointment[4];
                 appointments.Add(new AppointmentDataGrid(appointmentid, dateTime, doctorName, description));

@@ -1,11 +1,10 @@
-﻿using LightholderCintronHealthcareSystem.Model;
+﻿using LightholderCintronHealthcareSystem.Model.People;
 using System;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using LightholderCintronHealthcareSystem.Model.People;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -65,8 +64,17 @@ namespace LightholderCintronHealthcareSystem.View
                 this.birthdateDatePicker.Date.Day.ToString());
             EditedPatient.Birthdate = date;
             EditedPatient.PhoneNumber = this.phoneNumberTextBox.Text;
-            EditedPatient.Address = new Address(this.streetTextBox.Text, this.cityTextBox.Text, this.stateComboBox.SelectedItem.ToString(), this.zipCodeTextBox.Text);
-            EditedPatient.Gender = this.genderComboBox.SelectedItem.ToString() == "Male" ? Gender.Male : Gender.Female;
+            var item = this.stateComboBox.SelectedItem;
+            if (item != null)
+            {
+                EditedPatient.Address = new Address(this.streetTextBox.Text, this.cityTextBox.Text,
+                    item.ToString(), this.zipCodeTextBox.Text);
+                var selectedItem = this.genderComboBox.SelectedItem;
+                EditedPatient.Gender = selectedItem != null && selectedItem.ToString() == "Male"
+                    ? Gender.Male
+                    : Gender.Female;
+            }
+
             var isSuccessful = ViewModel.ViewModel.UpdatePatient(EditedPatient);
 
             if (isSuccessful)

@@ -52,6 +52,12 @@ namespace LightholderCintronHealthcareSystem.Model.People
         /// </value>
         public string PhoneNumber { get; set; }
 
+        /// <summary>
+        /// Gets or sets the gender.
+        /// </summary>
+        /// <value>
+        /// The gender.
+        /// </value>
         public Gender Gender { get; set; }
 
 

@@ -1,9 +1,8 @@
 ﻿<ContentDialog
     x:Class="LightholderCintronHealthcareSystem.View.RecordCheckupDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:LightholderCintronHealthcareSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="Record Checkup"
@@ -13,14 +12,14 @@
     SecondaryButtonClick="ContentDialog_CancelButtonClick">
 
     <Grid Height="375" VerticalAlignment="Top">
-        <TextBlock x:Name="PatientIdAndNameTextBlock" HorizontalAlignment="Left" Margin="32,37,0,0" Text="Patient name + id" TextWrapping="Wrap" VerticalAlignment="Top" Width="153"/>
-        <TextBlock x:Name="DoctorNameAndIdTextBlock" HorizontalAlignment="Left" Margin="246,37,0,0" Text="Doctor name + id" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" />
-        <TextBox x:Name="SystolicTextBox" HorizontalAlignment="Left" Margin="8,104,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Systolic Pressure" PreviewKeyDown = "onKeyDown" LostFocus="onDeselectControl"/>
-        <TextBox x:Name="DiastolicTextBox" HorizontalAlignment="Left" Margin="236,104,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Diastolic Pressure" PreviewKeyDown="onKeyDown" LostFocus="onDeselectControl"/>
-        <TextBox x:Name="TemperatureTextBox" HorizontalAlignment="Left" Margin="12,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" PlaceholderText="Temperature" PreviewKeyDown="onKeyDownDecimal" LostFocus="onDeselectControl"/>
-        <TextBox x:Name="WeightTextBox" HorizontalAlignment="Left" Margin="236,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Weight" PreviewKeyDown="onKeyDownDecimal" LostFocus="onDeselectControl"/>
-        <TextBox x:Name="PulseTextBox" HorizontalAlignment="Center" Margin="0,251,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Pulse" PreviewKeyDown="onKeyDown" LostFocus="onDeselectControl"/>
-        <TextBox x:Name="DiagnosisTextBox" HorizontalAlignment="Center" Margin="0,306,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="379" PlaceholderText="Diagnosis" LostFocus="onDeselectControl" Height="59"/>
+        <TextBlock x:Name="patientIdAndNameTextBlock" HorizontalAlignment="Left" Margin="32,37,0,0" Text="Patient name + id" TextWrapping="Wrap" VerticalAlignment="Top" Width="153"/>
+        <TextBlock x:Name="doctorNameAndIdTextBlock" HorizontalAlignment="Left" Margin="246,37,0,0" Text="Doctor name + id" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" />
+        <TextBox x:Name="systolicTextBox" HorizontalAlignment="Left" Margin="8,104,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Systolic Pressure" PreviewKeyDown = "onKeyDown" LostFocus="onDeselectControl"/>
+        <TextBox x:Name="diastolicTextBox" HorizontalAlignment="Left" Margin="236,104,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Diastolic Pressure" PreviewKeyDown="onKeyDown" LostFocus="onDeselectControl"/>
+        <TextBox x:Name="temperatureTextBox" HorizontalAlignment="Left" Margin="12,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" PlaceholderText="Temperature" PreviewKeyDown="onKeyDownDecimal" LostFocus="onDeselectControl"/>
+        <TextBox x:Name="weightTextBox" HorizontalAlignment="Left" Margin="236,188,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Weight" PreviewKeyDown="onKeyDownDecimal" LostFocus="onDeselectControl"/>
+        <TextBox x:Name="pulseTextBox" HorizontalAlignment="Center" Margin="0,251,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" PlaceholderText="Pulse" PreviewKeyDown="onKeyDown" LostFocus="onDeselectControl"/>
+        <TextBox x:Name="diagnosisTextBox" HorizontalAlignment="Center" Margin="0,306,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="379" PlaceholderText="Diagnosis" LostFocus="onDeselectControl" Height="59"/>
 
 
 

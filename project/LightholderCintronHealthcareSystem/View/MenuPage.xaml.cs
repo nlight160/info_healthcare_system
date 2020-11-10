@@ -42,6 +42,11 @@ namespace LightholderCintronHealthcareSystem.View
             Frame.Navigate(typeof(RegistrationPage));
         }
 
+        /// <summary>
+        /// Ons the view patients.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onViewPatients(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(ViewPatientsPage));

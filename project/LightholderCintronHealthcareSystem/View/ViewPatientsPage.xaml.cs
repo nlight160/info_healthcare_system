@@ -1,14 +1,11 @@
 ﻿using LightholderCintronHealthcareSystem.Model;
+using LightholderCintronHealthcareSystem.Model.People;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
-using LightholderCintronHealthcareSystem.Model.People;
 using SearchOption = LightholderCintronHealthcareSystem.Model.SearchOption;
-using System.Runtime.CompilerServices;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -20,8 +17,11 @@ namespace LightholderCintronHealthcareSystem.View
     public sealed partial class ViewPatientsPage : Page
     {
         private readonly PatientManager patientManager;
-        private bool isItemSelected = false; 
+        private bool isItemSelected;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewPatientsPage"/> class.
+        /// </summary>
         public ViewPatientsPage()
         {
             this.InitializeComponent();
@@ -76,6 +76,11 @@ namespace LightholderCintronHealthcareSystem.View
             this.patientDataView.ItemsSource = this.patientManager.Patients;
         }
 
+        /// <summary>
+        /// Ons the view appointments.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onViewAppointments(object sender, RoutedEventArgs e)
         {
             var currentPatient = this.patientDataView.SelectedItem as Patient;
@@ -131,13 +136,13 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 this.isItemSelected = false;
                 this.editPatientButton.IsEnabled = false;
-                this.ViewAppointmentsButton.IsEnabled = false;
+                this.viewAppointmentsButton.IsEnabled = false;
             }
             else
             {
                 this.isItemSelected = true;
                 this.editPatientButton.IsEnabled = true;
-                this.ViewAppointmentsButton.IsEnabled = true;
+                this.viewAppointmentsButton.IsEnabled = true;
             }
         }
 

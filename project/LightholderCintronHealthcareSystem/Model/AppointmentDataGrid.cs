@@ -1,20 +1,57 @@
 ﻿using LightholderCintronHealthcareSystem.Model.People;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LightholderCintronHealthcareSystem.Model
 {
+    /// <summary>
+    /// Appointment data class for datagrid
+    /// </summary>
     public class AppointmentDataGrid
     {
-        public int appointmentid { get; set; }
-        public string date { get; set; }
-        public string time { get; set; }
-        public string doctorName { get; set; }
-        public string description { get; set; }
+        /// <summary>
+        /// Gets or sets the appointmentid.
+        /// </summary>
+        /// <value>
+        /// The appointmentid.
+        /// </value>
+        public int Appointmentid { get; set; }
+        /// <summary>
+        /// Gets or sets the date.
+        /// </summary>
+        /// <value>
+        /// The date.
+        /// </value>
+        public string Date { get; set; }
+        /// <summary>
+        /// Gets or sets the time.
+        /// </summary>
+        /// <value>
+        /// The time.
+        /// </value>
+        public string Time { get; set; }
+        /// <summary>
+        /// Gets or sets the name of the doctor.
+        /// </summary>
+        /// <value>
+        /// The name of the doctor.
+        /// </value>
+        public string DoctorName { get; set; }
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>
+        /// The description.
+        /// </value>
+        public string Description { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppointmentDataGrid"/> class.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <param name="dateTime">The date time.</param>
+        /// <param name="doctorName">Name of the doctor.</param>
+        /// <param name="description">The description.</param>
+        /// <exception cref="ArgumentNullException">doctorName - can not be null or empty</exception>
         public AppointmentDataGrid(int appointmentid, DateTime dateTime, string doctorName, string description)
         {
 
@@ -23,13 +60,13 @@ namespace LightholderCintronHealthcareSystem.Model
                 throw new ArgumentNullException(nameof(doctorName), "can not be null or empty");
             }
 
-            this.appointmentid = appointmentid;
+            this.Appointmentid = appointmentid;
             var date = new Date(dateTime.Year.ToString(), dateTime.Month.ToString(), dateTime.Day.ToString());
-            this.date = date.ToString();
+            this.Date = date.ToString();
             var time = new Time(dateTime.Hour.ToString(), dateTime.Minute.ToString());
-            this.time = time.ToString();
-            this.doctorName = doctorName;
-            this.description = description;
+            this.Time = time.ToString();
+            this.DoctorName = doctorName;
+            this.Description = description;
         }
     }
 }
