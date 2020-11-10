@@ -1,4 +1,5 @@
-﻿using LightholderCintronHealthcareSystem.Model.People;
+﻿using LightholderCintronHealthcareSystem.Model;
+using LightholderCintronHealthcareSystem.Model.People;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,5 +45,52 @@ namespace LightholderCintronHealthcareSystem.View
             this.appointmnetDataView.ItemsSource = ViewModel.ViewModel.getAppointmentsFromPatient(int.Parse(this.patient.Patientid));
             this.checkIfNoAppointments();
         }
+
+        private async void onAddAppointment(object sender, RoutedEventArgs e)
+        {
+
+            var dialog = new AddAppointmentDialog(this.patient);
+            await dialog.ShowAsync();
+        }
+
+        private async void onEditAppointment(object sender, RoutedEventArgs e)
+        {
+            var dialog = new AddAppointmentDialog(this.patient);
+            await dialog.ShowAsync();
+        }
+
+        private async void onDeleteAppointment(object sender, RoutedEventArgs e)
+        {
+
+            AppointmentDataGrid selectedAppointment = this.appointmnetDataView.SelectedItem as AppointmentDataGrid;
+            var appointmentNumber = selectedAppointment.appointmentid;
+
+
+            //AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
+            //if (this.isItemSelected)
+            //{
+            //    Patient patient = this.patientDataView.SelectedItem as Patient;
+            //    var success = adb.DeleteAppointment(patient);
+            //    if (success == true)
+            //    {
+            //        MessageDialog deleteAlert =
+            //            new MessageDialog("Appointment for " + patient.Firstname + " " + patient.Lastname + " was deleted successfully!", "Delete successful");
+            //        await deleteAlert.ShowAsync();
+            //    }
+            //    else
+            //    {
+            //        MessageDialog deleteFailedAlert =
+            //            new MessageDialog("Appointment for " + patient.Firstname + " " + patient.Lastname + " could not be deleted. Patient has no appointments.", "Deletion failed");
+            //        await deleteFailedAlert.ShowAsync();
+            //    }
+            //}
+        }
+
+        private async void onRecordCheckup(object sender, RoutedEventArgs e)
+        { 
+            ContentDialog dialog = new RecordCheckupDialog(this.patient);
+            await dialog.ShowAsync();
+        }
+
     }
 }

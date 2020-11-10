@@ -28,26 +28,8 @@
                     Binding="{Binding Birthdate}"
                 />
 
-
-
             </Custom:DataGrid.Columns>
-
         </Custom:DataGrid>
-
-        <!--<ListView x:Name="patientListView" Margin="168,176,607,247" RequestedTheme="Default" HorizontalAlignment="Left" IsItemClickEnabled="True" SelectionMode="Single" SelectionChanged="onSelectionChange">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Firstname}"/>
-                            <TextBlock Text="{Binding Lastname}"/>
-                            <TextBlock Text="{Binding Birthdate}"/>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-
 
         <TextBlock x:Name="userTextBlock" HorizontalAlignment="Left" Margin="0,10,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20"/>
         <Button x:Name="editPatientButton" Content="Edit Patient" Margin="1001,306,0,0" VerticalAlignment="Top" Click="onEditPatient" Width="180"/>
@@ -59,12 +41,7 @@
         <CheckBox x:Name="byDateCheckBox" Content="by date" Margin="1111,176,0,0" VerticalAlignment="Top" Checked="onSortByDate"/>
         <TextBox x:Name="patientSearchTextBoxByDate" HorizontalAlignment="Left" Margin="986,260,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" PlaceholderText="Search for a patient by date" ToolTipService.ToolTip="Search using date in the format mm/dd/yyyy or mm-dd-yyyy"/>
         <TextBlock HorizontalAlignment="Left" Margin="922,183,0,0" Text="Sort By:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="AddAppointmentButton" Content="Add Appointment" Margin="1001,366,0,0" VerticalAlignment="Top" Width="180" Click="onAddAppointment"/>
-        <Button x:Name="DeleteAppointmentButton" Content="Delete Appointment" Margin="1001,434,0,0" VerticalAlignment="Top" Width="180" Click="onDeleteAppointment"/>
-        <Button x:Name="RecordCheckupButton" Content="Record Checkup" Margin="1002,500,0,0" VerticalAlignment="Top" Width="180" Click="onRecordCheckup"/>
-        <Button x:Name="ViewAppointmentsButton"  Content="View Appointments" Margin="1216,413,0,0" VerticalAlignment="Top" Click="onViewAppointments"/>
-
-
+        <Button x:Name="ViewAppointmentsButton" Width="180" Content="View Appointments" Margin="1001,366,0,0" VerticalAlignment="Top" Click="onViewAppointments"/>
 
     </Grid>
 </Page>

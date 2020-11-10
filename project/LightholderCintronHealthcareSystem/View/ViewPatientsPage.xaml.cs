@@ -30,10 +30,7 @@ namespace LightholderCintronHealthcareSystem.View
             };
             //this.PatientListView.ItemsSource = this.patientManager.Patients;
             this.editPatientButton.IsEnabled = false;
-            this.AddAppointmentButton.IsEnabled = false;
             
-            this.DeleteAppointmentButton.IsEnabled = false;
-            this.RecordCheckupButton.IsEnabled = false;
             this.patientDataView.ItemsSource = this.patientManager.Patients;
             this.userTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
                                       + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
@@ -134,19 +131,13 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 this.isItemSelected = false;
                 this.editPatientButton.IsEnabled = false;
-                this.AddAppointmentButton.IsEnabled = false;
-                
-                this.DeleteAppointmentButton.IsEnabled = false;
-                this.RecordCheckupButton.IsEnabled = false;
+                this.ViewAppointmentsButton.IsEnabled = false;
             }
             else
             {
                 this.isItemSelected = true;
                 this.editPatientButton.IsEnabled = true;
-                this.AddAppointmentButton.IsEnabled = true;
-                
-                this.DeleteAppointmentButton.IsEnabled = true;
-                this.RecordCheckupButton.IsEnabled = true;
+                this.ViewAppointmentsButton.IsEnabled = true;
             }
         }
 
@@ -172,81 +163,6 @@ namespace LightholderCintronHealthcareSystem.View
             else
             {
                 this.patientDataView.ItemsSource = ViewModel.ViewModel.SearchForPatients(new List<string> { "" }, SearchOption.Name);
-            }
-        }
-
-        /// <summary>
-        /// Ons the add appointment.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private async void onAddAppointment(object sender, RoutedEventArgs e)
-        { 
-            var currentPatient = this.patientDataView.SelectedItem as Patient;
-            if (this.isItemSelected)
-            {
-                var dialog = new AddAppointmentDialog(currentPatient);
-                await dialog.ShowAsync();
-            }
-
-            
-        }
-
-        /// <summary>
-        /// Ons the edit appointment.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private async void onEditAppointment(object sender, RoutedEventArgs e)
-        {
-            var currentPatient = this.patientDataView.SelectedItem as Patient;
-            if (this.isItemSelected)
-            {
-                var dialog = new AddAppointmentDialog(currentPatient);
-                   
-                await dialog.ShowAsync();
-            }
-        }
-
-        /// <summary>
-        /// Ons the delete appointment.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private async void onDeleteAppointment(object sender, RoutedEventArgs e)
-        {
-            AppointmentDatabaseAccess adb = new AppointmentDatabaseAccess();
-            if (this.isItemSelected)
-            {
-                Patient patient = this.patientDataView.SelectedItem as Patient;
-                var success = adb.DeleteAppointment(patient);
-                if (success == true)
-                {
-                    MessageDialog deleteAlert =
-                        new MessageDialog("Appointment for " + patient.Firstname + " " + patient.Lastname + " was deleted successfully!", "Delete successful");
-                    await deleteAlert.ShowAsync();
-                }
-                else
-                {
-                    MessageDialog deleteFailedAlert =
-                        new MessageDialog("Appointment for " + patient.Firstname + " " + patient.Lastname + " could not be deleted. Patient has no appointments.", "Deletion failed");
-                    await deleteFailedAlert.ShowAsync();
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Ons the record checkup.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private async void onRecordCheckup(object sender, RoutedEventArgs e)
-        {
-            if (this.isItemSelected)
-            {
-                ContentDialog dialog = new RecordCheckupDialog(this.patientDataView.SelectedItem as Patient);
-                await dialog.ShowAsync();
             }
         }
     }

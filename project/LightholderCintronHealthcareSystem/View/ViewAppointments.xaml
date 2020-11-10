@@ -10,15 +10,12 @@
     Title="Appointments for "
     PrimaryButtonText="Close"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    FullSizeDesired="True" Height="800" Width="1200"
+    FullSizeDesired="True" Height="600" Width="700"
 >
 
-    <Grid Width="1000">
+    <Grid Width="800">
 
-
-
-
-        <Custom:DataGrid x:Name="appointmnetDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="601" Margin="77,0,0,0" VerticalAlignment="Center">
+        <Custom:DataGrid x:Name="appointmnetDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="400" Margin="25,0,0,0" VerticalAlignment="Center">
 
             <Custom:DataGrid.Columns>
 
@@ -39,8 +36,9 @@
 
         </Custom:DataGrid>
 
-
-
+        <Button x:Name="AddAppointmentButton" Content="Add Appointment" Margin="400,31,0,0" VerticalAlignment="Top" Width="180" Click="onAddAppointment"/>
+        <Button x:Name="DeleteAppointmentButton" Content="Delete Appointment" Margin="400,93,0,0" VerticalAlignment="Top" Width="180" Click="onDeleteAppointment"/>
+        <Button x:Name="RecordCheckupButton" Content="Record Checkup" Margin="400,155,0,0" VerticalAlignment="Top" Width="180" Click="onRecordCheckup"/>
 
     </Grid>
 </ContentDialog>
