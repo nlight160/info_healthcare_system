@@ -1,7 +1,4 @@
-﻿using LightholderCintronHealthcareSystem.Model;
-using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
-using LightholderCintronHealthcareSystem.Model.People;
-using System;
+﻿using System;
 using System.Diagnostics;
 using Windows.System;
 using Windows.UI.Core;
@@ -22,20 +19,20 @@ namespace LightholderCintronHealthcareSystem.View
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class RecordCheckupDialog : ContentDialog
     {
-        private readonly Patient patient;
+        private readonly int appointmentid;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RecordCheckupDialog"/> class.
         /// </summary>
-        /// <param name="patient">The patient.</param>
-        public RecordCheckupDialog(Patient patient)
+        /// <param name="appointmentid"></param>
+        public RecordCheckupDialog(int appointmentid)
         {
+            this.appointmentid = appointmentid;
             this.InitializeComponent();
             this.IsPrimaryButtonEnabled = false;
-            this.patientIdAndNameTextBlock.Text = "Patient: " + patient.Patientid + ", " + patient.Firstname + " " +
-                patient.Lastname;
-            this.doctorNameAndIdTextBlock.Text = "Doctor: ";
-            this.patient = patient;
-
+            this.patientIdAndNameTextBlock.Text =
+                "Patient: " + ViewModel.ViewModel.getPatientNameFromAppointmentid(appointmentid);
+            this.doctorNameAndIdTextBlock.Text = "Doctor: " + ViewModel.ViewModel.getDoctorNameFromAppointmentid(appointmentid);
         }
 
         /// <summary>
@@ -43,23 +40,53 @@ namespace LightholderCintronHealthcareSystem.View
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="ContentDialogButtonClickEventArgs"/> instance containing the event data.</param>
-        private async void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var cdb = new CheckupDatabaseAccess();
-            var adb = new AppointmentDatabaseAccess();
-            var patientid = int.Parse(this.patient.Patientid);
             try
             {
-                cdb.CreateCheckup(new Checkup(null, int.Parse(adb.GetAppointmentFromPatientid(patientid)[0][0]), int.Parse(this.systolicTextBox.Text),
-                    int.Parse(this.diastolicTextBox.Text), decimal.Parse(this.temperatureTextBox.Text),
-                    decimal.Parse(this.weightTextBox.Text), int.Parse(this.pulseTextBox.Text), this.diagnosisTextBox.Text));
+                string content;
+                string title;
+                var systolic = int.Parse(this.systolicTextBox.Text);
+                var diastolic = int.Parse(this.diastolicTextBox.Text);
+                var temperature = decimal.Parse(this.temperatureTextBox.Text);
+                var weight = decimal.Parse(this.weightTextBox.Text);
+                var pulse = int.Parse(this.pulseTextBox.Text);
+                var diagnosis = this.diagnosisTextBox.Text;
+
+                var successful = ViewModel.ViewModel.createCheckup(this.appointmentid, systolic, diastolic, temperature, weight, pulse,
+                    diagnosis);
+
+                if (successful)
+                {
+                    content = "The checkup was recorded successfully!";
+                    title = "Success";
+                }
+                else
+                {
+                    content = "The checkup could not be recorded, please try again.";
+                    title = "Error";
+                }
+                confirmations(content, title);
             }
-            catch (ArgumentException exception)
+            catch (Exception ex)
             {
-                Debug.WriteLine(exception.Message);
-                var errorDialog = new MessageDialog("The checkup could not be recorded, double check provided information.", "Error recording checkup!");
-                await errorDialog.ShowAsync();
+                Debug.WriteLine(ex.Message);
+                const string content = "The checkup could not be recorded, double check provided information.";
+                const string title = "Error recording checkup!";
+                confirmations(content, title);
             }
+
+        }
+
+        /// <summary>
+        /// Confirmationses the specified content.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        /// <param name="title">The title.</param>
+        private static async void confirmations(string content, string title)
+        {
+            var dialog = new MessageDialog(content, title);
+            await dialog.ShowAsync();
         }
 
         /// <summary>

@@ -34,7 +34,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 conn.Open();
                 using var cmd = new MySqlCommand { Connection = conn };
 
-                const string createCheckup = "INSERT INTO `checkup` (`appointmentid`, `systolic`, `diastolic`, `temp`, `weight`, `pulse`, `dianosis`) VALUES (@appointmentid, @systolic, @diastolic, @temperature, @weight, @pulse, @diagnosis);";
+                const string createCheckup = "INSERT INTO `checkup` (`appointmentid`, `systolic`, `diastolic`, `temp`, `weight`, `pulse`, `diagnosis`) VALUES (@appointmentid, @systolic, @diastolic, @temperature, @weight, @pulse, @diagnosis);";
                 cmd.CommandText = createCheckup;
                 cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
                 cmd.Parameters.AddWithValue("@systolic", systolic);

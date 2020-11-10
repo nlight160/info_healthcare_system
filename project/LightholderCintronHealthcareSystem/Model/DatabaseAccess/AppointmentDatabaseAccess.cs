@@ -244,6 +244,86 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Gets the patient name from appointmentid.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
+        public string GetPatientNameFromAppointmentid(int appointmentid)
+        {
+            var patientName = "";
+            try
+            {
+                const string query = "SELECT p.fname, p.lname FROM patient pt, person p, appointment a WHERE a.patientid = pt.patientid AND pt.personid = p.personid AND a.appointmentid = @appointmentid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
+                using var reader = cmd.ExecuteReader();
+                var fnameOrdinal = reader.GetOrdinal("fname");
+                var lnameOrdinal = reader.GetOrdinal("lname");
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    patientName = reader.GetString(fnameOrdinal);
+                    patientName += " ";
+                    patientName += reader.GetString(lnameOrdinal);
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return patientName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the GetAppointment: " + ex);
+                return patientName;
+            }
+        }
+
+        /// <summary>
+        /// Gets the doctor name from appointmentid.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
+        public string GetDoctorNameFromAppointmentid(int appointmentid)
+        {
+            var patientName = "";
+            try
+            {
+                const string query = "SELECT p.fname, p.lname FROM doctor d, person p, appointment a WHERE a.doctorid = d.doctorid AND d.personid = p.personid AND a.appointmentid = @appointmentid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
+                using var reader = cmd.ExecuteReader();
+                var fnameOrdinal = reader.GetOrdinal("fname");
+                var lnameOrdinal = reader.GetOrdinal("lname");
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    patientName = reader.GetString(fnameOrdinal);
+                    patientName += " ";
+                    patientName += reader.GetString(lnameOrdinal);
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return patientName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the GetAppointment: " + ex);
+                return patientName;
+            }
+        }
+
 
     }
 }

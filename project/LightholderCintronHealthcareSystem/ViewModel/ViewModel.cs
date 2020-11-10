@@ -211,6 +211,46 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         }
 
         /// <summary>
+        /// Gets the patient name from appointmentid.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
+        public static string getPatientNameFromAppointmentid(int appointmentid)
+        {
+            var adb = new AppointmentDatabaseAccess();
+            return adb.GetPatientNameFromAppointmentid(appointmentid);
+        }
+
+        /// <summary>
+        /// Gets the doctor name from appointmentid.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
+        public static string getDoctorNameFromAppointmentid(int appointmentid)
+        {
+            var adb = new AppointmentDatabaseAccess();
+            return adb.GetDoctorNameFromAppointmentid(appointmentid);
+        }
+
+        /// <summary>
+        /// Creates the checkup.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <param name="systolic">The systolic.</param>
+        /// <param name="diastolic">The diastolic.</param>
+        /// <param name="temperature">The temperature.</param>
+        /// <param name="weight">The weight.</param>
+        /// <param name="pulse">The pulse.</param>
+        /// <param name="diagnosis">The diagnosis.</param>
+        /// <returns></returns>
+        public static bool createCheckup(int appointmentid, int systolic, int diastolic, decimal temperature, decimal weight, int pulse, string diagnosis)
+        {
+            var cdb = new CheckupDatabaseAccess();
+            var checkup = new Checkup(null, appointmentid, systolic, diastolic, temperature, weight, pulse, diagnosis);
+            return cdb.CreateCheckup(checkup);
+        }
+
+        /// <summary>
         /// Log outs this instance.
         /// </summary>
         public static void Logout()
