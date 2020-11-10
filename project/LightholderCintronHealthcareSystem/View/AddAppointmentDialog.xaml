@@ -10,7 +10,7 @@
     SecondaryButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_SubmitButtonClick"
     SecondaryButtonClick="ContentDialog_CancelButtonClick"
-    FullSizeDesired="True" Height="1012">
+    FullSizeDesired="True" Height="800">
 
     <Grid Height="600" VerticalAlignment="Top">
         <TextBlock x:Name="patientIdTextBlock" HorizontalAlignment="Center" Margin="120,29,0,0" Width="150" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>

@@ -1,0 +1,46 @@
+﻿<ContentDialog
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LightholderCintronHealthcareSystem.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    x:Class="LightholderCintronHealthcareSystem.View.ViewAppointments"
+    mc:Ignorable="d"
+    Title="Appointments for "
+    PrimaryButtonText="Close"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    FullSizeDesired="True" Height="800" Width="1200"
+>
+
+    <Grid Width="1000">
+
+
+
+
+        <Custom:DataGrid x:Name="appointmnetDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="601" Margin="77,0,0,0" VerticalAlignment="Center">
+
+            <Custom:DataGrid.Columns>
+
+                <Custom:DataGridTextColumn
+                    Header="Date"
+                    Binding="{Binding date}"
+                 />
+                <Custom:DataGridTextColumn
+                    Header="Time"
+                    Binding="{Binding time}"
+                />
+                <Custom:DataGridTextColumn
+                    Header="Doctor's Name"
+                    Binding="{Binding doctorName}"
+                />
+            </Custom:DataGrid.Columns>
+
+
+        </Custom:DataGrid>
+
+
+
+
+    </Grid>
+</ContentDialog>

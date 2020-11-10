@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
 using LightholderCintronHealthcareSystem.Model.People;
+using System.Runtime.CompilerServices;
 
 namespace LightholderCintronHealthcareSystem.ViewModel
 {
@@ -136,6 +137,49 @@ namespace LightholderCintronHealthcareSystem.ViewModel
                 }
             }
             return false;
+        }
+
+        public static List<AppointmentDataGrid> getAppointmentsFromPatient(int patientid)
+        {
+            var adb = new AppointmentDatabaseAccess();
+            var pdb = new PatientDatabaseAccess();
+            var ddb = new DoctorDatabaseAccess();
+            var appointmentList = adb.GetAppointmentFromPatientid(patientid);
+            var appointments = new List<AppointmentDataGrid>();
+            foreach (var appointment in appointmentList)
+            {
+                var appointmentid = Int32.Parse(appointment[0]);
+                var dateTime = DateTime.Parse(appointment[2]);
+                var doctorData = ddb.GetDoctorDataFromId(Int32.Parse(appointment[3]));
+                var doctorName = doctorData[0] + " " + doctorData[1];
+                var description = appointment[4];
+                appointments.Add(new AppointmentDataGrid(appointmentid, dateTime, doctorName, description));
+
+                //Was originally going to return a list of appointments but decided against it.
+
+                //var patientData = pdb.GetPatientDataFromId(patientid);
+                //var fullDate = patientData[2].Split(' ')[0].Split('/');
+                //var date = new Date(fullDate[2], fullDate[0], fullDate[1]);
+                //var address = new Address(patientData[3], patientData[4], patientData[5], patientData[6]);
+                //var gender = patientData[8] == "Male" ? Gender.Male : Gender.Female;
+                //var patient = new Patient(patientData[9], patientData[0], patientData[1], date, address, patientData[7],
+                //    gender) { Patientid = patientData[10] };
+
+                //var doctorData = ddb.GetDoctorDataFromId(Int32.Parse(appointment[3]));
+                //var doctorFullDate = doctorData[2].Split(' ')[0].Split('/');
+                //var doctorDate = new Date(fullDate[2], fullDate[0], fullDate[1]);
+                //var doctorAddress = new Address(doctorData[3], doctorData[4], doctorData[5], doctorData[6]);
+                //var doctorGender = doctorData[8] == "Male" ? Gender.Male : Gender.Female;
+                //var doctor = new Doctor(doctorData[9], doctorData[0], doctorData[1], doctorDate, doctorAddress, doctorData[7],
+                //    doctorGender, "General") { Doctorid = doctorData[10] }; //TODO add specialty
+
+                //var appointmentDate = DateTime.Parse(appointment[2]);
+                //var description = appointment[4];
+                //var ap = new Appointment(appointmentid, patient, doctor, appointmentDate, description);
+                //appointments.Add(ap);
+            }
+
+            return appointments;
         }
 
         /// <summary>

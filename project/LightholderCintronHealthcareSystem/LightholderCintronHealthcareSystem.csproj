@@ -127,6 +127,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\AppointmentDataGrid.cs" />
     <Compile Include="Model\Checkup.cs" />
     <Compile Include="Model\DatabaseAccess\CheckupDatabaseAccess.cs" />
     <Compile Include="Model\DatabaseAccess\DoctorDatabaseAccess.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Model\DatabaseAccess\DatabaseAccess.cs" />
     <Compile Include="Model\People\Nurse.cs" />
     <Compile Include="Model\PatientManager.cs" />
+    <Compile Include="Model\People\Time.cs" />
     <Compile Include="Model\QueryBuilder.cs" />
     <Compile Include="Model\SearchOption.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
@@ -166,6 +168,9 @@
     </Compile>
     <Compile Include="View\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewAppointments.xaml.cs">
+      <DependentUpon>ViewAppointments.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ViewPatientsPage.xaml.cs">
       <DependentUpon>ViewPatientsPage.xaml</DependentUpon>
@@ -213,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RegistrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewAppointments.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

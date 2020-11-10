@@ -45,7 +45,7 @@ namespace LightholderCintronHealthcareSystem.View
             int patientid = int.Parse(this.patient.Patientid);
             try
             {
-                cdb.CreateCheckup(new Checkup(null, int.Parse(adb.GetAppointmentFromPatientid(patientid)[0]), int.Parse(this.SystolicTextBox.Text),
+                cdb.CreateCheckup(new Checkup(null, int.Parse(adb.GetAppointmentFromPatientid(patientid)[0][0]), int.Parse(this.SystolicTextBox.Text),
                     int.Parse(this.DiastolicTextBox.Text), decimal.Parse(this.TemperatureTextBox.Text),
                     decimal.Parse(this.WeightTextBox.Text), int.Parse(this.PulseTextBox.Text), DiagnosisTextBox.Text));
             }

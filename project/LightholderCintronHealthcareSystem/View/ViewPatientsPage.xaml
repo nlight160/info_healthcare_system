@@ -62,6 +62,7 @@
         <Button x:Name="AddAppointmentButton" Content="Add Appointment" Margin="1001,366,0,0" VerticalAlignment="Top" Width="180" Click="onAddAppointment"/>
         <Button x:Name="DeleteAppointmentButton" Content="Delete Appointment" Margin="1001,434,0,0" VerticalAlignment="Top" Width="180" Click="onDeleteAppointment"/>
         <Button x:Name="RecordCheckupButton" Content="Record Checkup" Margin="1002,500,0,0" VerticalAlignment="Top" Width="180" Click="onRecordCheckup"/>
+        <Button x:Name="ViewAppointmentsButton"  Content="View Appointments" Margin="1216,413,0,0" VerticalAlignment="Top" Click="onViewAppointments"/>
 
 
 

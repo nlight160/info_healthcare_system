@@ -126,10 +126,10 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         /// </summary>
         /// <param name="patientid">The patient identifier.</param>
         /// <returns></returns>
-        public List<string> GetAppointmentFromPatientid(int patientid)
+        public List<List<string>> GetAppointmentFromPatientid(int patientid)
         {
 
-            var specialtyName = new List<string>();
+            var appointmentList = new List<List<string>>();
             try
             {
                 const string query = "SELECT a.appointmentid, a.date, a.doctorid, a.description FROM appointment a WHERE a.patientid = @patientid;";
@@ -144,26 +144,58 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 var doctoridOrdinal = reader.GetOrdinal("doctorid");
                 var descriptionOrdinal = reader.GetOrdinal("description");
 
+
+                while (reader.Read())
+                {
+                    var singleAppointment = new List<String>();
+                    singleAppointment.Add(reader.GetString(appointmentidOrdinal));  //0
+                    singleAppointment.Add(patientid.ToString());                    //1
+                    singleAppointment.Add(reader.GetString(dateOrdinal));           //2
+                    singleAppointment.Add(reader.GetString(doctoridOrdinal));       //3
+                    singleAppointment.Add(reader.GetString(descriptionOrdinal));    //4
+                    appointmentList.Add(singleAppointment);
+                }
+                return appointmentList;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the GetAppointment: " + ex);
+                return appointmentList;
+            }
+        }
+
+
+        public DateTime GetAppointmentTimeFromAppointmnetid(int appointmentid)
+        {
+
+            var appointmentTime = new DateTime();
+            try
+            {
+                const string query = "SELECT a.date FROM appointment a WHERE a.appointmentid = @appointmentid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
+                using var reader = cmd.ExecuteReader();
+                var dateOrdinal = reader.GetOrdinal("date");
+
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    specialtyName.Add(reader.GetString(appointmentidOrdinal));  //0
-                    specialtyName.Add(patientid.ToString());                    //1
-                    specialtyName.Add(reader.GetString(dateOrdinal));           //2
-                    specialtyName.Add(reader.GetString(doctoridOrdinal));       //3
-                    specialtyName.Add(reader.GetString(descriptionOrdinal));    //4
+                    appointmentTime = reader.GetDateTime(dateOrdinal);
 
                 }
                 else
                 {
                     Console.WriteLine("No rows exist in table");
                 }
-                return specialtyName;
+                return appointmentTime;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the GetAppointment: " + ex);
-                return specialtyName;
+                return appointmentTime;
             }
         }
 

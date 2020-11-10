@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
 using LightholderCintronHealthcareSystem.Model.People;
 using SearchOption = LightholderCintronHealthcareSystem.Model.SearchOption;
+using System.Runtime.CompilerServices;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -76,6 +77,16 @@ namespace LightholderCintronHealthcareSystem.View
             this.sortByNameAndDate();
             this.patientManager.SortPatientsByName();
             this.patientDataView.ItemsSource = this.patientManager.Patients;
+        }
+
+        private async void onViewAppointments(object sender, RoutedEventArgs e)
+        {
+            var currentPatient = this.patientDataView.SelectedItem as Patient;
+            if (this.isItemSelected)
+            {
+                var dialog = new ViewAppointments(currentPatient);
+                await dialog.ShowAsync();
+            }
         }
 
         /// <summary>
