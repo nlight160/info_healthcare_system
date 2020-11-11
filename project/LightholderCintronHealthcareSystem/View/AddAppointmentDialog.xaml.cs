@@ -43,8 +43,8 @@ namespace LightholderCintronHealthcareSystem.View
             this.patient = patient;
             this.adb = new AppointmentDatabaseAccess();
             this.ddb = new DoctorDatabaseAccess();
-            var appointmentsParameters = this.adb.GetAppointmentFromPatientid(int.Parse(this.patient.Patientid));
-            this.appointmentAlreadyExists = appointmentsParameters.Count != 0;
+            //var appointmentsParameters = this.adb.GetAppointmentFromPatientid(int.Parse(this.patient.Patientid));
+            //this.appointmentAlreadyExists = appointmentsParameters.Count != 0;
 
             //if (appointmentAlreadyExists)
             //{
@@ -92,17 +92,15 @@ namespace LightholderCintronHealthcareSystem.View
             var dateTime = new DateTime(this.dateDatePicker.Date.Year, this.dateDatePicker.Date.Month, this.dateDatePicker.Date.Day, this.timeTimePicker.Time.Hours, this.timeTimePicker.Time.Minutes, 0);
             var newAppointment = new Appointment(null, this.patient, doctor, dateTime,
                 this.descriptionTextBox.Text);
-            if (!this.appointmentAlreadyExists)
+            var confirmation = this.adb.CreateAppointment(newAppointment);
+            if (confirmation)
             {
-                
-                this.adb.CreateAppointment(newAppointment);
-                var newAppointmentDialog = new MessageDialog("A new appointment was created for " + this.patient.Firstname + " " + this.patient.Lastname, "New appointment added!");
+                var newAppointmentDialog = new MessageDialog("A new appointment was created for " + this.patient.Firstname + " " + this.patient.Lastname, "Appointment Added!");
                 await newAppointmentDialog.ShowAsync();
             }
             else
             {
-                this.adb.UpdateAppointment(this.appointment, newAppointment);
-                var updateAppointmentDialog = new MessageDialog("Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " has been updated.", "Appointment Updated");
+                var updateAppointmentDialog = new MessageDialog("Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was not added, please try again.", "Failed");
                 await updateAppointmentDialog.ShowAsync();
             }
 
