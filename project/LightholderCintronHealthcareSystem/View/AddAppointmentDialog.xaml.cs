@@ -45,26 +45,29 @@ namespace LightholderCintronHealthcareSystem.View
             this.ddb = new DoctorDatabaseAccess();
             var appointmentsParameters = this.adb.GetAppointmentFromPatientid(int.Parse(this.patient.Patientid));
             this.appointmentAlreadyExists = appointmentsParameters.Count != 0;
-            if (appointmentAlreadyExists)
-            {
-                var appointmentParameters = appointmentsParameters[0];
-                this.doctorParameterList = ddb.GetDoctorDataFromId(int.Parse(appointmentParameters[3]));
-                var doctor = new Doctor(this.doctorParameterList[0], this.doctorParameterList[1], "General"); //TODO change specialty to whats in database.
-                this.appointment = new Appointment(int.Parse(appointmentParameters[0]), this.patient, doctor, DateTime.Parse(appointmentParameters[2]), appointmentParameters[4]);
-                this.doctorIdTextBox.Text = this.doctorParameterList[10];
-                this.dateDatePicker.Date = this.appointment.AppointmentDateTime.Date;
-                this.timeTimePicker.Time = this.appointment.AppointmentDateTime.TimeOfDay;
-                this.doctorFirstNameTextBlock.Text = this.appointment.Doctor.Firstname;
-                this.doctorLastNameTextBlock.Text = this.appointment.Doctor.Lastname;
-                this.descriptionTextBox.Text = this.appointment.Description;
-            }
-            else
-            {
-                this.dateDatePicker.Date = DateTimeOffset.Now;
-                this.timeTimePicker.Time = TimeSpan.Zero;
-            }
-            
-            
+
+            //if (appointmentAlreadyExists)
+            //{
+            //    var appointmentParameters = appointmentsParameters[0];
+            //    this.doctorParameterList = ddb.GetDoctorDataFromId(int.Parse(appointmentParameters[3]));
+            //    var doctor = new Doctor(this.doctorParameterList[0], this.doctorParameterList[1], "General"); //TODO change specialty to whats in database.
+            //    this.appointment = new Appointment(int.Parse(appointmentParameters[0]), this.patient, doctor, DateTime.Parse(appointmentParameters[2]), appointmentParameters[4]);
+            //    this.doctorIdTextBox.Text = this.doctorParameterList[10];
+            //    this.dateDatePicker.Date = this.appointment.AppointmentDateTime.Date;
+            //    this.timeTimePicker.Time = this.appointment.AppointmentDateTime.TimeOfDay;
+            //    this.doctorFirstNameTextBlock.Text = this.appointment.Doctor.Firstname;
+            //    this.doctorLastNameTextBlock.Text = this.appointment.Doctor.Lastname;
+            //    this.descriptionTextBox.Text = this.appointment.Description;
+            //}
+            //else
+            //{
+            //    this.dateDatePicker.Date = DateTimeOffset.Now;
+            //    this.timeTimePicker.Time = TimeSpan.Zero;
+            //}
+
+            this.dateDatePicker.Date = DateTimeOffset.Now;
+            this.timeTimePicker.Time = TimeSpan.Zero;
+
             this.IsPrimaryButtonEnabled = false;
             this.patientFirstNameTextBlock.Text = patient.Firstname;
             this.patientLastNameTextBlock.Text = patient.Lastname;
@@ -81,7 +84,8 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="args">The <see cref="ContentDialogButtonClickEventArgs"/> instance containing the event data.</param>
         private async void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var doctor = new Doctor(this.doctorParameterList[0], this.doctorParameterList[1], "General") //sdb.GetSpecialtyName(sdb.GetDoctorSpecialtiesId(doctorid)[0])) There is no column for specialty
+            var doctorSpecialties = ViewModel.ViewModel.getDoctorSpecialty(int.Parse(this.doctorIdTextBox.Text));
+            var doctor = new Doctor(this.doctorParameterList[0], this.doctorParameterList[1], doctorSpecialties)
             {
                 Doctorid = this.doctorParameterList[10]
             };
@@ -103,9 +107,6 @@ namespace LightholderCintronHealthcareSystem.View
             }
 
             this.dateTip.IsOpen = false;
-            var testDialog = new MessageDialog("Is it double booked?" + (this.checkForDoctorDoubleBook()? "yes": "no"), "New appointment added!");
-            await testDialog.ShowAsync();
-
         }
 
         /// <summary>

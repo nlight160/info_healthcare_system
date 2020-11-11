@@ -60,7 +60,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             var specialtyName = new List<int>();
             try
             {
-                const string query = "SELECT s.specialtyid FROM specialty s AND doctor_specialty ds WHERE s.specialtyid = ds.specialtyid AND ds.doctorid = @doctorid;";
+                const string query = "SELECT ds.specialtyid FROM doctor_specialty ds WHERE ds.doctorid = @doctorid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };

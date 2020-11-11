@@ -141,6 +141,26 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         }
 
         /// <summary>
+        /// Gets the doctor specialty.
+        /// </summary>
+        /// <param name="doctorid">The doctorid.</param>
+        /// <returns></returns>
+        public static Dictionary<int, string> getDoctorSpecialty(int doctorid)
+        {
+            var specialties = new Dictionary<int, string>();
+            var sdb = new SpecialtyDatabaseAccess();
+            var ids = sdb.GetDoctorSpecialtiesId(doctorid);
+
+            foreach (var id in ids)
+            {
+                var name = sdb.GetSpecialtyName(id);
+                specialties.Add(id, name);
+            }
+
+            return specialties;
+        }
+
+        /// <summary>
         /// Checks for doctor double book.
         /// </summary>
         /// <param name="requestedTime">The requested time.</param>

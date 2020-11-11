@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LightholderCintronHealthcareSystem.Model.People
 {
@@ -23,7 +24,7 @@ namespace LightholderCintronHealthcareSystem.Model.People
         /// <value>
         /// The specialty.
         /// </value>
-        public string Specialty { get; }
+        public Dictionary<int, string> Specialty { get; }
 
 
 
@@ -41,13 +42,9 @@ namespace LightholderCintronHealthcareSystem.Model.People
         /// <exception cref="ArgumentNullException">specialty - can not be null or empty</exception>
         public Doctor(string personid, string firstname, string lastname, Date birthdate, Address address,
             string phoneNumber,
-            Gender gender, string specialty) : base(personid, firstname, lastname, birthdate, address, phoneNumber,
+            Gender gender, Dictionary<int, string> specialty) : base(personid, firstname, lastname, birthdate, address, phoneNumber,
             gender)
         {
-            if (string.IsNullOrEmpty(specialty))
-            {
-                throw new ArgumentNullException(nameof(specialty), "can not be null or empty");
-            }
 
             this.Specialty = specialty;
 
@@ -60,13 +57,8 @@ namespace LightholderCintronHealthcareSystem.Model.People
         /// <param name="lastname">The lastname.</param>
         /// <param name="specialty">The specialty.</param>
         /// <exception cref="ArgumentNullException">specialty - can not be null or empty</exception>
-        public Doctor(string firstname, string lastname, string specialty) : base(firstname, lastname)
+        public Doctor(string firstname, string lastname, Dictionary<int, string> specialty) : base(firstname, lastname)
         {
-            if (string.IsNullOrEmpty(specialty))
-            {
-                throw new ArgumentNullException(nameof(specialty), "can not be null or empty");
-            }
-
             this.Specialty = specialty;
         }
     }
