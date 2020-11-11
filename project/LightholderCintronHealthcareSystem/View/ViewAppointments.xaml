@@ -14,21 +14,21 @@
 
     <Grid Width="700">
 
-        <custom:DataGrid x:Name="appointmnetDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="400" Margin="25,0,0,0" VerticalAlignment="Center">
+        <custom:DataGrid x:Name="appointmentDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="400" Margin="25,0,0,0" VerticalAlignment="Top">
 
             <custom:DataGrid.Columns>
 
                 <custom:DataGridTextColumn
                     Header="Date"
-                    Binding="{Binding date}"
+                    Binding="{Binding Date}"
                  />
                 <custom:DataGridTextColumn
                     Header="Time"
-                    Binding="{Binding time}"
+                    Binding="{Binding Time}"
                 />
                 <custom:DataGridTextColumn
                     Header="Doctor's Name"
-                    Binding="{Binding doctorName}"
+                    Binding="{Binding DoctorName}"
                 />
             </custom:DataGrid.Columns>
 

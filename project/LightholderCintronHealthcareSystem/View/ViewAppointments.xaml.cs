@@ -28,7 +28,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.InitializeComponent();
             this.patient = patient;
             //this.refreshDataView();
-            this.appointmnetDataView.ItemsSource = ViewModel.ViewModel.getAppointmentsFromPatient(int.Parse(this.patient.Patientid));
+            this.appointmentDataView.ItemsSource = ViewModel.ViewModel.getAppointmentsFromPatient(int.Parse(this.patient.Patientid));
             this.Title += this.patient.Firstname + " " + this.patient.Lastname;
         }
         /// <summary>
@@ -48,7 +48,7 @@ namespace LightholderCintronHealthcareSystem.View
         /// </summary>
         private void refreshDataView()
         {
-            this.appointmnetDataView.ItemsSource = ViewModel.ViewModel.getAppointmentsFromPatient(int.Parse(this.patient.Patientid));
+            this.appointmentDataView.ItemsSource = ViewModel.ViewModel.getAppointmentsFromPatient(int.Parse(this.patient.Patientid));
             this.checkIfNoAppointments();
         }
 
@@ -87,7 +87,7 @@ namespace LightholderCintronHealthcareSystem.View
         private void onDeleteAppointment(object sender, RoutedEventArgs e)
         {
 
-            var selectedAppointment = this.appointmnetDataView.SelectedItem as AppointmentDataGrid;
+            var selectedAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
             string content;
             string title;
             if (selectedAppointment != null)
