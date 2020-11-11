@@ -245,6 +245,47 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         }
 
         /// <summary>
+        /// Gets the appointment time from patientid.
+        /// </summary>
+        /// <param name="patientid">The patientid.</param>
+        /// <returns></returns>
+        public List<string> GetAppointmentTimeFromPatientid(int patientid)
+        {
+
+            var appointmentTimes = new List<string>();
+            try
+            {
+                const string query = "SELECT a.date FROM appointment a WHERE a.patientid = @patientid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@patientid", patientid);
+                using var reader = cmd.ExecuteReader();
+                var dateOrdinal = reader.GetOrdinal("date");
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        appointmentTimes.Add(reader.GetString(dateOrdinal));
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return appointmentTimes;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the GetAppointment: " + ex);
+                return appointmentTimes;
+            }
+        }
+
+        /// <summary>
         /// Gets the patient name from appointmentid.
         /// </summary>
         /// <param name="appointmentid">The appointmentid.</param>

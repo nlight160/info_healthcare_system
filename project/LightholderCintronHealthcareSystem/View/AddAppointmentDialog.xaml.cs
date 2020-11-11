@@ -158,7 +158,7 @@ namespace LightholderCintronHealthcareSystem.View
                 return false;
             }
             this.dateTip.IsOpen = false;
-            return !this.checkForDoctorDoubleBook() && this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "";
+            return !this.checkForDoubleBook() && this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "";
         }
 
         /// <summary>
@@ -229,6 +229,34 @@ namespace LightholderCintronHealthcareSystem.View
             this.dateTip.IsOpen = false;
             return false;
 
+        }
+
+        /// <summary>
+        /// Checks for patient double book.
+        /// </summary>
+        /// <returns></returns>
+        private bool checkForPatientDoubleBook()
+        {
+            
+            var requestedTime = this.dateDatePicker.Date.Date.Add(this.timeTimePicker.Time);
+            if (ViewModel.ViewModel.checkForPatientDoubleBook(requestedTime, int.Parse(this.patient.Patientid)))
+            {
+                this.dateTip.Content = "Patient already booked for this Date/Time.";
+                this.dateTip.IsOpen = true;
+                return true;
+            }
+            this.dateTip.IsOpen = false;
+            return false;
+
+        }
+
+        /// <summary>
+        /// Checks for double book.
+        /// </summary>
+        /// <returns></returns>
+        private bool checkForDoubleBook()
+        {
+            return this.checkForDoctorDoubleBook() || this.checkForPatientDoubleBook();
         }
 
 

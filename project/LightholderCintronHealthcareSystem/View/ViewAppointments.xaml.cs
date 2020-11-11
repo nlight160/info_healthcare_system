@@ -27,8 +27,8 @@ namespace LightholderCintronHealthcareSystem.View
         {
             this.InitializeComponent();
             this.patient = patient;
-            this.refreshDataView();
-            
+            //this.refreshDataView();
+            this.appointmnetDataView.ItemsSource = ViewModel.ViewModel.getAppointmentsFromPatient(int.Parse(this.patient.Patientid));
             this.Title += this.patient.Firstname + " " + this.patient.Lastname;
         }
         /// <summary>
@@ -61,7 +61,9 @@ namespace LightholderCintronHealthcareSystem.View
         {
 
             var dialog = new AddAppointmentDialog(this.patient);
+            this.Hide();
             await dialog.ShowAsync();
+            var t = this.ShowAsync();
             this.refreshDataView();
         }
 
@@ -135,7 +137,7 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onRecordCheckup(object sender, RoutedEventArgs e)
         { 
-            ContentDialog dialog = new RecordCheckupDialog(this.patient);
+            ContentDialog dialog = new RecordCheckupDialog(int.Parse(this.patient.Patientid));
             await dialog.ShowAsync();
             this.refreshDataView();
         }

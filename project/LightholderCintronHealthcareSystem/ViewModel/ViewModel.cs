@@ -164,6 +164,30 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         }
 
         /// <summary>
+        /// Checks for patient double book.
+        /// </summary>
+        /// <param name="requestedTime">The requested time.</param>
+        /// <param name="patientid">The patientid.</param>
+        /// <returns></returns>
+        public static bool checkForPatientDoubleBook(DateTime requestedTime, int patientid)
+        {
+            var adb = new AppointmentDatabaseAccess();
+            var currentAppointments = adb.GetAppointmentTimeFromPatientid(patientid);
+            const int appointmentDuration = 30; //In minutes
+            foreach (var currentAppointment in currentAppointments)
+            {
+                var takenDate = DateTime.Parse(currentAppointment);
+                var unavailable = requestedTime - takenDate;
+                if (Math.Abs(unavailable.TotalSeconds) <= appointmentDuration * 60) //&& unavailable.TotalSeconds > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Gets the appointments from patient.
         /// </summary>
         /// <param name="patientid">The patientid.</param>
