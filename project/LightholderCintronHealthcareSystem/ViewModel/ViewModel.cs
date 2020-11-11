@@ -208,6 +208,31 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         }
 
         /// <summary>
+        /// Creates the appointment.
+        /// </summary>
+        /// <param name="patientid">The patientid.</param>
+        /// <param name="date">The date.</param>
+        /// <param name="doctorid">The doctorid.</param>
+        /// <param name="description">The description.</param>
+        /// <returns></returns>
+        public static bool createAppointment(string patientid, DateTime date, string doctorid, string description)
+        {
+            var adb = new AppointmentDatabaseAccess();
+            return adb.CreateAppointment(patientid, date, doctorid, description);
+        }
+
+        /// <summary>
+        /// Gets the name of the doctor.
+        /// </summary>
+        /// <param name="doctorid">The doctorid.</param>
+        /// <returns></returns>
+        public static List<string> getDoctorName(int doctorid)
+        {
+            var ddb = new DoctorDatabaseAccess();
+            return ddb.GetDoctorNameFromId(doctorid);
+        }
+
+        /// <summary>
         /// Gets the appointments from patient.
         /// </summary>
         /// <param name="patientid">The patientid.</param>

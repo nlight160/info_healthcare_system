@@ -69,5 +69,46 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 return doctorData;
             }
         }
+
+        /// <summary>
+        /// Gets the doctor name from identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public List<string> GetDoctorNameFromId(int id)
+        {
+            var doctorData = new List<string>();
+
+            try
+            {
+                const string query = "SELECT DISTINCT p.fname, p.lname FROM person p, doctor d WHERE p.personid = d.personid AND d.doctorid = @doctorid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@doctorid", id);
+                using var reader = cmd.ExecuteReader();
+                var fnameOrdinal = reader.GetOrdinal("fname");
+                var lnameOrdinal = reader.GetOrdinal("lname");
+
+                if (reader.HasRows)
+                {
+                    //Should only have one row so no while here.
+                    reader.Read();
+                    doctorData.Add(reader.GetString(fnameOrdinal));    //0
+                    doctorData.Add(reader.GetString(lnameOrdinal));    //1
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return doctorData;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the GetDoctorDataById: " + ex);
+                return doctorData;
+            }
+        }
     }
 }

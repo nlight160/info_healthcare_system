@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using LightholderCintronHealthcareSystem.Model.People;
 
 namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
@@ -12,18 +13,17 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         private const string ConStr = "server=160.10.25.16; port=3306; uid=cs3230f20j;" +
                                       "pwd=F1UgUzIjwlhLAQ9a;database=cs3230f20j;";
 
+
         /// <summary>
         /// Creates the appointment.
         /// </summary>
-        /// <param name="a">a.</param>
+        /// <param name="patientid">The patientid.</param>
+        /// <param name="date">The date.</param>
+        /// <param name="doctorid">The doctorid.</param>
+        /// <param name="description">The description.</param>
         /// <returns></returns>
-        public bool CreateAppointment(Appointment a)
+        public bool CreateAppointment(string patientid, DateTime date, string doctorid, string description)
         {
-
-            var patientid = a.Patient.Patientid;
-            var date = a.AppointmentDateTime;
-            var doctorid = a.Doctor.Doctorid;
-            var description = a.Description;
 
             try
             {

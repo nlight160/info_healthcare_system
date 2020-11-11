@@ -1,8 +1,4 @@
-﻿using LightholderCintronHealthcareSystem.Model;
-using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
-using LightholderCintronHealthcareSystem.Model.People;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -20,29 +16,27 @@ namespace LightholderCintronHealthcareSystem.View
     /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class AddAppointmentDialog : ContentDialog
     {
-        private readonly Patient patient;
-        private List<string> doctorParameterList;
-        private readonly DoctorDatabaseAccess ddb;
-        private readonly AppointmentDatabaseAccess adb;
-        private readonly Appointment appointment;
-        private readonly bool appointmentAlreadyExists;
+        private readonly int patientid;
+        private readonly string patientFirstName;
+        private readonly string patientLastName;
         private readonly ToolTip dateTip;
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddAppointmentDialog"/> class.
         /// </summary>
-        /// <param name="patient">The patient.</param>
-        public AddAppointmentDialog(Patient patient)
+        /// <param name="patientid">The patientid.</param>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        public AddAppointmentDialog(int patientid, string firstName, string lastName)
         {
             this.InitializeComponent();
             this.dateTip = new ToolTip();
             
             ToolTipService.SetToolTip(this.dateDatePicker, this.dateTip);
 
-            this.patient = patient;
-            this.adb = new AppointmentDatabaseAccess();
-            this.ddb = new DoctorDatabaseAccess();
+            this.patientid = patientid;
+            this.patientFirstName = firstName;
+            this.patientLastName = lastName;
             //var appointmentsParameters = this.adb.GetAppointmentFromPatientid(int.Parse(this.patient.Patientid));
             //this.appointmentAlreadyExists = appointmentsParameters.Count != 0;
 
@@ -69,9 +63,9 @@ namespace LightholderCintronHealthcareSystem.View
             this.timeTimePicker.Time = TimeSpan.Zero;
 
             this.IsPrimaryButtonEnabled = false;
-            this.patientFirstNameTextBlock.Text = patient.Firstname;
-            this.patientLastNameTextBlock.Text = patient.Lastname;
-            this.patientIdTextBlock.Text = patient.Patientid;
+            this.patientFirstNameTextBlock.Text = this.patientFirstName;
+            this.patientLastNameTextBlock.Text = this.patientLastName;
+            this.patientIdTextBlock.Text = this.patientid.ToString();
             this.dateDatePicker.MinYear = DateTimeOffset.Now;
 
 
@@ -84,23 +78,18 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="args">The <see cref="ContentDialogButtonClickEventArgs"/> instance containing the event data.</param>
         private async void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var doctorSpecialties = ViewModel.ViewModel.getDoctorSpecialty(int.Parse(this.doctorIdTextBox.Text));
-            var doctor = new Doctor(this.doctorParameterList[0], this.doctorParameterList[1], doctorSpecialties)
-            {
-                Doctorid = this.doctorParameterList[10]
-            };
             var dateTime = new DateTime(this.dateDatePicker.Date.Year, this.dateDatePicker.Date.Month, this.dateDatePicker.Date.Day, this.timeTimePicker.Time.Hours, this.timeTimePicker.Time.Minutes, 0);
-            var newAppointment = new Appointment(null, this.patient, doctor, dateTime,
-                this.descriptionTextBox.Text);
-            var confirmation = this.adb.CreateAppointment(newAppointment);
+
+            var confirmation = ViewModel.ViewModel.createAppointment(this.patientid.ToString(), dateTime, this.doctorIdTextBox.Text, this.descriptionTextBox.Text);
+
             if (confirmation)
             {
-                var newAppointmentDialog = new MessageDialog("A new appointment was created for " + this.patient.Firstname + " " + this.patient.Lastname, "Appointment Added!");
+                var newAppointmentDialog = new MessageDialog("A new appointment was created for " + this.patientFirstName + " " + this.patientLastName, "Appointment Added!");
                 await newAppointmentDialog.ShowAsync();
             }
             else
             {
-                var updateAppointmentDialog = new MessageDialog("Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was not added, please try again.", "Failed");
+                var updateAppointmentDialog = new MessageDialog("Appointment for " + this.patientFirstName + " " + this.patientLastName + " was not added, please try again.", "Failed");
                 await updateAppointmentDialog.ShowAsync();
             }
 
@@ -125,13 +114,13 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onDeselectDoctorIdTextBlock(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(doctorIdTextBox.Text) && !string.IsNullOrWhiteSpace(doctorIdTextBox.Text))
+            if (!string.IsNullOrEmpty(this.doctorIdTextBox.Text) && !string.IsNullOrWhiteSpace(this.doctorIdTextBox.Text))
             {
-                this.doctorParameterList = ddb.GetDoctorDataFromId(int.Parse(this.doctorIdTextBox.Text));
+                var doctorName = ViewModel.ViewModel.getDoctorName(int.Parse(this.doctorIdTextBox.Text));
                 try 
                 {
-                    this.doctorFirstNameTextBlock.Text = this.doctorParameterList[0];
-                    this.doctorLastNameTextBlock.Text = this.doctorParameterList[1];
+                    this.doctorFirstNameTextBlock.Text = doctorName[0];
+                    this.doctorLastNameTextBlock.Text = doctorName[1];
                 }
                 catch(ArgumentOutOfRangeException exception)
                 {
@@ -139,7 +128,6 @@ namespace LightholderCintronHealthcareSystem.View
                     MessageDialog notFounDialog = new MessageDialog("A doctor with the ID provided was not found.", "Doctor not found!");
                     await notFounDialog.ShowAsync();
                 }
-                
             }
             this.IsPrimaryButtonEnabled = this.checkForCompetion();
         }
@@ -238,7 +226,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
             
             var requestedTime = this.dateDatePicker.Date.Date.Add(this.timeTimePicker.Time);
-            if (ViewModel.ViewModel.checkForPatientDoubleBook(requestedTime, int.Parse(this.patient.Patientid)))
+            if (ViewModel.ViewModel.checkForPatientDoubleBook(requestedTime, this.patientid))
             {
                 this.dateTip.Content = "Patient already booked for this Date/Time.";
                 this.dateTip.IsOpen = true;

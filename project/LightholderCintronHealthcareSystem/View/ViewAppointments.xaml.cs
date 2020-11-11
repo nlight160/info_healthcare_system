@@ -60,7 +60,7 @@ namespace LightholderCintronHealthcareSystem.View
         private async void onAddAppointment(object sender, RoutedEventArgs e)
         {
 
-            var dialog = new AddAppointmentDialog(this.patient);
+            var dialog = new AddAppointmentDialog(int.Parse(this.patient.Patientid), this.patient.Firstname, this.patient.Lastname);
             this.Hide();
             await dialog.ShowAsync();
             var t = this.ShowAsync();
@@ -74,8 +74,42 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onEditAppointment(object sender, RoutedEventArgs e)
         {
-            var dialog = new AddAppointmentDialog(this.patient);
-            await dialog.ShowAsync();
+            var selectedAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
+            string content;
+            string title;
+            if (selectedAppointment != null)
+            {
+                var appointmentid = selectedAppointment.Appointmentid;
+
+                var dialog = new AddAppointmentDialog(int.Parse(this.patient.Patientid), this.patient.Firstname, this.patient.Lastname); //TODO make edit appointment dialog
+                this.Hide();
+                await dialog.ShowAsync();
+                var t = this.ShowAsync();
+
+                var success = ViewModel.ViewModel.deleteAppointment(appointmentid); //TODO move to edit appointment dialog
+
+
+                if (success)
+                {
+                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was updated successfully!";
+                    title = "Update successful";
+                }
+                else
+                {
+                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " could not be updated, please try again.";
+                    title = "Update failed";
+                }
+
+                this.refreshDataView();
+            }
+            else
+            {
+                content = "No selected appointment.";
+                title = "Select appointment";
+            }
+
+            confirmation(content, title);
+
             this.refreshDataView();
         }
 
@@ -136,9 +170,43 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onRecordCheckup(object sender, RoutedEventArgs e)
-        { 
-            ContentDialog dialog = new RecordCheckupDialog(int.Parse(this.patient.Patientid));
-            await dialog.ShowAsync();
+        {
+
+            var selectedAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
+            string content;
+            string title;
+            if (selectedAppointment != null)
+            {
+                var appointmentid = selectedAppointment.Appointmentid;
+
+                var dialog = new RecordCheckupDialog(int.Parse(this.patient.Patientid));
+                this.Hide();
+                await dialog.ShowAsync();
+                var t = this.ShowAsync();
+
+                var success = ViewModel.ViewModel.deleteAppointment(appointmentid); //TODO move to checkup dialog instead
+
+
+                if (success)
+                {
+                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was updated successfully!";
+                    title = "Update successful";
+                }
+                else
+                {
+                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " could not be updated, please try again.";
+                    title = "Update failed";
+                }
+
+                this.refreshDataView();
+            }
+            else
+            {
+                content = "No selected appointment.";
+                title = "Select appointment";
+            }
+
+            confirmation(content, title);
             this.refreshDataView();
         }
 
