@@ -1,5 +1,6 @@
 ﻿using LightholderCintronHealthcareSystem.Model.People;
 using System;
+using Windows.Devices.Bluetooth.Background;
 
 namespace LightholderCintronHealthcareSystem.Model
 {
@@ -14,35 +15,43 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <value>
         /// The appointmentid.
         /// </value>
-        public int Appointmentid { get; set; }
+        public int Appointmentid { get;}
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
         /// <value>
         /// The date.
         /// </value>
-        public string Date { get; set; }
+        public string Date { get;}
         /// <summary>
         /// Gets or sets the time.
         /// </summary>
         /// <value>
         /// The time.
         /// </value>
-        public string Time { get; set; }
+        public string Time { get;}
         /// <summary>
         /// Gets or sets the name of the doctor.
         /// </summary>
         /// <value>
         /// The name of the doctor.
         /// </value>
-        public string DoctorName { get; set; }
+        public string DoctorName { get;}
         /// <summary>
         /// Gets or sets the description.
         /// </summary>
         /// <value>
         /// The description.
         /// </value>
-        public string Description { get; set; }
+        public string Description { get;}
+
+        /// <summary>
+        /// Gets or sets the date time.
+        /// </summary>
+        /// <value>
+        /// The date time.
+        /// </value>
+        public DateTime DateTime { get;}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentDataGrid"/> class.
@@ -67,6 +76,8 @@ namespace LightholderCintronHealthcareSystem.Model
             this.Time = time.ToString();
             this.DoctorName = doctorName;
             this.Description = description;
+            this.DateTime = dateTime;
         }
+
     }
 }

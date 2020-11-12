@@ -81,34 +81,28 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 var appointmentid = selectedAppointment.Appointmentid;
 
-                var dialog = new AddAppointmentDialog(int.Parse(this.patient.Patientid), this.patient.Firstname, this.patient.Lastname); //TODO make edit appointment dialog
-                this.Hide();
-                await dialog.ShowAsync();
-                var t = this.ShowAsync();
-
-                var success = ViewModel.ViewModel.deleteAppointment(appointmentid); //TODO move to edit appointment dialog
-
-
-                if (success)
+                if (!ViewModel.ViewModel.checkIfAppointmentTimePassed(appointmentid, DateTime.Now))
                 {
-                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was updated successfully!";
-                    title = "Update successful";
+
+                    var dialog = new EditAppointmentDialog(appointmentid, int.Parse(this.patient.Patientid), this.patient.Firstname, this.patient.Lastname,
+                        int.Parse(ViewModel.ViewModel.GetDoctoridFromAppointmentid(appointmentid)), selectedAppointment.DateTime, selectedAppointment.Description); 
+                    this.Hide();
+                    await dialog.ShowAsync();
+                    var t = this.ShowAsync();
                 }
                 else
                 {
-                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " could not be updated, please try again.";
-                    title = "Update failed";
+                    content = "Cannot edit appointments that have passed.";
+                    title = "Select another appointment";
+                    confirmation(content, title);
                 }
-
-                this.refreshDataView();
             }
             else
             {
                 content = "No selected appointment.";
                 title = "Select appointment";
+                confirmation(content, title);
             }
-
-            confirmation(content, title);
 
             this.refreshDataView();
         }
@@ -184,30 +178,31 @@ namespace LightholderCintronHealthcareSystem.View
                 await dialog.ShowAsync();
                 var t = this.ShowAsync();
 
-                var success = ViewModel.ViewModel.deleteAppointment(appointmentid); //TODO move to checkup dialog instead
 
 
-                if (success)
-                {
-                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was updated successfully!";
-                    title = "Update successful";
-                }
-                else
-                {
-                    content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " could not be updated, please try again.";
-                    title = "Update failed";
-                }
+                //TODO move to record checkup
+                //    if (success)
+                //    {
+                //        content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was updated successfully!";
+                //        title = "Update successful";
+                //    }
+                //    else
+                //    {
+                //        content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " could not be updated, please try again.";
+                //        title = "Update failed";
+                //    }
 
+                //    this.refreshDataView();
+                //}
+                //else
+                //{
+                //    content = "No selected appointment.";
+                //    title = "Select appointment";
+                //}
+
+                //confirmation(content, title);
                 this.refreshDataView();
             }
-            else
-            {
-                content = "No selected appointment.";
-                title = "Select appointment";
-            }
-
-            confirmation(content, title);
-            this.refreshDataView();
         }
 
     }

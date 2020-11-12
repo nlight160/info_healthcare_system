@@ -52,35 +52,29 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
         }
 
+
         /// <summary>
-        /// Updates the appointment.
+        /// Edits the appointment.
         /// </summary>
-        /// <param name="originalAppointment">The original appointment.</param>
-        /// <param name="newAppointment">The new appointment.</param>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <param name="date">The date.</param>
+        /// <param name="doctorid">The doctorid.</param>
+        /// <param name="description">The description.</param>
         /// <returns></returns>
-        public bool UpdateAppointment(Appointment originalAppointment, Appointment newAppointment)
+        public bool EditAppointment(int appointmentid, DateTime date, int doctorid, string description)
         {
-
-            var originalAppointmentid = originalAppointment.Appointmentid;
-
-            var patientid = newAppointment.Patient.Patientid;
-            var date = newAppointment.AppointmentDateTime;
-            var doctorid = newAppointment.Doctor.Doctorid;
-            var description = newAppointment.Description;
-
             try
             {
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { Connection = conn };
 
-                const string updateAppointment = "UPDATE `appointment` SET `patientid` = @patientid, `date` = @date, `doctorid` = @doctorid, `description` = @description WHERE `appointmentid` = @originalAppointmentid;";
+                const string updateAppointment = "UPDATE `appointment` SET `date` = @date, `doctorid` = @doctorid, `description` = @description WHERE `appointmentid` = @appointmentid;";
                 cmd.CommandText = updateAppointment;
-                cmd.Parameters.AddWithValue("@patientid", patientid);
                 cmd.Parameters.AddWithValue("@date", date);
                 cmd.Parameters.AddWithValue("@doctorid", doctorid);
                 cmd.Parameters.AddWithValue("@description", description);
-                cmd.Parameters.AddWithValue("@originalAppointmentid", originalAppointmentid);
+                cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
 
                 var confirmation = cmd.ExecuteNonQuery();
                 return confirmation == 1;
@@ -332,7 +326,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         /// <returns></returns>
         public string GetDoctorNameFromAppointmentid(int appointmentid)
         {
-            var patientName = "";
+            var doctorName = "";
             try
             {
                 const string query = "SELECT p.fname, p.lname FROM doctor d, person p, appointment a WHERE a.doctorid = d.doctorid AND d.personid = p.personid AND a.appointmentid = @appointmentid;";
@@ -348,9 +342,47 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    patientName = reader.GetString(fnameOrdinal);
-                    patientName += " ";
-                    patientName += reader.GetString(lnameOrdinal);
+                    doctorName = reader.GetString(fnameOrdinal);
+                    doctorName += " ";
+                    doctorName += reader.GetString(lnameOrdinal);
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return doctorName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the GetAppointment: " + ex);
+                return doctorName;
+            }
+        }
+
+        /// <summary>
+        /// Gets the doctorid from appointmentid.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
+        public string GetDoctoridFromAppointmentid(int appointmentid)
+        {
+            var patientName = "";
+            try
+            {
+                const string query = "SELECT a.doctorid FROM appointment a WHERE a.appointmentid = @appointmentid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
+                using var reader = cmd.ExecuteReader();
+                var doctoridOrdinal = reader.GetOrdinal("doctorid");
+
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    patientName = reader.GetString(doctoridOrdinal);
                 }
                 else
                 {
@@ -364,7 +396,6 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 return patientName;
             }
         }
-
 
     }
 }

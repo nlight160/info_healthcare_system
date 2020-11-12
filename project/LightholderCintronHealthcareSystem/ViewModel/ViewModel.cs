@@ -233,6 +233,44 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         }
 
         /// <summary>
+        /// Checks if appointment time passed.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <param name="dateTime">The date time.</param>
+        /// <returns></returns>
+        public static bool checkIfAppointmentTimePassed(int appointmentid, DateTime dateTime)
+        {
+            var adb = new AppointmentDatabaseAccess();
+            var appointmentTime = adb.GetAppointmentTimeFromAppointmentid(appointmentid);
+            return dateTime > appointmentTime;
+        }
+
+        /// <summary>
+        /// Updates the appointment.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <param name="date">The date.</param>
+        /// <param name="doctorid">The doctorid.</param>
+        /// <param name="description">The description.</param>
+        /// <returns></returns>
+        public static bool EditAppointment(int appointmentid, DateTime date, int doctorid, string description)
+        {
+            var adb = new AppointmentDatabaseAccess();
+            return adb.EditAppointment(appointmentid, date, doctorid, description);
+        }
+
+        /// <summary>
+        /// Gets the doctorid from appointmentid.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
+        public static string GetDoctoridFromAppointmentid(int appointmentid)
+        {
+            var adb = new AppointmentDatabaseAccess();
+            return adb.GetDoctoridFromAppointmentid(appointmentid);
+        }
+
+        /// <summary>
         /// Gets the appointments from patient.
         /// </summary>
         /// <param name="patientid">The patientid.</param>
