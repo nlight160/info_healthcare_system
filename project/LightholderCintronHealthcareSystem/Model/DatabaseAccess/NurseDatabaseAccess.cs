@@ -18,22 +18,58 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         /// <summary>
         /// Authenticates the login.
         /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
+        /// <param name="nurseid"></param>
         /// <returns></returns>
-        public List<string> AuthenticateLogin(string username, string password)
+        public List<string> AuthenticateLogin(string nurseid)
         {
-            
+            var information = new List<string>();
             try
             {
-                var user = int.Parse(username);
-                const string query = "SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = @username AND n.password = @password;";
+                var user = int.Parse(nurseid);
+                const string query = "SELECT n.password, n.salt FROM nurse n WHERE n.nurseid = @nurseid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand {CommandText = query, Connection = conn};
                 cmd.Prepare();
-                cmd.Parameters.AddWithValue("@username", user);
-                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@nurseid", user);
+
+                using var reader = cmd.ExecuteReader();
+                var passwordOrdinal = reader.GetOrdinal("password");
+                var saltOrdinal = reader.GetOrdinal("salt");
+                if (!reader.HasRows)
+                {
+                    Console.WriteLine("No rows exist in table");
+                    return information;
+                }
+                reader.Read();
+                information.Add(reader.GetString(passwordOrdinal));
+                information.Add(reader.GetString(saltOrdinal));
+                return information;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the AuthenticateLogin: " + ex);
+                return information;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the nurses.
+        /// </summary>
+        /// <param name="nurseid"></param>
+        /// <returns></returns>
+        public List<string> GetNursesName(string nurseid)
+        {
+            var information = new List<string>();
+            try
+            {
+                var user = int.Parse(nurseid);
+                const string query = "SELECT p.fname, p.lname FROM person p, nurse n WHERE n.personid = p.personid AND n.nurseid = @nurseid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@nurseid", user);
 
                 using var reader = cmd.ExecuteReader();
                 var fnameOrdinal = reader.GetOrdinal("fname");
@@ -44,13 +80,14 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                     return null;
                 }
                 reader.Read();
-                return new List<string>
-                    {reader.GetString(fnameOrdinal), reader.GetString(lnameOrdinal)};
+                information.Add(reader.GetString(fnameOrdinal));
+                information.Add(reader.GetString(lnameOrdinal));
+                return information;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in the AuthenticateLogin: " + ex);
-                return null;
+                return information;
             }
         }
 

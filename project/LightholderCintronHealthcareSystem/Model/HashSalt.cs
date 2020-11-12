@@ -17,7 +17,11 @@ namespace LightholderCintronHealthcareSystem.Model
         public string Hash { get; set; }
         public string Salt { get; set; }
 
-        public HashSalt(string password)
+        /// <summary>
+        /// Makes the hash salt.
+        /// </summary>
+        /// <param name="password">The password.</param>
+        public void makeHashSalt(string password)
         {
             var saltBytes = new byte[Size];
             var provider = new RNGCryptoServiceProvider();

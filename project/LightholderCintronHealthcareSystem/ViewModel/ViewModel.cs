@@ -30,14 +30,25 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         public static bool AttemptLogin(string username, string password)
         {
             var dba = new NurseDatabaseAccess();
-            var information =
-                dba.AuthenticateLogin(username, password);
-            
-            if (information != null)
+            var hashAndSalt = dba.AuthenticateLogin(username);
+            //Just to get hash and salt to put into database.
+            //var t = new HashSalt();
+            //t.makeHashSalt(password);
+            //var h = t.Hash;
+            //var s = t.Salt;
+            if (hashAndSalt.Count == 2)
             {
-                var loginCredentials = new Nurse(information[0], information[1]);
-                ActiveUser = new User(loginCredentials, int.Parse(username));
-                return true;
+                var hashSalt = new HashSalt();
+                var hash = hashAndSalt[0];
+                var salt = hashAndSalt[1];
+                var verify = hashSalt.verifyPassword(password, hash, salt);
+                if (verify)
+                {
+                    var information = dba.GetNursesName(username);
+                    var loginCredentials = new Nurse(information[0], information[1]);
+                    ActiveUser = new User(loginCredentials, int.Parse(username));
+                    return true;
+                }
             }
             return false;
         }
