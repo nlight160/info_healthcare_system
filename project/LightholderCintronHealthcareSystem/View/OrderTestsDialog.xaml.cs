@@ -28,6 +28,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
             this.InitializeComponent();
             this.order = new TestOrder(new ObservableCollection<Test>());
+            this.PatientNameTextBlock.Text = appointment.PatientName;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

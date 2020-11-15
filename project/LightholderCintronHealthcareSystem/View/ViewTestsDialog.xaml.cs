@@ -23,14 +23,12 @@ namespace LightholderCintronHealthcareSystem.View
         public ViewTestsDialog(AppointmentDataGrid appointment)
         {
             this.InitializeComponent();
+            this.patientNameTextBlock.Text = appointment.PatientName;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
+            Hide();
         }
     }
 }
