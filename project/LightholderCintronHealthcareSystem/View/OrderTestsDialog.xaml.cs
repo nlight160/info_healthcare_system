@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,8 +32,31 @@ namespace LightholderCintronHealthcareSystem.View
             this.PatientNameTextBlock.Text = appointment.PatientName;
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            if (this.order.Order.Count > 0)
+            {
+                ContentDialog placeOrderConfirmationDialog = new ContentDialog
+                {
+                    Title = "Are you sure?",
+                    Content = "Are you sure you would like to place an order for " + this.order.Order.Count + " tests?",
+                    PrimaryButtonText = "Ok",
+                    CloseButtonText = "Cancel"
+                };
+
+                ContentDialogResult result = await placeOrderConfirmationDialog.ShowAsync();
+
+                if (result == ContentDialogResult.Primary)
+                {
+                    // TODO
+                }
+            }
+            else
+            {
+                var message = new MessageDialog("Order Empty!", "You must add tests to your order to place one!");
+                await message.ShowAsync();
+            }
+            
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
