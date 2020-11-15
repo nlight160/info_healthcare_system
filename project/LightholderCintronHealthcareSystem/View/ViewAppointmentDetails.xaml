@@ -40,8 +40,8 @@
         </controls:DataGrid>
 
         <Grid x:Name="checkupInfo" Margin="250,0,0,230">
-            <TextBlock x:Name="checkupTextBlock" HorizontalAlignment="Left" Margin="0,0,0,0" Text="Checkup Informormation" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Button x:Name="makeCheckup" Content="Create Checkup" Margin="332,200,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup"/>
+            <TextBlock x:Name="checkupTextBlock" HorizontalAlignment="Left" Margin="0,0,0,0" Text="Checkup Information" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Button x:Name="makeCheckupButton" Content="Create Checkup" Margin="332,200,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup"/>
             <controls:DataGrid x:Name="checkupDataView" IsReadOnly="True" HorizontalAlignment="Left" HeadersVisibility="None"  AutoGenerateColumns ="False" Height="175" Margin="0,25,0,0" VerticalAlignment="Top">
                 <controls:DataGrid.Columns>
 

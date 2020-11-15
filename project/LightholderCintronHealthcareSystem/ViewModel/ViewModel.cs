@@ -321,6 +321,10 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         {
             var cdb = new CheckupDatabaseAccess();
             var information = cdb.GetCheckupFromAppointmentid(appointmentid);
+            if (information.Count != 6)
+            {
+                return null;
+            }
             var systolic = int.Parse(information[0]);
             var diastolic = int.Parse(information[1]);
             var temperature = decimal.Parse(information[2]);
