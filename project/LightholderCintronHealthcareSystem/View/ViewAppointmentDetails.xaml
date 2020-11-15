@@ -16,7 +16,7 @@
 
         <controls:DataGrid x:Name="appointmentDataView" IsReadOnly="True" HorizontalAlignment="Left" HeadersVisibility="None" ColumnWidth="125"  AutoGenerateColumns ="False" Height="460" Margin="0,0,0,0" VerticalAlignment="Top">
             <controls:DataGrid.Columns>
-                
+
                 <controls:DataGridTextColumn
                     Binding="{Binding Key}">
                     <controls:DataGridTextColumn.ElementStyle>
@@ -39,7 +39,38 @@
             </controls:DataGrid.Columns>
         </controls:DataGrid>
 
+        <Grid x:Name="checkupInfo" Margin="250,0,0,230">
+            <TextBlock x:Name="checkupTextBlock" HorizontalAlignment="Left" Margin="0,0,0,0" Text="Checkup Informormation" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Button x:Name="makeCheckup" Content="Create Checkup" Margin="332,200,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup"/>
+            <controls:DataGrid x:Name="checkupDataView" IsReadOnly="True" HorizontalAlignment="Left" HeadersVisibility="None"  AutoGenerateColumns ="False" Height="175" Margin="0,25,0,0" VerticalAlignment="Top">
+                <controls:DataGrid.Columns>
 
+                    <controls:DataGridTextColumn
+                        Width="130"
+                        Binding="{Binding Key}">
+                        <controls:DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </controls:DataGridTextColumn.ElementStyle>
+
+                    </controls:DataGridTextColumn>
+                    <controls:DataGridTextColumn
+                        Width="320"
+                        Binding="{Binding Value}">
+                        <controls:DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </controls:DataGridTextColumn.ElementStyle>
+                    </controls:DataGridTextColumn>
+
+
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+            
+
+        </Grid>
 
 
     </Grid>

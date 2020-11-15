@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -21,6 +22,8 @@ namespace LightholderCintronHealthcareSystem.View
     public sealed partial class ViewAppointmentDetails : ContentDialog
     {
         private Dictionary<string, string> dataDictionary;
+        private Dictionary<string, string> checkupDictionary;
+        private readonly int appointmentid;
 
         /*  TODO
          *  Would like to have some structure on the top right of the dialog with the checkup information filled out (if checkup was already done if not grey everything out + context menu saying to fill
@@ -40,6 +43,7 @@ namespace LightholderCintronHealthcareSystem.View
         public ViewAppointmentDetails(AppointmentDataGrid appointment)
         {
             this.InitializeComponent();
+            this.appointmentid = appointment.Appointmentid;
             this.dataDictionary = new Dictionary<string, string>();
             this.appointmentDataView.ItemsSource = this.dataDictionary;
             this.dataDictionary.Add("Patient ID", appointment.Patientid.ToString());
@@ -50,10 +54,20 @@ namespace LightholderCintronHealthcareSystem.View
             this.dataDictionary.Add("Appointment Date", appointment.Date);
             this.dataDictionary.Add("Appointment Time", appointment.Time);
             this.dataDictionary.Add("Description", appointment.Description);
-            
-            
-            
-            
+
+
+            //TODO TODO TODO check to see if checkup exists first! Probably need to do it in the viewmodel and return null and check for null. ***************
+
+            var checkup = ViewModel.ViewModel.GetCheckupFromAppointmentid(appointment.Appointmentid);
+            this.checkupDictionary = new Dictionary<string, string>();
+            this.checkupDataView.ItemsSource = this.checkupDictionary;
+            this.checkupDictionary.Add("Systolic", checkup.Systolic.ToString());
+            this.checkupDictionary.Add("Diastolic", checkup.Diastolic.ToString());
+            this.checkupDictionary.Add("Temperature", checkup.Temperature.ToString(CultureInfo.CurrentCulture));
+            this.checkupDictionary.Add("Weight", checkup.Weight.ToString(CultureInfo.CurrentCulture));
+            this.checkupDictionary.Add("Pulse", checkup.Pulse.ToString());
+            this.checkupDictionary.Add("Initial Diagnosis", checkup.Diagnosis);
+
 
         }
 
@@ -61,5 +75,18 @@ namespace LightholderCintronHealthcareSystem.View
         {
         }
 
+        private async void onClickCreateCheckup(object sender, RoutedEventArgs e)
+        {
+            if (this.appointmentid != 0) //TODO need to check to see if checkup already exists.
+            {
+                var dialog = new RecordCheckupDialog(this.appointmentid);
+                this.Hide();
+                await dialog.ShowAsync();
+                var t = this.ShowAsync();
+
+
+                //TODO update checkup info.
+            }
+        }
     }
 }

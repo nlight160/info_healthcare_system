@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 
 namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
@@ -53,6 +54,60 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             {
                 Console.WriteLine("Exception in the CreateCheckup: " + ex);
                 return false;
+            }
+
+
+        }
+
+        /// <summary>
+        /// Gets the checkup from appointmentid.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
+        public List<string> GetCheckupFromAppointmentid(int appointmentid)
+        {
+
+            
+            var information = new List<string>();
+            try
+            {
+                const string query = "SELECT c.systolic, c.diastolic, c.temp, c.weight, c.pulse, c.diagnosis FROM checkup c WHERE c.appointmentid = @appointmentid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
+                using var reader = cmd.ExecuteReader();
+                var systolicOrdinal = reader.GetOrdinal("systolic");
+                var diastolicOrdinal = reader.GetOrdinal("diastolic");
+                var tempOrdinal = reader.GetOrdinal("temp");
+                var weightOrdinal = reader.GetOrdinal("weight");
+                var pulseOrdinal = reader.GetOrdinal("pulse");
+                var diagnosisOrdinal = reader.GetOrdinal("diagnosis");
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    information.Add(reader.GetString(systolicOrdinal));     //0
+                    information.Add(reader.GetString(diastolicOrdinal));    //1
+                    information.Add(reader.GetString(tempOrdinal));         //2
+                    information.Add(reader.GetString(weightOrdinal));       //3
+                    information.Add(reader.GetString(pulseOrdinal));        //4
+                    information.Add(reader.GetString(diagnosisOrdinal));    //5
+
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return information;
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the CreateCheckup: " + ex);
+                return information;
             }
 
 

@@ -313,6 +313,24 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         }
 
         /// <summary>
+        /// Gets the checkup from appointmentid.
+        /// </summary>
+        /// <param name="appointmentid">The appointmentid.</param>
+        /// <returns></returns>
+        public static Checkup GetCheckupFromAppointmentid(int appointmentid)
+        {
+            var cdb = new CheckupDatabaseAccess();
+            var information = cdb.GetCheckupFromAppointmentid(appointmentid);
+            var systolic = int.Parse(information[0]);
+            var diastolic = int.Parse(information[1]);
+            var temperature = decimal.Parse(information[2]);
+            var weight = decimal.Parse(information[3]);
+            var pulse = int.Parse(information[4]);
+            var diagnosis = information[5];
+            return new Checkup(1,appointmentid, systolic, diastolic, temperature, weight, pulse, diagnosis);
+        }
+
+        /// <summary>
         /// Gets the appointments from patient.
         /// </summary>
         /// <param name="patientid">The patientid.</param>
