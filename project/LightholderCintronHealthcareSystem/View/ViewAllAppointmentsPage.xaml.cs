@@ -80,5 +80,25 @@ namespace LightholderCintronHealthcareSystem.View
         {
             Frame.Navigate(typeof(MenuPage));
         }
+
+        private async void onOrderTestsClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var currentAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
+            if (this.isItemSelected)
+            {
+                var dialog = new OrderTestsDialog(currentAppointment);
+                await dialog.ShowAsync();
+            }
+        }
+
+        private async void onViewTestsClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var currentAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
+            if (this.isItemSelected)
+            {
+                var dialog = new ViewTestsDialog(currentAppointment);
+                await dialog.ShowAsync();
+            }
+        }
     }
 }

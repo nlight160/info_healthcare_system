@@ -1,5 +1,4 @@
 ﻿using LightholderCintronHealthcareSystem.Model;
-using LightholderCintronHealthcareSystem.Model.People;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,9 +18,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace LightholderCintronHealthcareSystem.View
 {
-    public sealed partial class OrderTestsDialog : ContentDialog
+    public sealed partial class ViewTestsDialog : ContentDialog
     {
-        public OrderTestsDialog(AppointmentDataGrid appointment)
+        public ViewTestsDialog(AppointmentDataGrid appointment)
         {
             this.InitializeComponent();
         }
