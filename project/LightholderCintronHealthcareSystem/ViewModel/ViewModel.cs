@@ -182,11 +182,12 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// </summary>
         /// <param name="requestedTime">The requested time.</param>
         /// <param name="doctorid">The doctorid.</param>
+        /// <param name="appointmentid"></param>
         /// <returns></returns>
-        public static bool checkForDoctorDoubleBook(DateTime requestedTime, int doctorid, int appointmentid = 0)
+        public static bool checkForDoctorDoubleBook(DateTime requestedTime, int doctorid, int appointmentid = -1)
         {
             var adb = new AppointmentDatabaseAccess();
-            var takenAppointments = adb.GetAppointmentTimeFromDoctorid(doctorid);
+            var takenAppointments = adb.GetAppointmentTimeFromDoctorid(doctorid, appointmentid);
             const int appointmentDuration = 30; //In minutes
             foreach (var takenAppointment in takenAppointments)
             {
@@ -205,11 +206,12 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// </summary>
         /// <param name="requestedTime">The requested time.</param>
         /// <param name="patientid">The patientid.</param>
+        /// <param name="appointmentid"></param>
         /// <returns></returns>
-        public static bool checkForPatientDoubleBook(DateTime requestedTime, int patientid)
+        public static bool checkForPatientDoubleBook(DateTime requestedTime, int patientid, int appointmentid = -1)
         {
             var adb = new AppointmentDatabaseAccess();
-            var currentAppointments = adb.GetAppointmentTimeFromPatientid(patientid);
+            var currentAppointments = adb.GetAppointmentTimeFromPatientid(patientid, appointmentid);
             const int appointmentDuration = 30; //In minutes
             foreach (var currentAppointment in currentAppointments)
             {

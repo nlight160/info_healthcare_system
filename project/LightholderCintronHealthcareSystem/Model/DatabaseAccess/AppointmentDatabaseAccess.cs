@@ -201,14 +201,15 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         /// Gets the appointment time from doctorid.
         /// </summary>
         /// <param name="doctorid">The doctorid.</param>
+        /// <param name="appointmentid"></param>
         /// <returns></returns>
-        public List<string> GetAppointmentTimeFromDoctorid(int doctorid)
+        public List<string> GetAppointmentTimeFromDoctorid(int doctorid, int appointmentid = -1)
         {
 
             var appointmentTimes = new List<string>();
             try
             {
-                const string query = "SELECT a.date FROM appointment a WHERE a.doctorid = @doctorid;";
+                const string query = "SELECT a.appointmentid, a.date FROM appointment a WHERE a.doctorid = @doctorid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
@@ -216,12 +217,19 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 cmd.Parameters.AddWithValue("@doctorid", doctorid);
                 using var reader = cmd.ExecuteReader();
                 var dateOrdinal = reader.GetOrdinal("date");
+                var appointmentidOrdinal = reader.GetOrdinal("appointmentid");
 
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        appointmentTimes.Add(reader.GetString(dateOrdinal));
+                        var date = reader.GetString(dateOrdinal);
+                        var aid = reader.GetString(appointmentidOrdinal);
+                        if (int.Parse(aid) != appointmentid)
+                        {
+                            appointmentTimes.Add(date);
+                        }
+                        
                     }
 
                 }
@@ -243,13 +251,13 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         /// </summary>
         /// <param name="patientid">The patientid.</param>
         /// <returns></returns>
-        public List<string> GetAppointmentTimeFromPatientid(int patientid)
+        public List<string> GetAppointmentTimeFromPatientid(int patientid, int appointmentid = -1)
         {
 
             var appointmentTimes = new List<string>();
             try
             {
-                const string query = "SELECT a.date FROM appointment a WHERE a.patientid = @patientid;";
+                const string query = "SELECT a.appointmentid, a.date FROM appointment a WHERE a.patientid = @patientid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
@@ -257,12 +265,19 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 cmd.Parameters.AddWithValue("@patientid", patientid);
                 using var reader = cmd.ExecuteReader();
                 var dateOrdinal = reader.GetOrdinal("date");
+                var appointmentidOrdinal = reader.GetOrdinal("appointmentid");
 
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        appointmentTimes.Add(reader.GetString(dateOrdinal));
+                        var date = reader.GetString(dateOrdinal);
+                        var aid = reader.GetString(appointmentidOrdinal);
+                        if (int.Parse(aid) != appointmentid)
+                        {
+                            appointmentTimes.Add(date);
+                        }
+
                     }
 
                 }

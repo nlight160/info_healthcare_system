@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -26,6 +27,7 @@ namespace LightholderCintronHealthcareSystem.View
         private DateTime dateTime;
         private readonly string description;
         private readonly ToolTip dateTip;
+        private readonly List<int> doctorids;
 
 
         /// <summary>
@@ -53,6 +55,8 @@ namespace LightholderCintronHealthcareSystem.View
             this.dateTime = dateTime;
             this.description = description;
             this.setAppointmentDetails();
+            this.doctorids = ViewModel.ViewModel.GetEveryDoctorId();
+            this.doctorIdComboBox.ItemsSource = this.doctorids;
         }
 
         /// <summary>
@@ -68,6 +72,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.timeTimePicker.Time = this.dateTime.TimeOfDay;
             this.descriptionTextBox.Text = this.description;
             this.doctorIdComboBox.Text = this.doctorid.ToString();
+
         }
 
         /// <summary>
@@ -193,7 +198,7 @@ namespace LightholderCintronHealthcareSystem.View
             }
             var requestedTime = this.dateDatePicker.Date.Date.Add(this.timeTimePicker.Time);
             var selectedItem = this.doctorIdComboBox.SelectedItem;
-            if (selectedItem != null && ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(selectedItem.ToString())))
+            if (selectedItem != null && ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(selectedItem.ToString()), this.appointmentid))
             {
                 this.dateTip.Content = "Doctor already booked for this Date/Time.";
                 this.dateTip.IsOpen = true;
@@ -212,7 +217,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
 
             var requestedTime = this.dateDatePicker.Date.Date.Add(this.timeTimePicker.Time);
-            if (ViewModel.ViewModel.checkForPatientDoubleBook(requestedTime, this.patientid))
+            if (ViewModel.ViewModel.checkForPatientDoubleBook(requestedTime, this.patientid, this.appointmentid))
             {
                 this.dateTip.Content = "Patient already booked for this Date/Time.";
                 this.dateTip.IsOpen = true;
