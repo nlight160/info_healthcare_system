@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,14 +10,14 @@ namespace LightholderCintronHealthcareSystem.Model
 {
     public class TestOrder
     {
-        public List<Test> Order { get; }
+        public ObservableCollection<Test> Order { get; }
         public Date DateOrdered { get; set; }
 
-        public TestOrder(List<Test> testsToOrder)
+        public TestOrder(ObservableCollection<Test> testsToOrder)
         {
-            if (testsToOrder == null || testsToOrder.Count == 0)
+            if (testsToOrder == null)
             {
-                throw new ArgumentException("Tests to order can not be null or empty", nameof(testsToOrder));
+                throw new ArgumentException("Tests to order can not be null", nameof(testsToOrder));
             }
             this.Order = testsToOrder;
 

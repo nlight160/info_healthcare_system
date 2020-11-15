@@ -2,6 +2,7 @@
 using LightholderCintronHealthcareSystem.Model.People;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,7 +27,7 @@ namespace LightholderCintronHealthcareSystem.View
         public OrderTestsDialog(AppointmentDataGrid appointment)
         {
             this.InitializeComponent();
-            this.order = new TestOrder(new List<Test>());
+            this.order = new TestOrder(new ObservableCollection<Test>());
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -42,7 +43,7 @@ namespace LightholderCintronHealthcareSystem.View
         {
             if (TestComboBox.SelectedItem != null)
             {
-                Test test = new Test(this.TestComboBox.SelectedItem + "");
+                Test test = new Test(this.TestComboBox.SelectionBoxItem.ToString());
                 this.order.Order.Add(test);
                 this.TestOrderGrid.ItemsSource = this.order.Order;
             }
