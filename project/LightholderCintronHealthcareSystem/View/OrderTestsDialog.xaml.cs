@@ -49,5 +49,15 @@ namespace LightholderCintronHealthcareSystem.View
             }
             
         }
+
+        private void onRemoveTestClick(object sender, RoutedEventArgs e)
+        {
+            if (this.TestOrderGrid.SelectedItem != null)
+            {
+                this.order.Order.Remove(this.TestOrderGrid.SelectedItem as Test);
+                this.TestOrderGrid.ItemsSource = this.order.Order;
+            }
+
+        }
     }
 }
