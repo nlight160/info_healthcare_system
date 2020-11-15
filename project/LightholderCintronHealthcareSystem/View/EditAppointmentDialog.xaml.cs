@@ -57,6 +57,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.setAppointmentDetails();
             this.doctorids = ViewModel.ViewModel.GetEveryDoctorId();
             this.doctorIdComboBox.ItemsSource = this.doctorids;
+            this.doctorIdComboBox.SelectedItem = this.doctorid;
         }
 
         /// <summary>
