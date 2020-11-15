@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml.Controls;
+using LightholderCintronHealthcareSystem.Model;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -9,6 +11,11 @@ namespace LightholderCintronHealthcareSystem.View
     /// </summary>
     public sealed partial class ViewAllAppointmentsPage : Page
     {
+
+
+        private bool isItemSelected;
+
+
 
         /*  TODO
          *  Add buttons - thinking of adding a View details and making a content dialog class to view details of the appointment
@@ -39,7 +46,34 @@ namespace LightholderCintronHealthcareSystem.View
             this.InitializeComponent();
             this.appointmentDataView.ItemsSource = ViewModel.ViewModel.getAllAppointments();
             this.userTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
-                                      + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
+                                      + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " +
+                                      ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
+        }
+
+        private async void onViewDetails(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var currentAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
+            if (this.isItemSelected)
+            {
+                var dialog = new ViewAppointmentDetails(currentAppointment);
+                await dialog.ShowAsync();
+            }
+
+
+
+        }
+
+        private void onSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.appointmentDataView.SelectedItem == null)
+            {
+                this.isItemSelected = false;
+            }
+            else
+            {
+                this.isItemSelected = true;
+
+            }
         }
     }
 }
