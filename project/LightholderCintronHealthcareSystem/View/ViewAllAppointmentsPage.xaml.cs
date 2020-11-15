@@ -75,5 +75,10 @@ namespace LightholderCintronHealthcareSystem.View
 
             }
         }
+
+        private void onReturnClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MenuPage));
+        }
     }
 }
