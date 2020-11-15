@@ -39,11 +39,11 @@ namespace LightholderCintronHealthcareSystem.View
                 ContentDialog placeOrderConfirmationDialog = new ContentDialog
                 {
                     Title = "Are you sure?",
-                    Content = "Are you sure you would like to place an order for " + this.order.Order.Count + " tests?",
+                    Content = "Are you sure you would like to place an order for " + this.order.Order.Count + " tests?\n\n" + appendEachTestToString(),
                     PrimaryButtonText = "Ok",
                     CloseButtonText = "Cancel"
                 };
-
+                Hide();
                 ContentDialogResult result = await placeOrderConfirmationDialog.ShowAsync();
 
                 if (result == ContentDialogResult.Primary)
@@ -53,10 +53,20 @@ namespace LightholderCintronHealthcareSystem.View
             }
             else
             {
-                var message = new MessageDialog("Order Empty!", "You must add tests to your order to place one!");
+                var message = new MessageDialog("You must add tests to your order to place one!", "Order Empty!");
                 await message.ShowAsync();
             }
             
+        }
+
+        private string appendEachTestToString()
+        {
+            var totalString = "";
+            foreach (var test in this.order.Order)
+            {
+                totalString += test.TestName + "\n";
+            }
+            return totalString;
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
