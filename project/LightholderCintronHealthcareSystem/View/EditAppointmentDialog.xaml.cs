@@ -63,11 +63,11 @@ namespace LightholderCintronHealthcareSystem.View
             this.patientIdTextBlock.Text = this.patientid.ToString();
             this.patientFirstNameTextBlock.Text = this.firstName;
             this.patientLastNameTextBlock.Text = this.lastName;
-            this.doctorIdTextBox.Text = this.doctorid.ToString();
             this.updateDoctorName();
             this.dateDatePicker.Date = this.dateTime.Date;
             this.timeTimePicker.Time = this.dateTime.TimeOfDay;
             this.descriptionTextBox.Text = this.description;
+            this.doctorIdComboBox.Text = this.doctorid.ToString();
         }
 
         /// <summary>
@@ -75,9 +75,9 @@ namespace LightholderCintronHealthcareSystem.View
         /// </summary>
         private async void updateDoctorName()
         {
-            if (!string.IsNullOrEmpty(this.doctorIdTextBox.Text) && !string.IsNullOrWhiteSpace(this.doctorIdTextBox.Text))
+            if (this.doctorIdComboBox.SelectedIndex > -1 && this.doctorIdComboBox.SelectedItem != null)
             {
-                var doctorName = ViewModel.ViewModel.getDoctorName(int.Parse(this.doctorIdTextBox.Text));
+                var doctorName = ViewModel.ViewModel.getDoctorName(int.Parse(this.doctorIdComboBox.SelectedItem.ToString()));
                 try
                 {
                     this.doctorFirstNameTextBlock.Text = doctorName[0];
@@ -100,8 +100,8 @@ namespace LightholderCintronHealthcareSystem.View
         private async void ContentDialog_SubmitButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var dateTime = new DateTime(this.dateDatePicker.Date.Year, this.dateDatePicker.Date.Month, this.dateDatePicker.Date.Day, this.timeTimePicker.Time.Hours, this.timeTimePicker.Time.Minutes, 0);
-
-            var confirmation = ViewModel.ViewModel.EditAppointment(this.appointmentid, dateTime, int.Parse(this.doctorIdTextBox.Text), this.descriptionTextBox.Text);
+            var selectedItem = this.doctorIdComboBox.SelectedItem;
+            var confirmation = selectedItem != null && ViewModel.ViewModel.EditAppointment(this.appointmentid, dateTime, int.Parse(selectedItem.ToString()), this.descriptionTextBox.Text);
 
             if (confirmation)
             {
@@ -130,7 +130,7 @@ namespace LightholderCintronHealthcareSystem.View
                 return false;
             }
             this.dateTip.IsOpen = false;
-            return !this.checkForDoubleBook() && this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "";
+            return this.doctorFirstNameTextBlock.Text != "" && !this.checkForDoubleBook() && this.descriptionTextBox.Text != "";
         }
 
         /// <summary>
@@ -187,12 +187,13 @@ namespace LightholderCintronHealthcareSystem.View
         /// <returns></returns>
         private bool checkForDoctorDoubleBook()
         {
-            if (string.IsNullOrEmpty(this.doctorIdTextBox.Text))
+            if (this.doctorIdComboBox.SelectedIndex! > -1 && this.doctorIdComboBox.SelectedItem == null)
             {
                 return true;
             }
             var requestedTime = this.dateDatePicker.Date.Date.Add(this.timeTimePicker.Time);
-            if (ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(this.doctorIdTextBox.Text)))
+            var selectedItem = this.doctorIdComboBox.SelectedItem;
+            if (selectedItem != null && ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(selectedItem.ToString())))
             {
                 this.dateTip.Content = "Doctor already booked for this Date/Time.";
                 this.dateTip.IsOpen = true;

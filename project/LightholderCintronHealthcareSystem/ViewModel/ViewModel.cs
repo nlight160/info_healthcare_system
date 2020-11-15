@@ -88,6 +88,12 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return new Date(year, month, day);
         }
 
+        public static List<int> GetEveryDoctorId()
+        {
+            var ddb = new DoctorDatabaseAccess();
+            return ddb.GetEveryDoctorId();
+        }
+
         public static bool UpdatePatient(Patient p)
         {
             var dba = new PatientDatabaseAccess();
@@ -177,7 +183,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// <param name="requestedTime">The requested time.</param>
         /// <param name="doctorid">The doctorid.</param>
         /// <returns></returns>
-        public static bool checkForDoctorDoubleBook(DateTime requestedTime, int doctorid)
+        public static bool checkForDoctorDoubleBook(DateTime requestedTime, int doctorid, int appointmentid = 0)
         {
             var adb = new AppointmentDatabaseAccess();
             var takenAppointments = adb.GetAppointmentTimeFromDoctorid(doctorid);

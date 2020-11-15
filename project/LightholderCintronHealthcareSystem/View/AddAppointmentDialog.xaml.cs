@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -21,6 +22,8 @@ namespace LightholderCintronHealthcareSystem.View
         private readonly string patientFirstName;
         private readonly string patientLastName;
         private readonly ToolTip dateTip;
+        private readonly List<int> doctorids;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddAppointmentDialog"/> class.
@@ -39,27 +42,6 @@ namespace LightholderCintronHealthcareSystem.View
             this.patientid = patientid;
             this.patientFirstName = firstName;
             this.patientLastName = lastName;
-            //var appointmentsParameters = this.adb.GetAppointmentFromPatientid(int.Parse(this.patient.Patientid));
-            //this.appointmentAlreadyExists = appointmentsParameters.Count != 0;
-
-            //if (appointmentAlreadyExists)
-            //{
-            //    var appointmentParameters = appointmentsParameters[0];
-            //    this.doctorParameterList = ddb.GetDoctorDataFromId(int.Parse(appointmentParameters[3]));
-            //    var doctor = new Doctor(this.doctorParameterList[0], this.doctorParameterList[1], "General"); //TODO change specialty to whats in database.
-            //    this.appointment = new Appointment(int.Parse(appointmentParameters[0]), this.patient, doctor, DateTime.Parse(appointmentParameters[2]), appointmentParameters[4]);
-            //    this.doctorIdTextBox.Text = this.doctorParameterList[10];
-            //    this.dateDatePicker.Date = this.appointment.AppointmentDateTime.Date;
-            //    this.timeTimePicker.Time = this.appointment.AppointmentDateTime.TimeOfDay;
-            //    this.doctorFirstNameTextBlock.Text = this.appointment.Doctor.Firstname;
-            //    this.doctorLastNameTextBlock.Text = this.appointment.Doctor.Lastname;
-            //    this.descriptionTextBox.Text = this.appointment.Description;
-            //}
-            //else
-            //{
-            //    this.dateDatePicker.Date = DateTimeOffset.Now;
-            //    this.timeTimePicker.Time = TimeSpan.Zero;
-            //}
 
             this.dateDatePicker.Date = DateTimeOffset.Now;
             this.timeTimePicker.Time = TimeSpan.Zero;
@@ -70,7 +52,8 @@ namespace LightholderCintronHealthcareSystem.View
             this.patientIdTextBlock.Text = this.patientid.ToString();
             this.dateDatePicker.MinYear = DateTimeOffset.Now;
 
-
+            this.doctorids = ViewModel.ViewModel.GetEveryDoctorId();
+            this.doctorIdComboBox.ItemsSource = this.doctorids;
         }
 
         /// <summary>
@@ -82,7 +65,8 @@ namespace LightholderCintronHealthcareSystem.View
         {
             var dateTime = new DateTime(this.dateDatePicker.Date.Year, this.dateDatePicker.Date.Month, this.dateDatePicker.Date.Day, this.timeTimePicker.Time.Hours, this.timeTimePicker.Time.Minutes, 0);
 
-            var confirmation = ViewModel.ViewModel.createAppointment(this.patientid.ToString(), dateTime, this.doctorIdTextBox.Text, this.descriptionTextBox.Text);
+            var selectedItem = this.doctorIdComboBox.SelectedItem;
+            var confirmation = selectedItem != null && ViewModel.ViewModel.createAppointment(this.patientid.ToString(), dateTime, selectedItem.ToString(), this.descriptionTextBox.Text);
 
             if (confirmation)
             {
@@ -116,19 +100,20 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onDeselectDoctorIdTextBlock(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(this.doctorIdTextBox.Text) && !string.IsNullOrWhiteSpace(this.doctorIdTextBox.Text))
+            if ( this.doctorIdComboBox.SelectedIndex > -1 && this.doctorIdComboBox.SelectedItem != null)
             {
-                var doctorName = ViewModel.ViewModel.getDoctorName(int.Parse(this.doctorIdTextBox.Text));
+                
                 try 
                 {
+                    var doctorName = ViewModel.ViewModel.getDoctorName(int.Parse(this.doctorIdComboBox.SelectedItem.ToString()));
                     this.doctorFirstNameTextBlock.Text = doctorName[0];
                     this.doctorLastNameTextBlock.Text = doctorName[1];
                 }
-                catch(ArgumentOutOfRangeException exception)
+                catch(Exception exception)
                 {
                     Debug.WriteLine(exception.Message);
-                    MessageDialog notFounDialog = new MessageDialog("A doctor with the ID provided was not found.", "Doctor not found!");
-                    await notFounDialog.ShowAsync();
+                    var notFoundDialog = new MessageDialog("A doctor with the ID provided was not found.", "Doctor not found!");
+                    await notFoundDialog.ShowAsync();
                 }
             }
             this.IsPrimaryButtonEnabled = this.checkForCompetion();
@@ -147,7 +132,7 @@ namespace LightholderCintronHealthcareSystem.View
                 return false;
             }
             this.dateTip.IsOpen = false;
-            return !this.checkForDoubleBook() && this.doctorIdTextBox.Text != "" && this.descriptionTextBox.Text != "";
+            return this.doctorFirstNameTextBlock.Text != "" && !this.checkForDoubleBook() && this.descriptionTextBox.Text != "";
         }
 
         /// <summary>
@@ -204,12 +189,12 @@ namespace LightholderCintronHealthcareSystem.View
         /// <returns></returns>
         private bool checkForDoctorDoubleBook()
         {
-            if (string.IsNullOrEmpty(this.doctorIdTextBox.Text))
+            if (this.doctorIdComboBox.SelectedIndex !> -1 && this.doctorIdComboBox.SelectedItem == null)
             {
                 return true;
             }
             var requestedTime = this.dateDatePicker.Date.Date.Add(this.timeTimePicker.Time);
-            if (ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(this.doctorIdTextBox.Text)))
+            if (ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(this.doctorIdComboBox.SelectedItem.ToString())))
             {
                 this.dateTip.Content = "Doctor already booked for this Date/Time.";
                 this.dateTip.IsOpen = true;

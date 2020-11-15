@@ -110,5 +110,45 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 return doctorData;
             }
         }
+
+        /// <summary>
+        /// Gets the every doctor identifier.
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetEveryDoctorId()
+        {
+            var doctorData = new List<int>();
+
+            try
+            {
+                const string query = "SELECT DISTINCT d.doctorid FROM doctor d;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                using var reader = cmd.ExecuteReader();
+                var doctoridOrdinal = reader.GetOrdinal("doctorid");
+
+
+                if (reader.HasRows)
+                {
+                    //Should only have one row so no while here.
+                    while (reader.Read())
+                    {
+                        doctorData.Add(reader.GetInt32(doctoridOrdinal));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No rows exist in table");
+                }
+                return doctorData;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the GetDoctorDataById: " + ex);
+                return doctorData;
+            }
+        }
     }
 }

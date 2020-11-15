@@ -21,7 +21,7 @@
         <TextBlock x:Name="patientFirstNameTextBlock" HorizontalAlignment="Left" Margin="10,89,0,0" Width="110" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock x:Name="patientLastNameTextBlock" HorizontalAlignment="Left" Margin="174,89,0,0" Width="110" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <TextBox x:Name="doctorIdTextBox" HorizontalAlignment="Center" Margin="0,137,0,0" Width="150"  PlaceholderText="Doctor ID" Text="" TextWrapping="Wrap" VerticalAlignment="Top" LostFocus="onDeselectDoctorIdTextBlock"/>
+        <ComboBox x:Name="doctorIdComboBox" HorizontalAlignment="Center" Margin="0,137,0,0" Width="150"  PlaceholderText="Doctor ID" VerticalAlignment="Top" LostFocus="onDeselectDoctorIdTextBlock"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,113,0,0" Text="Enter Doctor ID Below" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,174,0,0" Text="Doctor First Name" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="174,174,0,0" Text="Doctor Last Name" TextWrapping="Wrap" VerticalAlignment="Top"/>
