@@ -17,7 +17,7 @@
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn
                     Header="Test Name"
-                    Width="SizeToHeader"
+                    Width="641"
                     Binding="{Binding TestName}"
                 />
             </controls:DataGrid.Columns>
