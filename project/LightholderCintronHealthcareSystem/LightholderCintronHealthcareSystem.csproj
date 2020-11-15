@@ -173,6 +173,9 @@
     <Compile Include="View\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewAllAppointmentsPage.xaml.cs">
+      <DependentUpon>ViewAllAppointmentsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewAppointments.xaml.cs">
       <DependentUpon>ViewAppointments.xaml</DependentUpon>
     </Compile>
@@ -226,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RegistrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ViewAllAppointmentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

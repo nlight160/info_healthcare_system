@@ -157,6 +157,48 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             }
         }
 
+        /// <summary>
+        /// Gets all appointments.
+        /// </summary>
+        /// <returns></returns>
+        public List<List<string>> GetAllAppointments()
+        {
+
+            var appointmentList = new List<List<string>>();
+            try
+            {
+                const string query = "SELECT a.appointmentid, a.date, a.doctorid, a.description, a.patientid FROM appointment a ORDER BY a.date ASC;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                using var reader = cmd.ExecuteReader();
+                var appointmentidOrdinal = reader.GetOrdinal("appointmentid");
+                var dateOrdinal = reader.GetOrdinal("date");
+                var doctoridOrdinal = reader.GetOrdinal("doctorid");
+                var descriptionOrdinal = reader.GetOrdinal("description");
+                var patientidOrdinal = reader.GetOrdinal("patientid");
+
+
+                while (reader.Read())
+                {
+                    var singleAppointment = new List<string>();
+                    singleAppointment.Add(reader.GetString(appointmentidOrdinal));  //0
+                    singleAppointment.Add(reader.GetString(patientidOrdinal));      //1
+                    singleAppointment.Add(reader.GetString(dateOrdinal));           //2
+                    singleAppointment.Add(reader.GetString(doctoridOrdinal));       //3
+                    singleAppointment.Add(reader.GetString(descriptionOrdinal));    //4
+                    appointmentList.Add(singleAppointment);
+                }
+                return appointmentList;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the GetAppointment: " + ex);
+                return appointmentList;
+            }
+        }
+
 
         /// <summary>
         /// Gets the appointment time from appointmnetid.

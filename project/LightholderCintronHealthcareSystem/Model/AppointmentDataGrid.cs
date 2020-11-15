@@ -10,48 +10,68 @@ namespace LightholderCintronHealthcareSystem.Model
     public class AppointmentDataGrid
     {
         /// <summary>
-        /// Gets or sets the appointmentid.
+        /// Gets the patientid.
+        /// </summary>
+        /// <value>
+        /// The patientid.
+        /// </value>
+        public int Patientid { get; }
+        /// <summary>
+        /// Gets the name of the patient.
+        /// </summary>
+        /// <value>
+        /// The name of the patient.
+        /// </value>
+        public string PatientName { get; }
+
+        /// <summary>
+        /// Gets the appointmentid.
         /// </summary>
         /// <value>
         /// The appointmentid.
         /// </value>
-        public int Appointmentid { get;}
+        public int Appointmentid { get; }
+
         /// <summary>
-        /// Gets or sets the date.
+        /// Gets the date.
         /// </summary>
         /// <value>
         /// The date.
         /// </value>
-        public string Date { get;}
+        public string Date { get; }
+
         /// <summary>
-        /// Gets or sets the time.
+        /// Gets the time.
         /// </summary>
         /// <value>
         /// The time.
         /// </value>
-        public string Time { get;}
+        public string Time { get; }
+
         /// <summary>
-        /// Gets or sets the name of the doctor.
+        /// Gets the name of the doctor.
         /// </summary>
         /// <value>
         /// The name of the doctor.
         /// </value>
-        public string DoctorName { get;}
+        public string DoctorName { get; }
+
         /// <summary>
-        /// Gets or sets the description.
+        /// Gets the description.
         /// </summary>
         /// <value>
         /// The description.
         /// </value>
-        public string Description { get;}
+        public string Description { get; }
+
 
         /// <summary>
-        /// Gets or sets the date time.
+        /// Gets the date time.
         /// </summary>
         /// <value>
         /// The date time.
         /// </value>
-        public DateTime DateTime { get;}
+        public DateTime DateTime { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentDataGrid"/> class.
@@ -61,7 +81,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="doctorName">Name of the doctor.</param>
         /// <param name="description">The description.</param>
         /// <exception cref="ArgumentNullException">doctorName - can not be null or empty</exception>
-        public AppointmentDataGrid(int appointmentid, DateTime dateTime, string doctorName, string description)
+        public AppointmentDataGrid(int appointmentid, DateTime dateTime, string doctorName, string description, int patientid = 0, string patientName = null)
         {
 
             if (string.IsNullOrEmpty(doctorName))
@@ -77,6 +97,8 @@ namespace LightholderCintronHealthcareSystem.Model
             this.DoctorName = doctorName;
             this.Description = description;
             this.DateTime = dateTime;
+            this.Patientid = patientid;
+            this.PatientName = patientName;
         }
 
     }

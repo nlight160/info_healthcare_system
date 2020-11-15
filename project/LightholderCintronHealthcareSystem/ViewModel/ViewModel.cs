@@ -289,6 +289,29 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return adb.GetDoctoridFromAppointmentid(appointmentid);
         }
 
+        public static List<AppointmentDataGrid> getAllAppointments()
+        {
+            var adb = new AppointmentDatabaseAccess();
+            var ddb = new DoctorDatabaseAccess();
+            var pdb = new PatientDatabaseAccess();
+            var appointmentList = adb.GetAllAppointments();
+            var appointments = new List<AppointmentDataGrid>();
+            foreach (var appointment in appointmentList)
+            {
+                var appointmentid = int.Parse(appointment[0]);
+                var dateTime = DateTime.Parse(appointment[2]);
+                var doctorData = ddb.GetDoctorDataFromId(int.Parse(appointment[3]));
+                var doctorName = doctorData[0] + " " + doctorData[1];
+                var description = appointment[4];
+
+                var patientData = pdb.GetPatientDataFromId(int.Parse(appointment[1]));
+                var patientName = patientData[0] + " " + patientData[1];
+                appointments.Add(new AppointmentDataGrid(appointmentid, dateTime, doctorName, description, int.Parse(appointment[1]), patientName));
+            }
+
+            return appointments;
+        }
+
         /// <summary>
         /// Gets the appointments from patient.
         /// </summary>

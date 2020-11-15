@@ -8,10 +8,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="registerPatientButton" Content="Register Patient" HorizontalAlignment="Center" Margin="0,460,0,0" VerticalAlignment="Top" FontSize="20" Click="onRegisterPatient"/>
-        <Button x:Name="viewPatientsButton" Content="View Patients" Margin="0,528,0,0" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Center" Width="158" Click="onViewPatients"/>
+        <Button x:Name="registerPatientButton" Content="Register Patient" HorizontalAlignment="Center" Margin="0,460,0,0" VerticalAlignment="Top" FontSize="20"  Width="200" Click="onRegisterPatient"/>
+        <Button x:Name="viewPatientsButton" Content="View Patients" Margin="0,528,0,0" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Center" Width="200" Click="onViewPatients"/>
+        <Button x:Name="viewAllAppointmentsButton" Content="View Appointments" Margin="0,596,0,0" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Center" Width="200" Click="onViewAppointments"/>
         <TextBlock x:Name="userWelcomeTextBlock" HorizontalAlignment="Center" Margin="0,200,0,0" Text="Welcome, ?????" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Segoe UI" FontSize="72"/>
-        <Button x:Name="logoutButton" Content="Logout" HorizontalAlignment="Center" Margin="0,696,0,0" VerticalAlignment="Top" FontSize="20" Width="157" Click="onLogout"/>
+        <Button x:Name="logoutButton" Content="Logout" HorizontalAlignment="Center" Margin="0,696,0,0" VerticalAlignment="Top" FontSize="20" Width="200" Click="onLogout"/>
 
     </Grid>
 </Page>
