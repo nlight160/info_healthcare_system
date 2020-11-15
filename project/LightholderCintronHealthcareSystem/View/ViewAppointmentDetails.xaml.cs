@@ -56,19 +56,39 @@ namespace LightholderCintronHealthcareSystem.View
             this.dataDictionary.Add("Description", appointment.Description);
 
 
-            //TODO TODO TODO check to see if checkup exists first! Probably need to do it in the viewmodel and return null and check for null. ***************
-
-            var checkup = ViewModel.ViewModel.GetCheckupFromAppointmentid(appointment.Appointmentid);
             this.checkupDictionary = new Dictionary<string, string>();
             this.checkupDataView.ItemsSource = this.checkupDictionary;
-            this.checkupDictionary.Add("Systolic", checkup.Systolic.ToString());
-            this.checkupDictionary.Add("Diastolic", checkup.Diastolic.ToString());
-            this.checkupDictionary.Add("Temperature", checkup.Temperature.ToString(CultureInfo.CurrentCulture));
-            this.checkupDictionary.Add("Weight", checkup.Weight.ToString(CultureInfo.CurrentCulture));
-            this.checkupDictionary.Add("Pulse", checkup.Pulse.ToString());
-            this.checkupDictionary.Add("Initial Diagnosis", checkup.Diagnosis);
+            this.updateCheckupInformation();
 
 
+        }
+
+        private void updateCheckupInformation()
+        {
+            var checkup = ViewModel.ViewModel.GetCheckupFromAppointmentid(this.appointmentid);
+            if (checkup == null)
+            {
+                this.makeCheckupButton.IsEnabled = true;
+                this.checkupTextBlock.Text = "Please Create a Checkup";
+                this.checkupDictionary.Add("Systolic", "N/A");
+                this.checkupDictionary.Add("Diastolic", "N/A");
+                this.checkupDictionary.Add("Temperature", "N/A");
+                this.checkupDictionary.Add("Weight", "N/A");
+                this.checkupDictionary.Add("Pulse", "N/A");
+                this.checkupDictionary.Add("Initial Diagnosis", "N/A");
+            }
+            else
+            {
+                this.makeCheckupButton.IsEnabled = false;
+                this.checkupTextBlock.Text = "Checkup Information";
+                this.checkupDictionary.Add("Systolic", checkup.Systolic.ToString());
+                this.checkupDictionary.Add("Diastolic", checkup.Diastolic.ToString());
+                this.checkupDictionary.Add("Temperature", checkup.Temperature.ToString(CultureInfo.CurrentCulture));
+                this.checkupDictionary.Add("Weight", checkup.Weight.ToString(CultureInfo.CurrentCulture));
+                this.checkupDictionary.Add("Pulse", checkup.Pulse.ToString());
+                this.checkupDictionary.Add("Initial Diagnosis", checkup.Diagnosis);
+            }
+            
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -77,7 +97,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private async void onClickCreateCheckup(object sender, RoutedEventArgs e)
         {
-            if (this.appointmentid != 0) //TODO need to check to see if checkup already exists.
+            if (this.appointmentid != 0) //TODO need to check to see if checkup already exists. I think update checkup information deals with this now.
             {
                 var dialog = new RecordCheckupDialog(this.appointmentid);
                 this.Hide();
@@ -85,7 +105,7 @@ namespace LightholderCintronHealthcareSystem.View
                 var t = this.ShowAsync();
 
 
-                //TODO update checkup info.
+                this.updateCheckupInformation();
             }
         }
     }
