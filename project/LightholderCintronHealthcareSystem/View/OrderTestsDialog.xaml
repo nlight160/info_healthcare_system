@@ -23,8 +23,16 @@
             </controls:DataGrid.Columns>
         </controls:DataGrid>
         <ComboBox x:Name="TestComboBox" Margin="78,309,0,0" Width="214">
-            <x:String>Test 1</x:String>
-            <x:String>Test 2</x:String>
+            <x:String>Complete Blood Count</x:String>
+            <x:String>White Blood Cell</x:String>
+            <x:String>Low Density Lipoproteins</x:String>
+            <x:String>Hepatitis A</x:String>
+            <x:String>Hepatitis B</x:String>
+            <x:String>Hemoglobin A1C</x:String>
+            <x:String>Prothrombin Time</x:String>
+            <x:String>Basic Metabolic Panel</x:String>
+            <x:String>Comprehensive Metabolic Panel</x:String>
+            <x:String>Urinalysis</x:String>
         </ComboBox>
         <Button x:Name="AddTestToOrderButton" Content="Add Test" Margin="347,309,0,0" VerticalAlignment="Top" Width="88" Click="onAddTestClick"/>
         <Button x:Name="RemoveTestFromOrderButton" Content="Remove Test" Margin="474,309,0,0" VerticalAlignment="Top" Width="88" Click="onRemoveTestClick"/>
