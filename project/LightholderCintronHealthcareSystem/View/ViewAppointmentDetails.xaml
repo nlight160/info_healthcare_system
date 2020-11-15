@@ -10,39 +10,45 @@
     Title="Appointment Details"
     PrimaryButtonText="Close"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    FullSizeDesired="True" Height="600" Width="800"
+    FullSizeDesired="True"
 >
     <Grid Width="700">
 
-        <controls:DataGrid x:Name="appointmentDataView" IsReadOnly="True" HorizontalAlignment="Left" HeadersVisibility="None" ColumnWidth="125"  AutoGenerateColumns ="False" Height="460" Margin="0,0,0,0" VerticalAlignment="Top">
-            <controls:DataGrid.Columns>
 
-                <controls:DataGridTextColumn
-                    Binding="{Binding Key}">
-                    <controls:DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </controls:DataGridTextColumn.ElementStyle>
+        <Grid x:Name="appointmentDetailsGrid" Margin="0,25,350,400">
+            <controls:DataGrid x:Name="appointmentDataView" IsReadOnly="True" HorizontalAlignment="Left" HeadersVisibility="None" ColumnWidth="175"  AutoGenerateColumns ="False" Height="460" Margin="0,0,0,0" VerticalAlignment="Top">
+                <controls:DataGrid.Columns>
 
-                </controls:DataGridTextColumn>
-                <controls:DataGridTextColumn
-                    Binding="{Binding Value}">
-                    <controls:DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </controls:DataGridTextColumn.ElementStyle>
-                </controls:DataGridTextColumn>
+                    <controls:DataGridTextColumn
+                        Binding="{Binding Key}">
+                        <controls:DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </controls:DataGridTextColumn.ElementStyle>
+
+                    </controls:DataGridTextColumn>
+                    <controls:DataGridTextColumn
+                        Binding="{Binding Value}">
+                        <controls:DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </controls:DataGridTextColumn.ElementStyle>
+                    </controls:DataGridTextColumn>
 
 
-            </controls:DataGrid.Columns>
-        </controls:DataGrid>
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
 
-        <Grid x:Name="checkupInfo" Margin="250,0,0,230">
+        </Grid>
+
+
+
+        <Grid x:Name="checkupInfo" Margin="350,0,0,375">
             <TextBlock x:Name="checkupTextBlock" HorizontalAlignment="Left" Margin="0,0,0,0" Text="Checkup Information" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Button x:Name="makeCheckupButton" Content="Create Checkup" Margin="332,200,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup"/>
-            <controls:DataGrid x:Name="checkupDataView" IsReadOnly="True" HorizontalAlignment="Left" HeadersVisibility="None"  AutoGenerateColumns ="False" Height="175" Margin="0,25,0,0" VerticalAlignment="Top">
+            <Button x:Name="makeCheckupButton" Content="Create Checkup" Margin="0,450,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup" Visibility="Visible"/>
+            <controls:DataGrid x:Name="checkupDataView" IsReadOnly="True" HorizontalAlignment="Center" HeadersVisibility="None"  AutoGenerateColumns ="False" Height="425" Margin="0,25,0,0" VerticalAlignment="Top">
                 <controls:DataGrid.Columns>
 
                     <controls:DataGridTextColumn
@@ -68,7 +74,7 @@
 
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
-            
+
 
         </Grid>
 

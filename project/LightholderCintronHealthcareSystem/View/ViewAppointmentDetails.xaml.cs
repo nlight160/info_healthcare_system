@@ -37,7 +37,7 @@ namespace LightholderCintronHealthcareSystem.View
          */
 
 
-
+        //TODO Checkup button not showing idk why
 
 
         public ViewAppointmentDetails(AppointmentDataGrid appointment)
