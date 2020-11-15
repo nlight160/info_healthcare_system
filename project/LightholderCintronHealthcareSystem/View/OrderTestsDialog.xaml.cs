@@ -21,9 +21,12 @@ namespace LightholderCintronHealthcareSystem.View
 {
     public sealed partial class OrderTestsDialog : ContentDialog
     {
+        private TestOrder order;
+
         public OrderTestsDialog(AppointmentDataGrid appointment)
         {
             this.InitializeComponent();
+            this.order = new TestOrder(new List<Test>());
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -32,6 +35,18 @@ namespace LightholderCintronHealthcareSystem.View
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            Hide();
+        }
+
+        private void onAddTestClick(object sender, RoutedEventArgs e)
+        {
+            if (TestComboBox.SelectedItem != null)
+            {
+                Test test = new Test(this.TestComboBox.SelectedItem + "");
+                this.order.Order.Add(test);
+                this.TestOrderGrid.ItemsSource = this.order.Order;
+            }
+            
         }
     }
 }

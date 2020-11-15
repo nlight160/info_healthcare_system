@@ -149,6 +149,7 @@
     <Compile Include="Model\People\Time.cs" />
     <Compile Include="Model\QueryBuilder.cs" />
     <Compile Include="Model\SearchOption.cs" />
+    <Compile Include="Model\TestDataGrid.cs" />
     <Compile Include="Model\TestOrder.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\AddAppointmentDialog.xaml.cs">

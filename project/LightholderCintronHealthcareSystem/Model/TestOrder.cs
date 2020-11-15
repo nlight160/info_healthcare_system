@@ -9,7 +9,7 @@ namespace LightholderCintronHealthcareSystem.Model
 {
     public class TestOrder
     {
-        public IList<Test> Order { get; }
+        public List<Test> Order { get; }
         public Date DateOrdered { get; set; }
 
         public TestOrder(List<Test> testsToOrder)
