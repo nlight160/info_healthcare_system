@@ -173,7 +173,7 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 var appointmentid = selectedAppointment.Appointmentid;
 
-                var dialog = new RecordCheckupDialog(int.Parse(this.patient.Patientid));
+                var dialog = new RecordCheckupDialog(appointmentid);
                 this.Hide();
                 await dialog.ShowAsync();
                 var t = this.ShowAsync();
