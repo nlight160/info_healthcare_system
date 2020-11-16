@@ -1,4 +1,5 @@
 ﻿using LightholderCintronHealthcareSystem.Model;
+using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
 using LightholderCintronHealthcareSystem.Model.People;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace LightholderCintronHealthcareSystem.View
     public sealed partial class OrderTestsDialog : ContentDialog
     {
         private TestOrder order;
+        private int appointmentid;
 
         public OrderTestsDialog(AppointmentDataGrid appointment)
         {
@@ -48,7 +50,11 @@ namespace LightholderCintronHealthcareSystem.View
 
                 if (result == ContentDialogResult.Primary)
                 {
-                    // TODO
+                    TestDatabaseAccess tdb = new TestDatabaseAccess();
+                    foreach (var test in this.order.Order)
+                    {
+                        tdb.AddTests(test);
+                    }
                 }
             }
             else
@@ -79,6 +85,7 @@ namespace LightholderCintronHealthcareSystem.View
             if (TestComboBox.SelectedItem != null)
             {
                 Test test = new Test(this.TestComboBox.SelectionBoxItem.ToString());
+                test.AppointmentId = this.appointmentid;
                 this.order.Order.Add(test);
                 this.TestOrderGrid.ItemsSource = this.order.Order;
             }
