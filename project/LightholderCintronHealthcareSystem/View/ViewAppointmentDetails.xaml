@@ -124,6 +124,6 @@
 
         </Grid>
 
-
+        <Button x:Name="makeCheckupButton" Content="Create Checkup" Margin="350,491,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup" Visibility="Visible"/>
     </Grid>
 </ContentDialog>
