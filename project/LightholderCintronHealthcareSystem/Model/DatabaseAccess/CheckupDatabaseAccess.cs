@@ -28,6 +28,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             var weight = c.Weight;
             var pulse = c.Pulse;
             var diagnosis = c.Diagnosis;
+            var finaldiagnosis = c.FinalDiagnosis;
 
             try
             {
@@ -35,7 +36,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 conn.Open();
                 using var cmd = new MySqlCommand { Connection = conn };
 
-                const string createCheckup = "INSERT INTO `checkup` (`appointmentid`, `systolic`, `diastolic`, `temp`, `weight`, `pulse`, `diagnosis`) VALUES (@appointmentid, @systolic, @diastolic, @temperature, @weight, @pulse, @diagnosis);";
+                const string createCheckup = "INSERT INTO `checkup` (`appointmentid`, `systolic`, `diastolic`, `temp`, `weight`, `pulse`, `diagnosis`, `finaldiagnosis`) VALUES (@appointmentid, @systolic, @diastolic, @temperature, @weight, @pulse, @diagnosis, @finaldiagnosis);";
                 cmd.CommandText = createCheckup;
                 cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
                 cmd.Parameters.AddWithValue("@systolic", systolic);
@@ -44,6 +45,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 cmd.Parameters.AddWithValue("@weight", weight);
                 cmd.Parameters.AddWithValue("@pulse", pulse);
                 cmd.Parameters.AddWithValue("@diagnosis", diagnosis);
+                cmd.Parameters.AddWithValue("@finaldiagnosis", finaldiagnosis);
 
                 var confirmation = cmd.ExecuteNonQuery();
                 return confirmation == 1;
@@ -71,7 +73,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             var information = new List<string>();
             try
             {
-                const string query = "SELECT c.systolic, c.diastolic, c.temp, c.weight, c.pulse, c.diagnosis FROM checkup c WHERE c.appointmentid = @appointmentid;";
+                const string query = "SELECT c.systolic, c.diastolic, c.temp, c.weight, c.pulse, c.diagnosis, c.finaldiagnosis FROM checkup c WHERE c.appointmentid = @appointmentid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
@@ -84,6 +86,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 var weightOrdinal = reader.GetOrdinal("weight");
                 var pulseOrdinal = reader.GetOrdinal("pulse");
                 var diagnosisOrdinal = reader.GetOrdinal("diagnosis");
+                var finaldiagnosisOrdinal = reader.GetOrdinal("finaldiagnosis");
 
                 if (reader.HasRows)
                 {
@@ -94,6 +97,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                     information.Add(reader.GetString(weightOrdinal));       //3
                     information.Add(reader.GetString(pulseOrdinal));        //4
                     information.Add(reader.GetString(diagnosisOrdinal));    //5
+                    information.Add(reader.GetString(finaldiagnosisOrdinal)); //6
 
                 }
                 else

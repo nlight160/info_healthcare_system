@@ -54,7 +54,7 @@ namespace LightholderCintronHealthcareSystem.View
                 var diagnosis = this.diagnosisTextBox.Text;
 
                 var successful = ViewModel.ViewModel.createCheckup(this.appointmentid, systolic, diastolic, temperature, weight, pulse,
-                    diagnosis);
+                    diagnosis, "");
 
                 if (successful)
                 {
