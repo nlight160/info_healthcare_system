@@ -73,7 +73,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             var information = new List<string>();
             try
             {
-                const string query = "SELECT c.systolic, c.diastolic, c.temp, c.weight, c.pulse, c.diagnosis, c.finaldiagnosis FROM checkup c WHERE c.appointmentid = @appointmentid;";
+                const string query = "SELECT c.systolic, c.diastolic, c.temp, c.weight, c.pulse, c.diagnosis, c.finaldiagnosis, c.checkupid FROM checkup c WHERE c.appointmentid = @appointmentid;";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
@@ -87,6 +87,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                 var pulseOrdinal = reader.GetOrdinal("pulse");
                 var diagnosisOrdinal = reader.GetOrdinal("diagnosis");
                 var finaldiagnosisOrdinal = reader.GetOrdinal("finaldiagnosis");
+                var checkupidOrdinal = reader.GetOrdinal("checkupid");
 
                 if (reader.HasRows)
                 {
@@ -98,6 +99,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
                     information.Add(reader.GetString(pulseOrdinal));        //4
                     information.Add(reader.GetString(diagnosisOrdinal));    //5
                     information.Add(reader.GetString(finaldiagnosisOrdinal)); //6
+                    information.Add(reader.GetString(checkupidOrdinal)); //7
 
                 }
                 else
