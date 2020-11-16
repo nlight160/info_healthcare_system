@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LightholderCintronHealthcareSystem.Model;
+using LightholderCintronHealthcareSystem.Model.People;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,7 +26,7 @@ namespace LightholderCintronHealthcareSystem.View
         private Dictionary<string, string> checkupDictionary;
         private readonly int appointmentid;
         private readonly AppointmentDataGrid appointment;
-
+        private List<Test> todo = new List<Test>();
         /*  TODO
          *  Would like to have some structure on the top right of the dialog with the checkup information filled out (if checkup was already done if not grey everything out + context menu saying to fill
          *      checkout out.
@@ -60,9 +61,29 @@ namespace LightholderCintronHealthcareSystem.View
 
             this.checkupDictionary = new Dictionary<string, string>();
             this.checkupDataView.ItemsSource = this.checkupDictionary;
+            this.updateTests();
             this.updateCheckupInformation();
 
 
+
+            if (this.checkIfAppointmentPassed())
+            {
+                this.enterTestsButton.IsEnabled = false;
+                this.orderTestsButton.IsEnabled = false;
+                this.makeCheckupButton.IsEnabled = false;
+            }
+        }
+
+        private void updateTests()
+        {
+            
+            this.todo.Add(new Test("testing"));
+            this.testDataView.ItemsSource = todo; //TODO actually set source.
+        }
+
+        private bool checkIfAppointmentPassed()
+        {
+            return this.appointment.DateTime < DateTime.Now;
         }
 
         private void updateCheckupInformation()
@@ -103,7 +124,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private async void onClickCreateCheckup(object sender, RoutedEventArgs e)
         {
-            if (this.appointmentid != 0) //TODO need to check to see if checkup already exists. I think update checkup information deals with this now.
+            if (this.appointmentid != 0)
             {
                 var dialog = new RecordCheckupDialog(this.appointmentid);
                 this.Hide();
@@ -120,13 +141,23 @@ namespace LightholderCintronHealthcareSystem.View
             var dialog = new OrderTestsDialog(this.appointment);
             this.Hide();
             await dialog.ShowAsync();
+            dialog.Hide();
             var t = this.ShowAsync();
         }
 
         private void onEnterTestsClick(object sender, RoutedEventArgs e)
         {
-            //TODO add flyout easy
-            throw new NotImplementedException();
+            
+            this.enterTestFlyout.Hide();
+            var testObject = this.testDataView.SelectedItem;
+            var isAbnormal = this.flyoutCheckbox.IsChecked;
+            var result = this.flyoutTextBox.Text;
+            //TODO enter into database here
+        }
+
+        private void onTestSelectionChange(object sender, SelectionChangedEventArgs e)
+        {
+            this.updateTests();
         }
     }
 }

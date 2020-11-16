@@ -178,29 +178,6 @@ namespace LightholderCintronHealthcareSystem.View
                 await dialog.ShowAsync();
                 var t = this.ShowAsync();
 
-
-
-                //TODO move to record checkup
-                //    if (success)
-                //    {
-                //        content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " was updated successfully!";
-                //        title = "Update successful";
-                //    }
-                //    else
-                //    {
-                //        content = "Appointment for " + this.patient.Firstname + " " + this.patient.Lastname + " could not be updated, please try again.";
-                //        title = "Update failed";
-                //    }
-
-                //    this.refreshDataView();
-                //}
-                //else
-                //{
-                //    content = "No selected appointment.";
-                //    title = "Select appointment";
-                //}
-
-                //confirmation(content, title);
                 this.refreshDataView();
             }
         }

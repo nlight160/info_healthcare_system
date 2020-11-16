@@ -84,7 +84,7 @@
 
             <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" Text="Tests" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-            <controls:DataGrid x:Name="testDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="304" Width="350" Margin="0,25,0,0" VerticalAlignment="Top">
+            <controls:DataGrid x:Name="testDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="304" Width="350" Margin="0,25,0,0" VerticalAlignment="Top" SelectionChanged="onTestSelectionChange">
                 <controls:DataGrid.Columns>
 
                     <controls:DataGridTextColumn
@@ -124,9 +124,22 @@
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
             <Button x:Name="orderTestsButton" Content="Order Tests" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="onOrderTestsClick"/>
-            <Button x:Name="enterTestsButton" Content="Enter Test Result" VerticalAlignment="Bottom" Margin="229,0,0,0" Click="onEnterTestsClick"/>
+            <Button x:Name="enterTestsButton" Content="Enter Test Result" VerticalAlignment="Bottom" Margin="229,0,0,0">
+                <Button.Flyout>
+                    <Flyout x:Name="enterTestFlyout">
+
+                        <Grid Width="300" Height="110" BorderThickness="10">
+                            <TextBox x:Name="flyoutTextBox" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Result" TextWrapping="Wrap"/>
+                            <CheckBox x:Name="flyoutCheckbox" Content="Is Abnormal" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                            <Button x:Name="flyoutButton" Content="Submit" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="onEnterTestsClick"/>
+                        </Grid>
 
 
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+
+            
 
         </Grid>
     </Grid>
