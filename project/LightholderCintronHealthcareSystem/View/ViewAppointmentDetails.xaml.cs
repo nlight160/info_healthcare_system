@@ -186,11 +186,13 @@ namespace LightholderCintronHealthcareSystem.View
         {
             
             this.enterTestFlyout.Hide();
+            TestDatabaseAccess tdb = new TestDatabaseAccess();
             var testObject = this.testDataView.SelectedItem;
+            var testid = testObject as Test;
             var isAbnormal = this.flyoutCheckbox.IsChecked;
             var result = this.flyoutTextBox.Text;
             //TODO enter into database here
-
+            tdb.EditTestResults(result, isAbnormal + "", int.Parse(testid.TestId));
 
             this.flyoutTextBox.Text = "";
             this.flyoutCheckbox.IsChecked = false;
