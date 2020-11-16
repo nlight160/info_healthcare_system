@@ -56,6 +56,10 @@ namespace LightholderCintronHealthcareSystem.View
                         tdb.AddTests(test);
                     }
                 }
+                else
+                {
+                    await placeOrderConfirmationDialog.ShowAsync();
+                }
             }
             else
             {

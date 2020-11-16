@@ -42,5 +42,47 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             }
 
         }
+
+        public List<List<string>> GetTests(int appointmentid)
+        {
+            var testList = new List<List<string>>();
+            try
+            {
+                const string query =
+                    "SELECT t.testid, t.testname, t.appointmentid, t.datetime, t.results, t.normailty FROM test t WHERE `test`.`appointmentid` = `appointment`.`appointmentid`";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
+                cmd.Prepare();
+                using var reader = cmd.ExecuteReader();
+                cmd.CommandText = query;
+                var testidOrdinal = reader.GetOrdinal("testid");
+                var testnameOrdinal = reader.GetOrdinal("testname");
+                var appointmentidOrdinal = reader.GetOrdinal("appointmentid");
+                var datetimeOrdinal = reader.GetOrdinal("datetime");
+                var resultsOrdinal = reader.GetOrdinal("results");
+                var normailtyOrdinal = reader.GetOrdinal("normailty");
+
+                while (reader.Read())
+                {
+                    var singleTest = new List<string>();
+                    singleTest.Add(reader.GetString(testidOrdinal));         //0
+                    singleTest.Add(reader.GetString(testnameOrdinal));       //1
+                    singleTest.Add(reader.GetString(appointmentidOrdinal));  //2
+                    singleTest.Add(reader.GetString(datetimeOrdinal));       //3
+                    singleTest.Add(reader.GetString(resultsOrdinal));        //4
+                    singleTest.Add(reader.GetString(normailtyOrdinal));      //5
+                    testList.Add(singleTest);
+                }
+                return testList;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the CreatePatient: " + ex);
+                return testList;
+            }
+
+        }
     }
 }
