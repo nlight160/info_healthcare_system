@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity" 
     mc:Ignorable="d"
     Title="Appointment Details"
     PrimaryButtonText="Close"
@@ -49,7 +51,7 @@
             <Button x:Name="makeCheckupButton" Content="Create Checkup" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="onClickCreateCheckup" Visibility="Visible"/>
 
             <TextBlock x:Name="checkupTextBlock" HorizontalAlignment="Left" Margin="0,0,0,0" Text="Checkup Information" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <controls:DataGrid x:Name="checkupDataView" IsReadOnly="True" HorizontalAlignment="Center" HeadersVisibility="None"  AutoGenerateColumns ="False" Height="425" Margin="0,25,0,0" VerticalAlignment="Top">
+            <controls:DataGrid x:Name="checkupDataView" IsReadOnly="True" HorizontalAlignment="Center" HeadersVisibility="None"  AutoGenerateColumns ="False" Height="429" Margin="0,25,0,0" VerticalAlignment="Top">
                 <controls:DataGrid.Columns>
 
                     <controls:DataGridTextColumn
@@ -78,9 +80,11 @@
         </Grid>
 
         <Grid x:Name="testsGrid" Margin="0,500,0,0">
+            
+
             <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" Text="Tests" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-            <controls:DataGrid x:Name="testDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="336" Width="350" Margin="0,25,0,0" VerticalAlignment="Top">
+            <controls:DataGrid x:Name="testDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="304" Width="350" Margin="0,25,0,0" VerticalAlignment="Top">
                 <controls:DataGrid.Columns>
 
                     <controls:DataGridTextColumn
@@ -119,11 +123,11 @@
 
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
+            <Button x:Name="orderTestsButton" Content="Order Tests" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="onOrderTestsClick"/>
+            <Button x:Name="enterTestsButton" Content="Enter Test Result" VerticalAlignment="Bottom" Margin="229,0,0,0" Click="onEnterTestsClick"/>
 
 
 
         </Grid>
-
-        <Button x:Name="makeCheckupButton" Content="Create Checkup" Margin="350,491,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup" Visibility="Visible"/>
     </Grid>
 </ContentDialog>

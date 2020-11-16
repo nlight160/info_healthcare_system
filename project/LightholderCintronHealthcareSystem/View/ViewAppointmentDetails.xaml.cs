@@ -24,6 +24,7 @@ namespace LightholderCintronHealthcareSystem.View
         private Dictionary<string, string> dataDictionary;
         private Dictionary<string, string> checkupDictionary;
         private readonly int appointmentid;
+        private readonly AppointmentDataGrid appointment;
 
         /*  TODO
          *  Would like to have some structure on the top right of the dialog with the checkup information filled out (if checkup was already done if not grey everything out + context menu saying to fill
@@ -43,6 +44,7 @@ namespace LightholderCintronHealthcareSystem.View
         public ViewAppointmentDetails(AppointmentDataGrid appointment)
         {
             this.InitializeComponent();
+            this.appointment = appointment;
             this.appointmentid = appointment.Appointmentid;
             this.dataDictionary = new Dictionary<string, string>();
             this.appointmentDataView.ItemsSource = this.dataDictionary;
@@ -68,6 +70,8 @@ namespace LightholderCintronHealthcareSystem.View
             var checkup = ViewModel.ViewModel.GetCheckupFromAppointmentid(this.appointmentid);
             if (checkup == null)
             {
+                this.enterTestsButton.IsEnabled = false;
+                this.orderTestsButton.IsEnabled = false;
                 this.makeCheckupButton.IsEnabled = true;
                 this.checkupTextBlock.Text = "Please Create a Checkup";
                 this.checkupDictionary.Add("Systolic", "N/A");
@@ -79,6 +83,8 @@ namespace LightholderCintronHealthcareSystem.View
             }
             else
             {
+                this.enterTestsButton.IsEnabled = true;
+                this.orderTestsButton.IsEnabled = true;
                 this.makeCheckupButton.IsEnabled = false;
                 this.checkupTextBlock.Text = "Checkup Information";
                 this.checkupDictionary.Add("Systolic", checkup.Systolic.ToString());
@@ -107,6 +113,20 @@ namespace LightholderCintronHealthcareSystem.View
 
                 this.updateCheckupInformation();
             }
+        }
+
+        private async void onOrderTestsClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OrderTestsDialog(this.appointment);
+            this.Hide();
+            await dialog.ShowAsync();
+            var t = this.ShowAsync();
+        }
+
+        private void onEnterTestsClick(object sender, RoutedEventArgs e)
+        {
+            //TODO add flyout easy
+            throw new NotImplementedException();
         }
     }
 }
