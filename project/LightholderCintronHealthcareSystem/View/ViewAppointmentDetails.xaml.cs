@@ -188,5 +188,10 @@ namespace LightholderCintronHealthcareSystem.View
             }
             
         }
+
+        private void disableButtonsIfFinalDiagnosisExists()
+        {
+
+        }
     }
 }

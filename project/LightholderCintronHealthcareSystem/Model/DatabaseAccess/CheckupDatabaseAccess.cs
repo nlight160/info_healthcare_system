@@ -116,5 +116,28 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
 
         }
+
+        public bool EditCheckupFinalDiagnosis(string finalDiagnosis, int checkupid)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { Connection = conn };
+
+                const string updateCheckup = "UPDATE `checkup` SET `finaldiagnosis` = @finaldiagnosis WHERE `checkupid` = @checkupid;";
+                cmd.CommandText = updateCheckup;
+                cmd.Parameters.AddWithValue("@finaldiagnosis", finalDiagnosis);
+                cmd.Parameters.AddWithValue("@checkupid", checkupid);
+
+                var confirmation = cmd.ExecuteNonQuery();
+                return confirmation == 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the CreatePatient: " + ex);
+                return false;
+            }
+        }
     }
 }
