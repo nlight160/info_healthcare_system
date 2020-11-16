@@ -38,7 +38,7 @@
         <Button x:Name="addAppointmentButton" Content="Add Appointment" Margin="400,31,0,0" VerticalAlignment="Top" Width="180" Click="onAddAppointment"/>
         <Button x:Name="editAppointmentButton" Content="Edit Appointment" Margin="400,93,0,0" VerticalAlignment="Top" Width="180" Click="onEditAppointment"/>
         <Button x:Name="deleteAppointmentButton" Content="Delete Appointment" Margin="400,155,0,0" VerticalAlignment="Top" Width="180" Click="onDeleteAppointment"/>
-        <Button x:Name="recordCheckupButton" Content="Record Checkup" Margin="400,217,0,0" VerticalAlignment="Top" Width="180" Click="onRecordCheckup"/>
+        <Button x:Name="viewDetailsButton" Content="View Details" Margin="400,217,0,0" VerticalAlignment="Top" Width="180" Click="onViewDetails"/>
 
     </Grid>
 </ContentDialog>

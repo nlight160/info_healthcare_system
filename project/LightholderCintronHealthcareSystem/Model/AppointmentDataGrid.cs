@@ -73,6 +73,9 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </value>
         public DateTime DateTime { get; }
 
+        public string dob { get; }
+        public int doctorid { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentDataGrid"/> class.
         /// </summary>
@@ -81,7 +84,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="doctorName">Name of the doctor.</param>
         /// <param name="description">The description.</param>
         /// <exception cref="ArgumentNullException">doctorName - can not be null or empty</exception>
-        public AppointmentDataGrid(int appointmentid, DateTime dateTime, string doctorName, string description, int patientid = 0, string patientName = null)
+        public AppointmentDataGrid(int appointmentid, DateTime dateTime, string doctorName, string description, int patientid = 0, string patientName = null, string dob = "", int doctotid = 0)
         {
 
             if (string.IsNullOrEmpty(doctorName))
@@ -99,6 +102,8 @@ namespace LightholderCintronHealthcareSystem.Model
             this.DateTime = dateTime;
             this.Patientid = patientid;
             this.PatientName = patientName;
+            this.dob = dob;
+            this.doctorid = doctotid;
         }
 
     }

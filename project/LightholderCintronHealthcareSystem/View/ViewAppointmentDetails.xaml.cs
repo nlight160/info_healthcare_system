@@ -41,8 +41,8 @@ namespace LightholderCintronHealthcareSystem.View
             this.appointmentDataView.ItemsSource = this.dataDictionary;
             this.dataDictionary.Add("Patient ID", appointment.Patientid.ToString());
             this.dataDictionary.Add("Patient Name", appointment.PatientName);
-            this.dataDictionary.Add("Patient DOB", "TODO");
-            this.dataDictionary.Add("Doctor ID", appointment.DoctorName);
+            this.dataDictionary.Add("Patient DOB", appointment.dob);
+            this.dataDictionary.Add("Doctor ID", appointment.doctorid.ToString());
             this.dataDictionary.Add("Doctor Name", appointment.DoctorName);
             this.dataDictionary.Add("Appointment Date", appointment.Date);
             this.dataDictionary.Add("Appointment Time", appointment.Time);

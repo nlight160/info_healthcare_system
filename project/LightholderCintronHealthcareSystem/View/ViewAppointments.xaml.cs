@@ -158,22 +158,11 @@ namespace LightholderCintronHealthcareSystem.View
             await alert.ShowAsync();
         }
 
-        /// <summary>
-        /// Ons the record checkup.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private async void onRecordCheckup(object sender, RoutedEventArgs e)
+        private async void onViewDetails(object sender, RoutedEventArgs e)
         {
-
-            var selectedAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
-            string content;
-            string title;
-            if (selectedAppointment != null)
+            if (this.appointmentDataView.SelectedItem is AppointmentDataGrid selectedAppointment)
             {
-                var appointmentid = selectedAppointment.Appointmentid;
-
-                var dialog = new RecordCheckupDialog(appointmentid);
+                var dialog = new ViewAppointmentDetails(selectedAppointment);
                 this.Hide();
                 await dialog.ShowAsync();
                 var t = this.ShowAsync();
@@ -181,6 +170,5 @@ namespace LightholderCintronHealthcareSystem.View
                 this.refreshDataView();
             }
         }
-
     }
 }

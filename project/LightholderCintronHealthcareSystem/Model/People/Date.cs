@@ -62,6 +62,13 @@ namespace LightholderCintronHealthcareSystem.Model.People
             this.Day = day.PadLeft(2, '0');
         }
 
+        public Date(DateTime dateTime)
+        {
+            this.Year = dateTime.Year.ToString().PadLeft(4, '0');
+            this.Month = dateTime.Month.ToString().PadLeft(2, '0');
+            this.Day = dateTime.Day.ToString().PadLeft(2, '0');
+        }
+
         /// <summary>
         /// Converts to string.
         /// </summary>

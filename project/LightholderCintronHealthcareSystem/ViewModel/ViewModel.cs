@@ -298,15 +298,28 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             var appointments = new List<AppointmentDataGrid>();
             foreach (var appointment in appointmentList)
             {
+                //var appointmentid = int.Parse(appointment[0]);
+                //var dateTime = DateTime.Parse(appointment[2]);
+                //var doctorData = ddb.GetDoctorDataFromId(int.Parse(appointment[3]));
+                //var doctorName = doctorData[0] + " " + doctorData[1];
+                //var description = appointment[4];
+
+                //var patientData = pdb.GetPatientDataFromId(int.Parse(appointment[1]));
+                //var patientName = patientData[0] + " " + patientData[1];
+                //appointments.Add(new AppointmentDataGrid(appointmentid, dateTime, doctorName, description, int.Parse(appointment[1]), patientName));
+
+
                 var appointmentid = int.Parse(appointment[0]);
+                var patientid = int.Parse(appointment[1]);
                 var dateTime = DateTime.Parse(appointment[2]);
                 var doctorData = ddb.GetDoctorDataFromId(int.Parse(appointment[3]));
                 var doctorName = doctorData[0] + " " + doctorData[1];
                 var description = appointment[4];
-
-                var patientData = pdb.GetPatientDataFromId(int.Parse(appointment[1]));
+                var patientData = pdb.GetPatientDataFromId(patientid);
                 var patientName = patientData[0] + " " + patientData[1];
-                appointments.Add(new AppointmentDataGrid(appointmentid, dateTime, doctorName, description, int.Parse(appointment[1]), patientName));
+                var dob = new Date(DateTime.Parse(patientData[2])).ToString();
+                appointments.Add(new AppointmentDataGrid(appointmentid, dateTime, doctorName, description, patientid, patientName, dob, int.Parse(appointment[3])));
+
             }
 
             return appointments;
@@ -338,11 +351,13 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// Gets the appointments from patient.
         /// </summary>
         /// <param name="patientid">The patientid.</param>
+        /// <param name="name"></param>
         /// <returns></returns>
         public static List<AppointmentDataGrid> getAppointmentsFromPatient(int patientid)
         {
             var adb = new AppointmentDatabaseAccess();
             var ddb = new DoctorDatabaseAccess();
+            var pdb = new PatientDatabaseAccess();
             var appointmentList = adb.GetAppointmentFromPatientid(patientid);
             var appointments = new List<AppointmentDataGrid>();
             foreach (var appointment in appointmentList)
@@ -352,30 +367,11 @@ namespace LightholderCintronHealthcareSystem.ViewModel
                 var doctorData = ddb.GetDoctorDataFromId(int.Parse(appointment[3]));
                 var doctorName = doctorData[0] + " " + doctorData[1];
                 var description = appointment[4];
-                appointments.Add(new AppointmentDataGrid(appointmentid, dateTime, doctorName, description));
+                var patientData = pdb.GetPatientDataFromId(patientid);
+                var patientName = patientData[0] + " " + patientData[1];
+                var dob = new Date(DateTime.Parse(patientData[2])).ToString();
+                appointments.Add(new AppointmentDataGrid(appointmentid, dateTime, doctorName, description, patientid, patientName, dob, int.Parse(appointment[3])));
 
-                //Was originally going to return a list of appointments but decided against it.
-
-                //var patientData = pdb.GetPatientDataFromId(patientid);
-                //var fullDate = patientData[2].Split(' ')[0].Split('/');
-                //var date = new Date(fullDate[2], fullDate[0], fullDate[1]);
-                //var address = new Address(patientData[3], patientData[4], patientData[5], patientData[6]);
-                //var gender = patientData[8] == "Male" ? Gender.Male : Gender.Female;
-                //var patient = new Patient(patientData[9], patientData[0], patientData[1], date, address, patientData[7],
-                //    gender) { Patientid = patientData[10] };
-
-                //var doctorData = ddb.GetDoctorDataFromId(Int32.Parse(appointment[3]));
-                //var doctorFullDate = doctorData[2].Split(' ')[0].Split('/');
-                //var doctorDate = new Date(fullDate[2], fullDate[0], fullDate[1]);
-                //var doctorAddress = new Address(doctorData[3], doctorData[4], doctorData[5], doctorData[6]);
-                //var doctorGender = doctorData[8] == "Male" ? Gender.Male : Gender.Female;
-                //var doctor = new Doctor(doctorData[9], doctorData[0], doctorData[1], doctorDate, doctorAddress, doctorData[7],
-                //    doctorGender, "General") { Doctorid = doctorData[10] }; //TODO add specialty
-
-                //var appointmentDate = DateTime.Parse(appointment[2]);
-                //var description = appointment[4];
-                //var ap = new Appointment(appointmentid, patient, doctor, appointmentDate, description);
-                //appointments.Add(ap);
             }
 
             return appointments;
