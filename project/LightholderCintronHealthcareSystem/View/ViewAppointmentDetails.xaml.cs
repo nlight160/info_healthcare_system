@@ -58,13 +58,27 @@ namespace LightholderCintronHealthcareSystem.View
             this.updateTests();
             this.updateCheckupInformation();
 
+            this.checkIfCheckupDone();
 
 
-            if (this.checkIfAppointmentPassed())
+            if (this.checkIfAppointmentPassed() || this.checkIfFinalDiagnosis())
             {
                 this.enterTestsButton.IsEnabled = false;
                 this.orderTestsButton.IsEnabled = false;
                 this.makeCheckupButton.IsEnabled = false;
+                this.submitFinalDiagnosisButton.IsEnabled = false;
+                this.finalDiagnosisTextBox.IsEnabled = false;
+            }
+        }
+
+        private void checkIfCheckupDone()
+        {
+            var db = new CheckupDatabaseAccess();
+            var data = db.GetCheckupFromAppointmentid(this.appointmentid);
+            if (data.Count == 0)
+            {
+                this.finalDiagnosisTextBox.IsEnabled = false;
+                this.submitFinalDiagnosisButton.IsEnabled = false;
             }
         }
 
@@ -189,11 +203,25 @@ namespace LightholderCintronHealthcareSystem.View
 
         }
 
+        private bool checkIfFinalDiagnosis()
+        {
+            var db = new CheckupDatabaseAccess();
+            var checkup = db.GetCheckupFromAppointmentid(this.appointmentid);
+            if (string.IsNullOrEmpty(checkup[6]))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private void onConfirmationFinalDiagnosis(object sender, RoutedEventArgs e)
         {
+            this.enterTestFlyout.Hide();
             if (this.confirmationCheckBox.IsChecked == true)
             {
                 //TODO do final diagnosis
+                
                 this.enterTestsButton.IsEnabled = false;
                 this.orderTestsButton.IsEnabled = false;
                 this.makeCheckupButton.IsEnabled = false;
