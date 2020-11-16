@@ -1,20 +1,10 @@
-﻿using System;
+﻿using LightholderCintronHealthcareSystem.Model;
+using LightholderCintronHealthcareSystem.Model.People;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using LightholderCintronHealthcareSystem.Model;
-using LightholderCintronHealthcareSystem.Model.People;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -61,6 +51,9 @@ namespace LightholderCintronHealthcareSystem.View
 
             this.checkupDictionary = new Dictionary<string, string>();
             this.checkupDataView.ItemsSource = this.checkupDictionary;
+            this.enterTestsButton.IsEnabled = false;
+            this.orderTestsButton.IsEnabled = false;
+            this.makeCheckupButton.IsEnabled = false;
             this.updateTests();
             this.updateCheckupInformation();
 
@@ -153,11 +146,21 @@ namespace LightholderCintronHealthcareSystem.View
             var isAbnormal = this.flyoutCheckbox.IsChecked;
             var result = this.flyoutTextBox.Text;
             //TODO enter into database here
+
+
+            this.flyoutTextBox.Text = "";
+            this.flyoutCheckbox.IsChecked = false;
+            this.updateTests();
         }
 
         private void onTestSelectionChange(object sender, SelectionChangedEventArgs e)
         {
-            this.updateTests();
+            
+            if (this.testDataView.SelectedItem != null)
+            {
+                this.enterTestsButton.IsEnabled = true;
+            }
+            
         }
     }
 }
