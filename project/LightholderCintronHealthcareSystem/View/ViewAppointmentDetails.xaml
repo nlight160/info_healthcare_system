@@ -46,8 +46,9 @@
 
 
         <Grid x:Name="checkupInfo" Margin="350,0,0,375">
+            <Button x:Name="makeCheckupButton" Content="Create Checkup" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="onClickCreateCheckup" Visibility="Visible"/>
+
             <TextBlock x:Name="checkupTextBlock" HorizontalAlignment="Left" Margin="0,0,0,0" Text="Checkup Information" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Button x:Name="makeCheckupButton" Content="Create Checkup" Margin="0,450,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup" Visibility="Visible"/>
             <controls:DataGrid x:Name="checkupDataView" IsReadOnly="True" HorizontalAlignment="Center" HeadersVisibility="None"  AutoGenerateColumns ="False" Height="425" Margin="0,25,0,0" VerticalAlignment="Top">
                 <controls:DataGrid.Columns>
 
@@ -74,6 +75,51 @@
 
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
+        </Grid>
+
+        <Grid x:Name="testsGrid" Margin="0,500,0,0">
+            <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" Text="Tests" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+            <controls:DataGrid x:Name="testDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="336" Width="350" Margin="0,25,0,0" VerticalAlignment="Top">
+                <controls:DataGrid.Columns>
+
+                    <controls:DataGridTextColumn
+                        Header="Test"
+                        Width="130"
+                        Binding="{Binding TestName}">
+                        <controls:DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </controls:DataGridTextColumn.ElementStyle>
+
+                    </controls:DataGridTextColumn>
+                    <controls:DataGridTextColumn
+                        Header="Value"
+                        Width="130"
+                        Binding="{Binding TestResult}">
+                        <controls:DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </controls:DataGridTextColumn.ElementStyle>
+                    </controls:DataGridTextColumn>
+                    <controls:DataGridTextColumn
+                        Header="Normal"
+                        Width="90"
+                        Binding="{Binding IsNormal}">
+                        <controls:DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </controls:DataGridTextColumn.ElementStyle>
+                    </controls:DataGridTextColumn>
+
+
+
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+
 
 
         </Grid>
