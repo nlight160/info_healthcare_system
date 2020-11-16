@@ -9,8 +9,9 @@ namespace LightholderCintronHealthcareSystem.Model.People
     public class Test
     {
         public string TestName { get; }
-        public string TestCode { get; }
+        public string TestId { get; }
         public Date DatePerformed { get; set; }
+        public int AppointmentId { get; set; }
         public string TestResults { get; set; }
         public bool IsNormal { get; set; }
 
@@ -21,7 +22,6 @@ namespace LightholderCintronHealthcareSystem.Model.People
                 throw new ArgumentException("test name can not be null or empty", nameof(testName));
             }
             this.TestName = testName;
-            this.TestCode = "";
             this.DatePerformed = new Date("" + DateTime.Now.Year, "" + DateTime.Now.Month, "" + DateTime.Now.Day);
             this.TestResults = "";
             this.IsNormal = true;
