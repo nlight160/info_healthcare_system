@@ -181,12 +181,24 @@ namespace LightholderCintronHealthcareSystem.View
 
         private void onTestSelectionChange(object sender, SelectionChangedEventArgs e)
         {
-            
+
             if (this.testDataView.SelectedItem != null)
             {
                 this.enterTestsButton.IsEnabled = true;
             }
-            
+
+        }
+
+        private void onConfirmationFinalDiagnosis(object sender, RoutedEventArgs e)
+        {
+            if (this.confirmationCheckBox.IsChecked == true)
+            {
+                //TODO do final diagnosis
+                this.enterTestsButton.IsEnabled = false;
+                this.orderTestsButton.IsEnabled = false;
+                this.makeCheckupButton.IsEnabled = false;
+                this.submitFinalDiagnosisButton.IsEnabled = false;
+            }
         }
     }
 }

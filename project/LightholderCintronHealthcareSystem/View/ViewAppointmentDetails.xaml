@@ -79,7 +79,7 @@
         </Grid>
 
         <Grid x:Name="testsGrid" Margin="0,500,0,0">
-            
+
 
             <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" Text="Tests" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
@@ -138,7 +138,27 @@
                 </Button.Flyout>
             </Button>
 
+            <TextBox x:Name="finalDiagnosisTextBox"  HorizontalAlignment="Right"  VerticalAlignment="Top" Height="100" Width="300" PlaceholderText="Enter Final diagnosis here." Margin="0,25,10,0"/>
+            <Button x:Name="submitFinalDiagnosisButton" Width="300" Content="Submit Final Diagnosis" Margin="386,130,0,0" VerticalAlignment="Top">
+
+                <Button.Flyout>
+                    <Flyout x:Name="confirmationFinalDiagnosisFlyout">
+
+                        <Grid Width="300" Height="200" BorderThickness="10">
+                            <TextBlock x:Name="confimationFinalDiagnosis" Width="280" HorizontalAlignment="Center" VerticalAlignment="Top" Text="Are you sure you want to submit? Doing so will lock this appointment." TextWrapping="Wrap" Margin="0,10,0,0"/>
+                            <CheckBox x:Name="confirmationCheckBox" Content="Yes I am sure" Margin="85,0,0,0"/>
+                            <Button x:Name="confirmationButton" Content="Submit" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="onConfirmationFinalDiagnosis"/>
+                        </Grid>
+
+
+                    </Flyout>
+                </Button.Flyout>
+
+
+            </Button>
+
             
+
 
         </Grid>
     </Grid>
