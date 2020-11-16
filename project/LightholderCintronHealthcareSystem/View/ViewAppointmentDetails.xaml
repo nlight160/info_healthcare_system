@@ -47,7 +47,6 @@
 
         <Grid x:Name="checkupInfo" Margin="350,0,0,375">
             <TextBlock x:Name="checkupTextBlock" HorizontalAlignment="Left" Margin="0,0,0,0" Text="Checkup Information" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Button x:Name="makeCheckupButton" Content="Create Checkup" Margin="0,450,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup" Visibility="Visible"/>
             <controls:DataGrid x:Name="checkupDataView" IsReadOnly="True" HorizontalAlignment="Center" HeadersVisibility="None"  AutoGenerateColumns ="False" Height="425" Margin="0,25,0,0" VerticalAlignment="Top">
                 <controls:DataGrid.Columns>
 
@@ -78,6 +77,6 @@
 
         </Grid>
 
-
+        <Button x:Name="makeCheckupButton" Content="Create Checkup" Margin="350,491,0,0" VerticalAlignment="Top" Click="onClickCreateCheckup" Visibility="Visible"/>
     </Grid>
 </ContentDialog>
