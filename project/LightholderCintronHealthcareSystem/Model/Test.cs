@@ -9,11 +9,11 @@ namespace LightholderCintronHealthcareSystem.Model.People
     public class Test
     {
         public string TestName { get; }
-        public string TestId { get; }
+        public string TestId { get; set; }
         public Date DatePerformed { get; set; }
         public int AppointmentId { get; set; }
         public string TestResults { get; set; }
-        public bool IsNormal { get; set; }
+        public bool? IsNormal { get; set; }
 
         public Test(string testName)
         {
@@ -24,7 +24,7 @@ namespace LightholderCintronHealthcareSystem.Model.People
             this.TestName = testName;
             this.DatePerformed = new Date("" + DateTime.Now.Year, "" + DateTime.Now.Month, "" + DateTime.Now.Day);
             this.TestResults = "";
-            this.IsNormal = true;
+            this.IsNormal = null;
         }
     }
 }

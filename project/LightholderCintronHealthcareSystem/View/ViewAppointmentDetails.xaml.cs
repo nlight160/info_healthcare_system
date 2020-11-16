@@ -1,4 +1,5 @@
 ﻿using LightholderCintronHealthcareSystem.Model;
+using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
 using LightholderCintronHealthcareSystem.Model.People;
 using System;
 using System.Collections.Generic;
@@ -71,7 +72,32 @@ namespace LightholderCintronHealthcareSystem.View
         {
             
             this.todo.Add(new Test("testing"));
-            this.testDataView.ItemsSource = todo; //TODO actually set source.
+            this.testDataView.ItemsSource = this.getTests(this.appointment.Appointmentid);
+        }
+        private List<Test> getTests(int appointmentid)
+        {
+            TestDatabaseAccess tbd = new TestDatabaseAccess();
+            var testStringList = tbd.GetTests(appointmentid);
+            var tests = new List<Test>();
+            foreach (var test in testStringList)
+            {
+                var test1 = new Test(test[1]);
+                test1.TestId = test[0];
+                var date = DateTime.Parse(test[3]);
+                test1.DatePerformed = new Date("" + date.Year, "" + date.Month, "" + date.Day);
+                test1.TestResults = test[4];
+                if (int.Parse(test[5]) == 1)
+                {
+                    test1.IsNormal = true;
+                }
+                else
+                {
+                    test1.IsNormal = false;
+                }
+                tests.Add(test1);
+            }
+
+            return tests;
         }
 
         private bool checkIfAppointmentPassed()
