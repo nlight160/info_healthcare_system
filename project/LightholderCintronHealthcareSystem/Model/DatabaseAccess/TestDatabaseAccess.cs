@@ -84,5 +84,29 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             }
 
         }
+
+        public bool EditTestResults(string results, string normality, int testid)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand { Connection = conn };
+
+                const string updateCheckup = "UPDATE `test` SET `results` = @results, `normailty` = @normality WHERE `testid` = @testid;";
+                cmd.CommandText = updateCheckup;
+                cmd.Parameters.AddWithValue("@results", results);
+                cmd.Parameters.AddWithValue("@normality", normality);
+                cmd.Parameters.AddWithValue("@testid", testid);
+
+                var confirmation = cmd.ExecuteNonQuery();
+                return confirmation == 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the CreatePatient: " + ex);
+                return false;
+            }
+        }
     }
 }
