@@ -18,6 +18,8 @@ namespace LightholderCintronHealthcareSystem.View
         private readonly int appointmentid;
         private readonly AppointmentDataGrid appointment;
         private List<Test> todo = new List<Test>();
+
+        private int checkupid;
         /*  TODO
          *  Would like to have some structure on the top right of the dialog with the checkup information filled out (if checkup was already done if not grey everything out + context menu saying to fill
          *      checkout out.
@@ -147,6 +149,8 @@ namespace LightholderCintronHealthcareSystem.View
                 this.checkupDictionary.Add("Weight", checkup.Weight.ToString(CultureInfo.CurrentCulture));
                 this.checkupDictionary.Add("Pulse", checkup.Pulse.ToString());
                 this.checkupDictionary.Add("Initial Diagnosis", checkup.Diagnosis);
+                this.checkupid = (int) checkup.CheckupId;
+
             }
             
         }
@@ -221,7 +225,8 @@ namespace LightholderCintronHealthcareSystem.View
             if (this.confirmationCheckBox.IsChecked == true)
             {
                 //TODO do final diagnosis
-                
+                var db = new CheckupDatabaseAccess();
+                db.EditCheckupFinalDiagnosis(this.finalDiagnosisTextBox.ToString(), this.checkupid);
                 this.enterTestsButton.IsEnabled = false;
                 this.orderTestsButton.IsEnabled = false;
                 this.makeCheckupButton.IsEnabled = false;
