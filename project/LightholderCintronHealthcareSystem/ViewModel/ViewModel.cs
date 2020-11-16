@@ -344,7 +344,8 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             var weight = decimal.Parse(information[3]);
             var pulse = int.Parse(information[4]);
             var diagnosis = information[5];
-            return new Checkup(1,appointmentid, systolic, diastolic, temperature, weight, pulse, diagnosis);
+            var finaldiagnosis = information[6];
+            return new Checkup(1,appointmentid, systolic, diastolic, temperature, weight, pulse, diagnosis, finaldiagnosis);
         }
 
         /// <summary>
@@ -410,10 +411,10 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// <param name="pulse">The pulse.</param>
         /// <param name="diagnosis">The diagnosis.</param>
         /// <returns></returns>
-        public static bool createCheckup(int appointmentid, int systolic, int diastolic, decimal temperature, decimal weight, int pulse, string diagnosis)
+        public static bool createCheckup(int appointmentid, int systolic, int diastolic, decimal temperature, decimal weight, int pulse, string diagnosis, string finaldiagnosis)
         {
             var cdb = new CheckupDatabaseAccess();
-            var checkup = new Checkup(null, appointmentid, systolic, diastolic, temperature, weight, pulse, diagnosis);
+            var checkup = new Checkup(null, appointmentid, systolic, diastolic, temperature, weight, pulse, diagnosis, finaldiagnosis);
             return cdb.CreateCheckup(checkup);
         }
 
