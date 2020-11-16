@@ -49,7 +49,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             try
             {
                 const string query =
-                    "SELECT t.testid, t.testname, t.appointmentid, t.datetime, t.results, t.normailty FROM test t WHERE `test`.`appointmentid` = `appointment`.`appointmentid`";
+                    "SELECT t.testid, t.testname, t.appointmentid, t.datetime, t.results, t.normailty FROM test t, appointment a WHERE t.`appointmentid` = a.`appointmentid`";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
