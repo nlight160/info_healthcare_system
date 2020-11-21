@@ -52,6 +52,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private async void onViewDetails(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            this.ViewDetailsButton.IsEnabled = false;
             var currentAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
             if (this.isItemSelected)
             {
@@ -59,8 +60,7 @@ namespace LightholderCintronHealthcareSystem.View
                 await dialog.ShowAsync();
             }
 
-
-
+            this.ViewDetailsButton.IsEnabled = true;
         }
 
         private void onSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -83,12 +83,15 @@ namespace LightholderCintronHealthcareSystem.View
 
         private async void onOrderTestsClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            this.OrderTestsButton.IsEnabled = false;
             var currentAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
             if (this.isItemSelected)
             {
                 var dialog = new OrderTestsDialog(currentAppointment);
                 await dialog.ShowAsync();
             }
+
+            this.OrderTestsButton.IsEnabled = true;
         }
 
         private async void onViewTestsClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)

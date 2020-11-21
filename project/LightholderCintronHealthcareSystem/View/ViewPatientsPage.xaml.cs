@@ -83,12 +83,14 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onViewAppointments(object sender, RoutedEventArgs e)
         {
+            this.viewAppointmentsButton.IsEnabled = false;
             var currentPatient = this.patientDataView.SelectedItem as Patient;
             if (this.isItemSelected)
             {
                 var dialog = new ViewAppointments(currentPatient);
                 await dialog.ShowAsync();
             }
+            this.viewAppointmentsButton.IsEnabled = true;
         }
 
         /// <summary>

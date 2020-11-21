@@ -156,6 +156,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private async void onClickCreateCheckup(object sender, RoutedEventArgs e)
         {
+            this.makeCheckupButton.IsEnabled = false;
             if (this.appointmentid != 0)
             {
                 var dialog = new RecordCheckupDialog(this.appointmentid);
@@ -187,8 +188,8 @@ namespace LightholderCintronHealthcareSystem.View
             var testid = testObject as Test;
             bool isAbnormal = (bool) this.flyoutCheckbox.IsChecked;
             var result = this.flyoutTextBox.Text;
-            //TODO enter into database here
-            tdb.EditTestResults(result, isAbnormal, int.Parse(testid.TestId));
+
+            tdb.EditTestResults(result, !isAbnormal, int.Parse(testid.TestId));
 
             this.flyoutTextBox.Text = "";
             this.flyoutCheckbox.IsChecked = false;

@@ -59,12 +59,13 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onAddAppointment(object sender, RoutedEventArgs e)
         {
-
+            this.addAppointmentButton.IsEnabled = false;
             var dialog = new AddAppointmentDialog(int.Parse(this.patient.Patientid), this.patient.Firstname, this.patient.Lastname);
             this.Hide();
             await dialog.ShowAsync();
             var t = this.ShowAsync();
             this.refreshDataView();
+            this.addAppointmentButton.IsEnabled = true;
         }
 
         /// <summary>
@@ -74,6 +75,7 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onEditAppointment(object sender, RoutedEventArgs e)
         {
+            this.editAppointmentButton.IsEnabled = false;
             var selectedAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
             string content;
             string title;
@@ -114,7 +116,7 @@ namespace LightholderCintronHealthcareSystem.View
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onDeleteAppointment(object sender, RoutedEventArgs e)
         {
-
+            this.deleteAppointmentButton.IsEnabled = false;
             var selectedAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
             string content;
             string title;
@@ -160,6 +162,7 @@ namespace LightholderCintronHealthcareSystem.View
 
         private async void onViewDetails(object sender, RoutedEventArgs e)
         {
+            this.viewDetailsButton.IsEnabled = false;
             if (this.appointmentDataView.SelectedItem is AppointmentDataGrid selectedAppointment)
             {
                 var dialog = new ViewAppointmentDetails(selectedAppointment);
