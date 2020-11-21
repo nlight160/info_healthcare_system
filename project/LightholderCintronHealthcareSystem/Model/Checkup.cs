@@ -13,7 +13,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <value>
         /// The checkup identifier.
         /// </value>
-        public int? CheckupId { get; set; }
+        public int CheckupId { get; set; }
         /// <summary>
         /// Gets or sets the appointment identifier.
         /// </summary>
@@ -96,7 +96,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// pulse must be greater than 0
         /// </exception>
         /// <exception cref="ArgumentNullException">diagnosis - diagnosis can not be null</exception>
-        public Checkup(int? checkupId, int appointmentId, int systolic, int diastolic, decimal temperature,
+        public Checkup(int checkupId, int appointmentId, int systolic, int diastolic, decimal temperature,
             decimal weight, int pulse, string diagnosis, string finalDiagnosis)
         {
             if (appointmentId < 0)
@@ -135,7 +135,7 @@ namespace LightholderCintronHealthcareSystem.Model
             }
 
             this.Pulse = pulse;
-
+            this.CheckupId = checkupId;
             this.Diagnosis = diagnosis ?? throw new ArgumentNullException(nameof(diagnosis), "diagnosis can not be null");
             this.FinalDiagnosis = finalDiagnosis ?? throw new ArgumentNullException(nameof(finalDiagnosis), "final diagnosis can not be null");
         }

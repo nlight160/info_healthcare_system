@@ -102,14 +102,7 @@ namespace LightholderCintronHealthcareSystem.View
                 var date = DateTime.Parse(test[3]);
                 test1.DatePerformed = new Date("" + date.Year, "" + date.Month, "" + date.Day);
                 test1.TestResults = test[4];
-                if (int.Parse(test[5]) == 1)
-                {
-                    test1.IsNormal = true;
-                }
-                else
-                {
-                    test1.IsNormal = false;
-                }
+                test1.IsNormal = bool.Parse(test[5]);
                 tests.Add(test1);
             }
 
@@ -124,6 +117,8 @@ namespace LightholderCintronHealthcareSystem.View
         private void updateCheckupInformation()
         {
             var checkup = ViewModel.ViewModel.GetCheckupFromAppointmentid(this.appointmentid);
+            this.checkupDictionary = new Dictionary<string, string>();
+            this.checkupDataView.ItemsSource = this.checkupDictionary;
             if (checkup == null)
             {
                 this.enterTestsButton.IsEnabled = false;
@@ -149,7 +144,7 @@ namespace LightholderCintronHealthcareSystem.View
                 this.checkupDictionary.Add("Weight", checkup.Weight.ToString(CultureInfo.CurrentCulture));
                 this.checkupDictionary.Add("Pulse", checkup.Pulse.ToString());
                 this.checkupDictionary.Add("Initial Diagnosis", checkup.Diagnosis);
-                this.checkupid = (int) checkup.CheckupId;
+                this.checkupid = checkup.CheckupId;
 
             }
             
@@ -166,6 +161,7 @@ namespace LightholderCintronHealthcareSystem.View
                 var dialog = new RecordCheckupDialog(this.appointmentid);
                 this.Hide();
                 await dialog.ShowAsync();
+                dialog.Hide();
                 var t = this.ShowAsync();
 
 
@@ -189,10 +185,10 @@ namespace LightholderCintronHealthcareSystem.View
             TestDatabaseAccess tdb = new TestDatabaseAccess();
             var testObject = this.testDataView.SelectedItem;
             var testid = testObject as Test;
-            var isAbnormal = this.flyoutCheckbox.IsChecked;
+            bool isAbnormal = (bool) this.flyoutCheckbox.IsChecked;
             var result = this.flyoutTextBox.Text;
             //TODO enter into database here
-            tdb.EditTestResults(result, isAbnormal + "", int.Parse(testid.TestId));
+            tdb.EditTestResults(result, isAbnormal, int.Parse(testid.TestId));
 
             this.flyoutTextBox.Text = "";
             this.flyoutCheckbox.IsChecked = false;
@@ -213,11 +209,11 @@ namespace LightholderCintronHealthcareSystem.View
         {
             var db = new CheckupDatabaseAccess();
             var checkup = db.GetCheckupFromAppointmentid(this.appointmentid);
-            if (string.IsNullOrEmpty(checkup[6]))
+            if (checkup.Count == 8 && !string.IsNullOrEmpty(checkup[6]))
             {
+                this.finalDiagnosisTextBox.Text = checkup[6];
                 return true;
             }
-
             return false;
         }
 
@@ -228,7 +224,7 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 //TODO do final diagnosis
                 var db = new CheckupDatabaseAccess();
-                db.EditCheckupFinalDiagnosis(this.finalDiagnosisTextBox.ToString(), this.checkupid);
+                db.EditCheckupFinalDiagnosis(this.finalDiagnosisTextBox.Text, this.checkupid);
                 this.enterTestsButton.IsEnabled = false;
                 this.orderTestsButton.IsEnabled = false;
                 this.makeCheckupButton.IsEnabled = false;

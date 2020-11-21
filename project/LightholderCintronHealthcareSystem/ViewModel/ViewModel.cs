@@ -334,7 +334,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         {
             var cdb = new CheckupDatabaseAccess();
             var information = cdb.GetCheckupFromAppointmentid(appointmentid);
-            if (information.Count != 7)
+            if (information.Count != 8)
             {
                 return null;
             }
@@ -416,7 +416,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         public static bool createCheckup(int appointmentid, int systolic, int diastolic, decimal temperature, decimal weight, int pulse, string diagnosis, string finaldiagnosis)
         {
             var cdb = new CheckupDatabaseAccess();
-            var checkup = new Checkup(null, appointmentid, systolic, diastolic, temperature, weight, pulse, diagnosis, finaldiagnosis);
+            var checkup = new Checkup(0, appointmentid, systolic, diastolic, temperature, weight, pulse, diagnosis, finaldiagnosis);
             return cdb.CreateCheckup(checkup);
         }
 

@@ -32,6 +32,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.InitializeComponent();
             this.order = new TestOrder(new ObservableCollection<Test>());
             this.PatientNameTextBlock.Text = appointment.PatientName;
+            this.appointmentid = appointment.Appointmentid;
         }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -45,9 +46,8 @@ namespace LightholderCintronHealthcareSystem.View
                     PrimaryButtonText = "Ok",
                     CloseButtonText = "Cancel"
                 };
-                Hide();
+                this.Hide();
                 ContentDialogResult result = await placeOrderConfirmationDialog.ShowAsync();
-
                 if (result == ContentDialogResult.Primary)
                 {
                     TestDatabaseAccess tdb = new TestDatabaseAccess();
@@ -58,8 +58,9 @@ namespace LightholderCintronHealthcareSystem.View
                 }
                 else
                 {
-                    await placeOrderConfirmationDialog.ShowAsync();
+                    //await placeOrderConfirmationDialog.ShowAsync();
                 }
+                
             }
             else
             {

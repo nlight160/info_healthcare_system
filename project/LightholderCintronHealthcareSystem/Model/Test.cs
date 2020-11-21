@@ -24,7 +24,7 @@ namespace LightholderCintronHealthcareSystem.Model.People
             this.TestName = testName;
             this.DatePerformed = new Date("" + DateTime.Now.Year, "" + DateTime.Now.Month, "" + DateTime.Now.Day);
             this.TestResults = "";
-            this.IsNormal = null;
+            this.IsNormal = false;
         }
     }
 }

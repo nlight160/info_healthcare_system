@@ -100,7 +100,7 @@
                     <controls:DataGridTextColumn
                         Header="Value"
                         Width="130"
-                        Binding="{Binding TestResult}">
+                        Binding="{Binding TestResults}">
                         <controls:DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextWrapping" Value="Wrap"/>

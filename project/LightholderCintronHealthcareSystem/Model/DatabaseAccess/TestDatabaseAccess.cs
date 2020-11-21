@@ -49,13 +49,13 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             try
             {
                 const string query =
-                    "SELECT t.testid, t.testname, t.appointmentid, t.datetime, t.results, t.normailty FROM test t, appointment a WHERE t.`appointmentid` = a.`appointmentid`";
+                    "SELECT DISTINCT t.testid, t.testname, t.appointmentid, t.datetime, t.results, t.normailty FROM test t, appointment a WHERE t.`appointmentid` = @appointmentid";
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { CommandText = query, Connection = conn };
                 cmd.Prepare();
+                cmd.Parameters.AddWithValue("@appointmentid", appointmentid);
                 using var reader = cmd.ExecuteReader();
-                cmd.CommandText = query;
                 var testidOrdinal = reader.GetOrdinal("testid");
                 var testnameOrdinal = reader.GetOrdinal("testname");
                 var appointmentidOrdinal = reader.GetOrdinal("appointmentid");
@@ -85,7 +85,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
         }
 
-        public bool EditTestResults(string results, string normality, int testid)
+        public bool EditTestResults(string results, bool normality, int testid)
         {
             try
             {
