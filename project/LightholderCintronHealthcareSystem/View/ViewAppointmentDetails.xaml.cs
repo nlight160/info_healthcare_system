@@ -17,7 +17,6 @@ namespace LightholderCintronHealthcareSystem.View
         private Dictionary<string, string> checkupDictionary;
         private readonly int appointmentid;
         private readonly AppointmentDataGrid appointment;
-        private List<Test> todo = new List<Test>();
 
         private int checkupid;
         /*  TODO
@@ -63,7 +62,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.checkIfCheckupDone();
 
 
-            if (this.checkIfAppointmentPassed() || this.checkIfFinalDiagnosis())
+            if (this.checkIfAppointmentPassed() | this.checkIfFinalDiagnosis())
             {
                 this.enterTestsButton.IsEnabled = false;
                 this.orderTestsButton.IsEnabled = false;
@@ -87,7 +86,6 @@ namespace LightholderCintronHealthcareSystem.View
         private void updateTests()
         {
             
-            this.todo.Add(new Test("testing"));
             this.testDataView.ItemsSource = this.getTests(this.appointment.Appointmentid);
         }
         private List<Test> getTests(int appointmentid)
