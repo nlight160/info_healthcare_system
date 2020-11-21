@@ -160,6 +160,11 @@ namespace LightholderCintronHealthcareSystem.View
             await alert.ShowAsync();
         }
 
+        /// <summary>
+        /// Ons the view details.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onViewDetails(object sender, RoutedEventArgs e)
         {
             this.viewDetailsButton.IsEnabled = false;

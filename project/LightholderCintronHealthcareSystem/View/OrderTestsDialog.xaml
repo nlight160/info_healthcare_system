@@ -1,16 +1,16 @@
 ﻿<ContentDialog
     x:Class="LightholderCintronHealthcareSystem.View.OrderTestsDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:LightholderCintronHealthcareSystem.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Title="Order Tests"
     Height="1200" MaxHeight="1200" MinHeight="1200">
 
     <Grid Height="1000" MinHeight="1000">
-        <controls:DataGrid x:Name="TestOrderGrid" HorizontalAlignment="Center" Margin="0,399,0,0" VerticalAlignment="Top" Width="641" Height="450" AutoGenerateColumns="False">
+        <controls:DataGrid x:Name="testOrderGrid" HorizontalAlignment="Center" Margin="0,399,0,0" VerticalAlignment="Top" Width="641" Height="450" AutoGenerateColumns="False">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn
                     Header="Test Name"
@@ -22,27 +22,27 @@
 
 
         </controls:DataGrid>
-        <ComboBox x:Name="TestComboBox" Margin="78,309,0,0" Width="214">
+        <ComboBox x:Name="testComboBox" Margin="78,309,0,0" Width="214">
             <x:String>Complete Blood Count</x:String>
             <x:String>White Blood Cell</x:String>
             <x:String>Low Density Lipoproteins</x:String>
             <x:String>Hepatitis A</x:String>
             <x:String>Hepatitis B</x:String>
             <x:String>Hemoglobin A1C</x:String>
-            <x:String>Prothrombin Time</x:String>
+            <x:String>Thrombotic Time</x:String>
             <x:String>Basic Metabolic Panel</x:String>
             <x:String>Comprehensive Metabolic Panel</x:String>
             <x:String>Urinalysis</x:String>
         </ComboBox>
-        <Button x:Name="SubmitButton" Width="320" Content="Submit Order" Margin="-4,0,0,84" VerticalAlignment="Bottom">
+        <Button Width="320" Content="Submit Order" Margin="-4,0,0,84" VerticalAlignment="Bottom">
             <Button.Flyout>
 
-                <Flyout x:Name="ConfirmationFlyout">
+                <Flyout x:Name="confirmationFlyout">
 
                     <Grid Height="65" Width="275">
                         <TextBlock Text="Are you sure you want to add these tests?" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <Button x:Name="ConfirmButton" Content="Yes I Am Sure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ConfirmButton_OnClick"/>
-                        <Button x:Name="DenyButton" Content="No I Am Not Sure" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="DenyButton_OnClick"/>
+                        <Button Content="Yes I Am Sure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ConfirmButton_OnClick"/>
+                        <Button Content="No I Am Not Sure" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="DenyButton_OnClick"/>
                     </Grid>
 
                 </Flyout>
@@ -52,12 +52,12 @@
 
         </Button>
 
-        <Button x:Name="CancelButton" Width="310" Content="Cancel Order" Margin="0,0,0,84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="ContentDialog_SecondaryButtonClick"/>
+        <Button Width="310" Content="Cancel Order" Margin="0,0,0,84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="ContentDialog_SecondaryButtonClick"/>
 
-        <Button x:Name="AddTestToOrderButton" Content="Add Test" Margin="347,309,0,0" VerticalAlignment="Top" Width="88" Click="onAddTestClick"/>
-        <Button x:Name="RemoveTestFromOrderButton" Content="Remove Test" Margin="474,309,0,0" VerticalAlignment="Top" Width="100" Click="onRemoveTestClick"/>
+        <Button Content="Add Test" Margin="347,309,0,0" VerticalAlignment="Top" Width="88" Click="onAddTestClick"/>
+        <Button Content="Remove Test" Margin="474,309,0,0" VerticalAlignment="Top" Width="100" Click="onRemoveTestClick"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,138,0,0" Text="Ordering tests for patient:" TextWrapping="Wrap" VerticalAlignment="Top" Height="52" FontSize="36"/>
-        <TextBlock x:Name="PatientNameTextBlock" HorizontalAlignment="Center" Margin="0,208,0,0" Text="patient name" TextWrapping="Wrap" VerticalAlignment="Top" Height="52" FontSize="20"/>
+        <TextBlock x:Name="patientNameTextBlock" HorizontalAlignment="Center" Margin="0,208,0,0" Text="patient name" TextWrapping="Wrap" VerticalAlignment="Top" Height="52" FontSize="20"/>
 
     </Grid>
 

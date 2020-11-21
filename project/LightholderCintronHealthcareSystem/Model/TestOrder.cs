@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LightholderCintronHealthcareSystem.Model.People;
+using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LightholderCintronHealthcareSystem.Model.People;
 
 namespace LightholderCintronHealthcareSystem.Model
 {
@@ -15,11 +11,7 @@ namespace LightholderCintronHealthcareSystem.Model
 
         public TestOrder(ObservableCollection<Test> testsToOrder)
         {
-            if (testsToOrder == null)
-            {
-                throw new ArgumentException("Tests to order can not be null", nameof(testsToOrder));
-            }
-            this.Order = testsToOrder;
+            this.Order = testsToOrder ?? throw new ArgumentException("Tests to order can not be null", nameof(testsToOrder));
 
             this.DateOrdered = new Date("" + DateTime.Now.Year, "" + DateTime.Now.Month, "" + DateTime.Now.Day);
         }

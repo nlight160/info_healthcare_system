@@ -65,10 +65,6 @@ namespace LightholderCintronHealthcareSystem.Model
             this.Appointmentid = appointmentId;
             this.Patient = patient ?? throw new ArgumentNullException(nameof(patient), "can not be null");
             this.Doctor = doctor ?? throw new ArgumentNullException(nameof(doctor), "can not be null");
-            if (appointmentDateTime.Date < DateTime.Today || appointmentDateTime == null)
-            {
-                //throw new ArgumentException("Appointment date cannot be before today."); //TODO crashes application if you click add appointment and they have one already for a previous date.
-            }
             this.AppointmentDateTime = appointmentDateTime;
             if (string.IsNullOrEmpty(description))
             {

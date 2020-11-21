@@ -33,11 +33,6 @@ namespace LightholderCintronHealthcareSystem.View
          */
 
 
-
-
-
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewAllAppointmentsPage"/> class.
         /// </summary>
@@ -50,9 +45,14 @@ namespace LightholderCintronHealthcareSystem.View
                                       ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
         }
 
+        /// <summary>
+        /// Ons the view details.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="Windows.UI.Xaml.RoutedEventArgs"/> instance containing the event data.</param>
         private async void onViewDetails(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            this.ViewDetailsButton.IsEnabled = false;
+            this.viewDetailsButton.IsEnabled = false;
             var currentAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
             if (this.isItemSelected)
             {
@@ -60,9 +60,14 @@ namespace LightholderCintronHealthcareSystem.View
                 await dialog.ShowAsync();
             }
 
-            this.ViewDetailsButton.IsEnabled = true;
+            this.viewDetailsButton.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Ons the selection changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void onSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.appointmentDataView.SelectedItem == null)
@@ -76,32 +81,14 @@ namespace LightholderCintronHealthcareSystem.View
             }
         }
 
+        /// <summary>
+        /// Ons the return click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="Windows.UI.Xaml.RoutedEventArgs"/> instance containing the event data.</param>
         private void onReturnClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MenuPage));
-        }
-
-        private async void onOrderTestsClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            this.OrderTestsButton.IsEnabled = false;
-            var currentAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
-            if (this.isItemSelected)
-            {
-                var dialog = new OrderTestsDialog(currentAppointment);
-                await dialog.ShowAsync();
-            }
-
-            this.OrderTestsButton.IsEnabled = true;
-        }
-
-        private async void onViewTestsClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            var currentAppointment = this.appointmentDataView.SelectedItem as AppointmentDataGrid;
-            if (this.isItemSelected)
-            {
-                var dialog = new ViewTestsDialog(currentAppointment);
-                await dialog.ShowAsync();
-            }
         }
     }
 }

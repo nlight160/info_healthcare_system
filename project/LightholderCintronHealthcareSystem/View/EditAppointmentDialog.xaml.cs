@@ -124,7 +124,7 @@ namespace LightholderCintronHealthcareSystem.View
         }
 
         /// <summary>
-        /// Checks for competion.
+        /// Checks for competition.
         /// </summary>
         /// <returns></returns>
         private bool checkForCompetion()

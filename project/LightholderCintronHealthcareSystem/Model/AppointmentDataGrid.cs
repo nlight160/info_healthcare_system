@@ -1,11 +1,10 @@
 ﻿using LightholderCintronHealthcareSystem.Model.People;
 using System;
-using Windows.Devices.Bluetooth.Background;
 
 namespace LightholderCintronHealthcareSystem.Model
 {
     /// <summary>
-    /// Appointment data class for datagrid
+    /// Appointment data class for data grid
     /// </summary>
     public class AppointmentDataGrid
     {
@@ -73,8 +72,8 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </value>
         public DateTime DateTime { get; }
 
-        public string dob { get; }
-        public int doctorid { get; set; }
+        public string Dob { get; }
+        public int Doctorid { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentDataGrid"/> class.
@@ -83,8 +82,12 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="dateTime">The date time.</param>
         /// <param name="doctorName">Name of the doctor.</param>
         /// <param name="description">The description.</param>
+        /// <param name="patientid"></param>
+        /// <param name="patientName"></param>
+        /// <param name="dob"></param>
+        /// <param name="doctorid"></param>
         /// <exception cref="ArgumentNullException">doctorName - can not be null or empty</exception>
-        public AppointmentDataGrid(int appointmentid, DateTime dateTime, string doctorName, string description, int patientid = 0, string patientName = null, string dob = "", int doctotid = 0)
+        public AppointmentDataGrid(int appointmentid, DateTime dateTime, string doctorName, string description, int patientid = 0, string patientName = null, string dob = "", int doctorid = 0)
         {
 
             if (string.IsNullOrEmpty(doctorName))
@@ -102,8 +105,8 @@ namespace LightholderCintronHealthcareSystem.Model
             this.DateTime = dateTime;
             this.Patientid = patientid;
             this.PatientName = patientName;
-            this.dob = dob;
-            this.doctorid = doctotid;
+            this.Dob = dob;
+            this.Doctorid = doctorid;
         }
 
     }

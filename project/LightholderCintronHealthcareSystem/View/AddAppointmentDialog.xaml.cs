@@ -120,7 +120,7 @@ namespace LightholderCintronHealthcareSystem.View
         }
 
         /// <summary>
-        /// Checks for competion.
+        /// Checks for competition.
         /// </summary>
         /// <returns></returns>
         private bool checkForCompetion()
@@ -194,7 +194,7 @@ namespace LightholderCintronHealthcareSystem.View
                 return true;
             }
             var requestedTime = this.dateDatePicker.Date.Date.Add(this.timeTimePicker.Time);
-            if (ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(this.doctorIdComboBox.SelectedItem.ToString())))
+            if (ViewModel.ViewModel.checkForDoctorDoubleBook(requestedTime, int.Parse(this.doctorIdComboBox.SelectedItem?.ToString() ?? throw new InvalidOperationException())))
             {
                 this.dateTip.Content = "Doctor already booked for this Date/Time.";
                 this.dateTip.IsOpen = true;

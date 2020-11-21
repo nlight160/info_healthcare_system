@@ -11,6 +11,12 @@ using Windows.UI.Xaml.Controls;
 
 namespace LightholderCintronHealthcareSystem.View
 {
+    /// <summary>
+    /// View appointment details.
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class ViewAppointmentDetails : ContentDialog
     {
         private Dictionary<string, string> dataDictionary;
@@ -31,9 +37,10 @@ namespace LightholderCintronHealthcareSystem.View
          */
 
 
-        //TODO Checkup button not showing idk why
-
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewAppointmentDetails"/> class.
+        /// </summary>
+        /// <param name="appointment">The appointment.</param>
         public ViewAppointmentDetails(AppointmentDataGrid appointment)
         {
             this.InitializeComponent();
@@ -43,8 +50,8 @@ namespace LightholderCintronHealthcareSystem.View
             this.appointmentDataView.ItemsSource = this.dataDictionary;
             this.dataDictionary.Add("Patient ID", appointment.Patientid.ToString());
             this.dataDictionary.Add("Patient Name", appointment.PatientName);
-            this.dataDictionary.Add("Patient DOB", appointment.dob);
-            this.dataDictionary.Add("Doctor ID", appointment.doctorid.ToString());
+            this.dataDictionary.Add("Patient DOB", appointment.Dob);
+            this.dataDictionary.Add("Doctor ID", appointment.Doctorid.ToString());
             this.dataDictionary.Add("Doctor Name", appointment.DoctorName);
             this.dataDictionary.Add("Appointment Date", appointment.Date);
             this.dataDictionary.Add("Appointment Time", appointment.Time);
@@ -76,6 +83,9 @@ namespace LightholderCintronHealthcareSystem.View
 
         }
 
+        /// <summary>
+        /// Checks if checkup done.
+        /// </summary>
         private void checkIfCheckupDone()
         {
             var db = new CheckupDatabaseAccess();
@@ -88,6 +98,9 @@ namespace LightholderCintronHealthcareSystem.View
             }
         }
 
+        /// <summary>
+        /// Updates if all tests done.
+        /// </summary>
         private void updateIfAllTestsDone()
         {
             if (this.checkIfAllTestsDone())
@@ -104,6 +117,10 @@ namespace LightholderCintronHealthcareSystem.View
             }
         }
 
+        /// <summary>
+        /// Checks if all tests done.
+        /// </summary>
+        /// <returns></returns>
         private bool checkIfAllTestsDone()
         {
             foreach (Test test in this.testDataView.ItemsSource)
@@ -117,19 +134,21 @@ namespace LightholderCintronHealthcareSystem.View
             return true;
         }
 
+        /// <summary>
+        /// Updates the tests.
+        /// </summary>
         private void updateTests()
         {
-            this.testDataView.ItemsSource = this.getTests(this.appointment.Appointmentid);
+            this.testDataView.ItemsSource = this.getTests();
         }
-        private List<Test> getTests(int appointmentid)
+        private List<Test> getTests()
         {
             TestDatabaseAccess tbd = new TestDatabaseAccess();
-            var testStringList = tbd.GetTests(appointmentid);
+            var testStringList = tbd.GetTests(this.appointmentid);
             var tests = new List<Test>();
             foreach (var test in testStringList)
             {
-                var test1 = new Test(test[1]);
-                test1.TestId = test[0];
+                var test1 = new Test(test[1]) {TestId = test[0]};
                 var date = DateTime.Parse(test[3]);
                 test1.DatePerformed = new Date("" + date.Year, "" + date.Month, "" + date.Day);
                 test1.TestResults = test[4];
@@ -140,11 +159,18 @@ namespace LightholderCintronHealthcareSystem.View
             return tests;
         }
 
+        /// <summary>
+        /// Checks if appointment passed.
+        /// </summary>
+        /// <returns></returns>
         private bool checkIfAppointmentPassed()
         {
             return this.appointment.DateTime < DateTime.Now;
         }
 
+        /// <summary>
+        /// Updates the checkup information.
+        /// </summary>
         private void updateCheckupInformation()
         {
             var checkup = ViewModel.ViewModel.GetCheckupFromAppointmentid(this.appointmentid);
@@ -189,6 +215,11 @@ namespace LightholderCintronHealthcareSystem.View
         {
         }
 
+        /// <summary>
+        /// Ons the click create checkup.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onClickCreateCheckup(object sender, RoutedEventArgs e)
         {
             this.makeCheckupButton.IsEnabled = false;
@@ -205,6 +236,11 @@ namespace LightholderCintronHealthcareSystem.View
             }
         }
 
+        /// <summary>
+        /// Ons the order tests click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void onOrderTestsClick(object sender, RoutedEventArgs e)
         {
             var dialog = new OrderTestsDialog(this.appointment);
@@ -215,6 +251,12 @@ namespace LightholderCintronHealthcareSystem.View
             this.updateTests();
         }
 
+        /// <summary>
+        /// Ons the enter tests click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="InvalidOperationException"></exception>
         private void onEnterTestsClick(object sender, RoutedEventArgs e)
         {
             
@@ -222,16 +264,22 @@ namespace LightholderCintronHealthcareSystem.View
             TestDatabaseAccess tdb = new TestDatabaseAccess();
             var testObject = this.testDataView.SelectedItem;
             var testid = testObject as Test;
-            bool isAbnormal = (bool) this.flyoutCheckbox.IsChecked;
+            var flyoutCheckboxIsChecked = this.flyoutCheckbox.IsChecked;
+            bool isAbnormal = flyoutCheckboxIsChecked != null && (bool) flyoutCheckboxIsChecked;
             var result = this.flyoutTextBox.Text;
 
-            tdb.EditTestResults(result, !isAbnormal, int.Parse(testid.TestId));
+            tdb.EditTestResults(result, !isAbnormal, int.Parse(testid?.TestId ?? throw new InvalidOperationException()));
 
             this.flyoutTextBox.Text = "";
             this.flyoutCheckbox.IsChecked = false;
             this.updateTests();
         }
 
+        /// <summary>
+        /// Ons the test selection change.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
         private void onTestSelectionChange(object sender, SelectionChangedEventArgs e)
         {
 
@@ -242,6 +290,10 @@ namespace LightholderCintronHealthcareSystem.View
 
         }
 
+        /// <summary>
+        /// Checks if final diagnosis.
+        /// </summary>
+        /// <returns></returns>
         private bool checkIfFinalDiagnosis()
         {
             var db = new CheckupDatabaseAccess();
@@ -254,6 +306,11 @@ namespace LightholderCintronHealthcareSystem.View
             return false;
         }
 
+        /// <summary>
+        /// Ons the confirmation final diagnosis.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onConfirmationFinalDiagnosis(object sender, RoutedEventArgs e)
         {
             this.enterTestFlyout.Hide();

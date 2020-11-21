@@ -354,7 +354,6 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// Gets the appointments from patient.
         /// </summary>
         /// <param name="patientid">The patientid.</param>
-        /// <param name="name"></param>
         /// <returns></returns>
         public static List<AppointmentDataGrid> getAppointmentsFromPatient(int patientid)
         {
@@ -412,6 +411,7 @@ namespace LightholderCintronHealthcareSystem.ViewModel
         /// <param name="weight">The weight.</param>
         /// <param name="pulse">The pulse.</param>
         /// <param name="diagnosis">The diagnosis.</param>
+        /// <param name="finaldiagnosis"></param>
         /// <returns></returns>
         public static bool createCheckup(int appointmentid, int systolic, int diastolic, decimal temperature, decimal weight, int pulse, string diagnosis, string finaldiagnosis)
         {

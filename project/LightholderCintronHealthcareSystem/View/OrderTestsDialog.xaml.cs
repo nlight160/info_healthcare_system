@@ -1,6 +1,5 @@
 ﻿using LightholderCintronHealthcareSystem.Model;
 using LightholderCintronHealthcareSystem.Model.DatabaseAccess;
-using LightholderCintronHealthcareSystem.Model.People;
 using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Popups;
@@ -11,20 +10,34 @@ using Windows.UI.Xaml.Controls;
 
 namespace LightholderCintronHealthcareSystem.View
 {
+    /// <summary>
+    /// Order tests dialog
+    /// </summary>
+    /// <seealso cref="Windows.UI.Xaml.Controls.ContentDialog" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector" />
+    /// <seealso cref="Windows.UI.Xaml.Markup.IComponentConnector2" />
     public sealed partial class OrderTestsDialog : ContentDialog
     {
         private TestOrder order;
         private int appointmentid;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderTestsDialog"/> class.
+        /// </summary>
+        /// <param name="appointment">The appointment.</param>
         public OrderTestsDialog(AppointmentDataGrid appointment)
         {
             this.InitializeComponent();
-            this.ConfirmationFlyout.Hide();
+            this.confirmationFlyout.Hide();
             this.order = new TestOrder(new ObservableCollection<Test>());
-            this.PatientNameTextBlock.Text = appointment.PatientName;
+            this.patientNameTextBlock.Text = appointment.PatientName;
             this.appointmentid = appointment.Appointmentid;
         }
 
+        /// <summary>
+        /// Appends the each test to string.
+        /// </summary>
+        /// <returns></returns>
         private string appendEachTestToString()
         {
             var totalString = "";
@@ -35,34 +48,55 @@ namespace LightholderCintronHealthcareSystem.View
             return totalString;
         }
 
+        /// <summary>
+        /// Handles the SecondaryButtonClick event of the ContentDialog control.
+        /// </summary>
+        /// <param name="o">The source of the event.</param>
+        /// <param name="routedEventArgs">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ContentDialog_SecondaryButtonClick(object o, RoutedEventArgs routedEventArgs)
         {
-            this.ConfirmationFlyout.Hide();
+            this.confirmationFlyout.Hide();
             Hide();
         }
 
+        /// <summary>
+        /// Ons the add test click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onAddTestClick(object sender, RoutedEventArgs e)
         {
-            if (TestComboBox.SelectedItem != null)
+            if (this.testComboBox.SelectedItem != null)
             {
-                Test test = new Test(this.TestComboBox.SelectionBoxItem.ToString());
-                test.AppointmentId = this.appointmentid;
+                var test = new Test(this.testComboBox.SelectionBoxItem.ToString()) {
+                    AppointmentId = this.appointmentid
+                };
                 this.order.Order.Add(test);
-                this.TestOrderGrid.ItemsSource = this.order.Order;
+                this.testOrderGrid.ItemsSource = this.order.Order;
             }
             
         }
 
+        /// <summary>
+        /// Ons the remove test click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void onRemoveTestClick(object sender, RoutedEventArgs e)
         {
-            if (this.TestOrderGrid.SelectedItem != null)
+            if (this.testOrderGrid.SelectedItem != null)
             {
-                this.order.Order.Remove(this.TestOrderGrid.SelectedItem as Test);
-                this.TestOrderGrid.ItemsSource = this.order.Order;
+                this.order.Order.Remove(this.testOrderGrid.SelectedItem as Test);
+                this.testOrderGrid.ItemsSource = this.order.Order;
             }
 
         }
 
+        /// <summary>
+        /// Handles the OnClick event of the ConfirmButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private async void ConfirmButton_OnClick(object sender, RoutedEventArgs e)
         {
 
@@ -73,7 +107,7 @@ namespace LightholderCintronHealthcareSystem.View
                 {
                     tdb.AddTests(test);
                 }
-                this.ConfirmationFlyout.Hide();
+                this.confirmationFlyout.Hide();
                 this.Hide();
 
             }
@@ -82,14 +116,19 @@ namespace LightholderCintronHealthcareSystem.View
 
                 var message = new MessageDialog("You must add tests to your order to place one!", "Order Empty!");
                 await message.ShowAsync();
-                this.ConfirmationFlyout.Hide();
+                this.confirmationFlyout.Hide();
             }
 
         }
 
+        /// <summary>
+        /// Handles the OnClick event of the DenyButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void DenyButton_OnClick(object sender, RoutedEventArgs e)
         {
-            this.ConfirmationFlyout.Hide();
+            this.confirmationFlyout.Hide();
         }
     }
 }

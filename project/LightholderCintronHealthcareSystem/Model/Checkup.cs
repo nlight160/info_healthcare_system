@@ -82,6 +82,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <param name="weight">The weight.</param>
         /// <param name="pulse">The pulse.</param>
         /// <param name="diagnosis">The diagnosis.</param>
+        /// <param name="finalDiagnosis"></param>
         /// <exception cref="ArgumentException">
         /// appointmentId must be greater than 0
         /// or

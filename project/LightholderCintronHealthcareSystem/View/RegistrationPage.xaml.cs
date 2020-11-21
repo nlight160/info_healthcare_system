@@ -75,7 +75,7 @@ namespace LightholderCintronHealthcareSystem.View
                 this.birthdateDatePicker.Date.Day.ToString());
             //var date = BirthdateDatePicker.Date.Year + "-" + BirthdateDatePicker.Date.Month + "-" + BirthdateDatePicker.Date.Day;
             var isSuccessful = ViewModel.ViewModel.RegisterPatient(this.lastnameTextBox.Text, this.firstnameTextBox.Text, date, this.streetTextBox.Text, this.cityTextBox.Text, 
-                this.stateComboBox.SelectedItem.ToString(), this.zipCodeTextBox.Text, this.phoneNumberTextBox.Text, gender);
+                this.stateComboBox.SelectedItem?.ToString(), this.zipCodeTextBox.Text, this.phoneNumberTextBox.Text, gender);
 
             if (isSuccessful)
             {

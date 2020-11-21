@@ -1,7 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using LightholderCintronHealthcareSystem.Model.People;
 
 namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
@@ -140,12 +139,14 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
                 while (reader.Read())
                 {
-                    var singleAppointment = new List<string>();
-                    singleAppointment.Add(reader.GetString(appointmentidOrdinal));  //0
-                    singleAppointment.Add(patientid.ToString());                    //1
-                    singleAppointment.Add(reader.GetString(dateOrdinal));           //2
-                    singleAppointment.Add(reader.GetString(doctoridOrdinal));       //3
-                    singleAppointment.Add(reader.GetString(descriptionOrdinal));    //4
+                    var singleAppointment = new List<string> {
+                        reader.GetString(appointmentidOrdinal),     //0
+                        patientid.ToString(),                       //1
+                        reader.GetString(dateOrdinal),              //2
+                        reader.GetString(doctoridOrdinal),          //3
+                        reader.GetString(descriptionOrdinal)        //4
+                    };
+                    
                     appointmentList.Add(singleAppointment);
                 }
                 return appointmentList;
@@ -182,12 +183,13 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
                 while (reader.Read())
                 {
-                    var singleAppointment = new List<string>();
-                    singleAppointment.Add(reader.GetString(appointmentidOrdinal));  //0
-                    singleAppointment.Add(reader.GetString(patientidOrdinal));      //1
-                    singleAppointment.Add(reader.GetString(dateOrdinal));           //2
-                    singleAppointment.Add(reader.GetString(doctoridOrdinal));       //3
-                    singleAppointment.Add(reader.GetString(descriptionOrdinal));    //4
+                    var singleAppointment = new List<string> {
+                        reader.GetString(appointmentidOrdinal),     //0
+                        reader.GetString(patientidOrdinal),         //1
+                        reader.GetString(dateOrdinal),              //2
+                        reader.GetString(doctoridOrdinal),          //3
+                        reader.GetString(descriptionOrdinal)        //4
+                    };
                     appointmentList.Add(singleAppointment);
                 }
                 return appointmentList;
@@ -201,7 +203,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
 
         /// <summary>
-        /// Gets the appointment time from appointmnetid.
+        /// Gets the appointment time from appointmentid.
         /// </summary>
         /// <param name="appointmentid">The appointmentid.</param>
         /// <returns></returns>
@@ -292,6 +294,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         /// Gets the appointment time from patientid.
         /// </summary>
         /// <param name="patientid">The patientid.</param>
+        /// <param name="appointmentid"></param>
         /// <returns></returns>
         public List<string> GetAppointmentTimeFromPatientid(int patientid, int appointmentid = -1)
         {

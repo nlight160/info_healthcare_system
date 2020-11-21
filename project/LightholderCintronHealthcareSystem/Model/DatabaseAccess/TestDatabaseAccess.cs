@@ -2,9 +2,6 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
@@ -65,13 +62,14 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
                 while (reader.Read())
                 {
-                    var singleTest = new List<string>();
-                    singleTest.Add(reader.GetString(testidOrdinal));         //0
-                    singleTest.Add(reader.GetString(testnameOrdinal));       //1
-                    singleTest.Add(reader.GetString(appointmentidOrdinal));  //2
-                    singleTest.Add(reader.GetString(datetimeOrdinal));       //3
-                    singleTest.Add(reader.GetString(resultsOrdinal));        //4
-                    singleTest.Add(reader.GetString(normailtyOrdinal));      //5
+                    var singleTest = new List<string> {
+                        reader.GetString(testidOrdinal),            //0
+                        reader.GetString(testnameOrdinal),          //1
+                        reader.GetString(appointmentidOrdinal),     //2
+                        reader.GetString(datetimeOrdinal),          //3
+                        reader.GetString(resultsOrdinal),           //4
+                        reader.GetString(normailtyOrdinal)          //5
+                    };
                     testList.Add(singleTest);
                 }
                 return testList;
