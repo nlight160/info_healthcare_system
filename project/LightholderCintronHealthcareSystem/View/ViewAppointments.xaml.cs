@@ -165,6 +165,7 @@ namespace LightholderCintronHealthcareSystem.View
                 var dialog = new ViewAppointmentDetails(selectedAppointment);
                 this.Hide();
                 await dialog.ShowAsync();
+                dialog.Hide();
                 var t = this.ShowAsync();
 
                 this.refreshDataView();
