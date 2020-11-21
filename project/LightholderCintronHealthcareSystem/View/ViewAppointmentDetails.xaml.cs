@@ -59,8 +59,11 @@ namespace LightholderCintronHealthcareSystem.View
             this.updateTests();
             this.updateCheckupInformation();
 
+            this.updateIfAllTestsDone();
+
             this.checkIfCheckupDone();
 
+            
 
             if (this.checkIfAppointmentPassed() | this.checkIfFinalDiagnosis())
             {
@@ -70,6 +73,7 @@ namespace LightholderCintronHealthcareSystem.View
                 this.submitFinalDiagnosisButton.IsEnabled = false;
                 this.finalDiagnosisTextBox.IsEnabled = false;
             }
+
         }
 
         private void checkIfCheckupDone()
@@ -80,7 +84,37 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 this.finalDiagnosisTextBox.IsEnabled = false;
                 this.submitFinalDiagnosisButton.IsEnabled = false;
+                this.enterTestsButton.IsEnabled = false;
             }
+        }
+
+        private void updateIfAllTestsDone()
+        {
+            if (this.checkIfAllTestsDone())
+            {
+                this.finalDiagnosisTextBox.IsEnabled = true;
+                this.submitFinalDiagnosisButton.IsEnabled = true;
+                this.enterTestsButton.IsEnabled = false;
+            }
+            else
+            {
+                this.finalDiagnosisTextBox.IsEnabled = false;
+                this.submitFinalDiagnosisButton.IsEnabled = false;
+                this.enterTestsButton.IsEnabled = true;
+            }
+        }
+
+        private bool checkIfAllTestsDone()
+        {
+            foreach (Test test in this.testDataView.ItemsSource)
+            {
+                if (string.IsNullOrEmpty(test.TestResults))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void updateTests()
@@ -121,6 +155,8 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 this.enterTestsButton.IsEnabled = false;
                 this.orderTestsButton.IsEnabled = false;
+                this.finalDiagnosisTextBox.IsEnabled = false;
+                this.submitFinalDiagnosisButton.IsEnabled = false;
                 this.makeCheckupButton.IsEnabled = true;
                 this.checkupTextBlock.Text = "Please Create a Checkup";
                 this.checkupDictionary.Add("Systolic", "N/A");
@@ -134,6 +170,8 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 this.enterTestsButton.IsEnabled = true;
                 this.orderTestsButton.IsEnabled = true;
+                this.finalDiagnosisTextBox.IsEnabled = true;
+                this.submitFinalDiagnosisButton.IsEnabled = true;
                 this.makeCheckupButton.IsEnabled = false;
                 this.checkupTextBlock.Text = "Checkup Information";
                 this.checkupDictionary.Add("Systolic", checkup.Systolic.ToString());
