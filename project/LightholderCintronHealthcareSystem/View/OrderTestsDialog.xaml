@@ -7,13 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Title="Order Tests"
-    PrimaryButtonText="Submit Order"
-    SecondaryButtonText="Cancel Order"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    Height="1200" MaxHeight="1200" MinHeight="1200">
 
-    <Grid>
-        <controls:DataGrid x:Name="TestOrderGrid" HorizontalAlignment="Center" Margin="0,399,0,0" VerticalAlignment="Top" Width="641" Height="367" AutoGenerateColumns="False">
+    <Grid Height="1000" MinHeight="1000">
+        <controls:DataGrid x:Name="TestOrderGrid" HorizontalAlignment="Center" Margin="0,399,0,0" VerticalAlignment="Top" Width="641" Height="450" AutoGenerateColumns="False">
             <controls:DataGrid.Columns>
                 <controls:DataGridTextColumn
                     Header="Test Name"
@@ -21,6 +18,9 @@
                     Binding="{Binding TestName}"
                 />
             </controls:DataGrid.Columns>
+
+
+
         </controls:DataGrid>
         <ComboBox x:Name="TestComboBox" Margin="78,309,0,0" Width="214">
             <x:String>Complete Blood Count</x:String>
@@ -34,9 +34,33 @@
             <x:String>Comprehensive Metabolic Panel</x:String>
             <x:String>Urinalysis</x:String>
         </ComboBox>
+        <Button x:Name="SubmitButton" Width="320" Content="Submit Order" Margin="-4,0,0,84" VerticalAlignment="Bottom">
+            <Button.Flyout>
+
+                <Flyout x:Name="ConfirmationFlyout">
+
+                    <Grid Height="65" Width="275">
+                        <TextBlock Text="Are you sure you want to add these tests?" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Button x:Name="ConfirmButton" Content="Yes I Am Sure" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="ConfirmButton_OnClick"/>
+                        <Button x:Name="DenyButton" Content="No I Am Not Sure" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="DenyButton_OnClick"/>
+                    </Grid>
+
+                </Flyout>
+
+            </Button.Flyout>
+
+
+        </Button>
+
+        <Button x:Name="CancelButton" Width="310" Content="Cancel Order" Margin="0,0,0,84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="ContentDialog_SecondaryButtonClick"/>
+
         <Button x:Name="AddTestToOrderButton" Content="Add Test" Margin="347,309,0,0" VerticalAlignment="Top" Width="88" Click="onAddTestClick"/>
-        <Button x:Name="RemoveTestFromOrderButton" Content="Remove Test" Margin="474,309,0,0" VerticalAlignment="Top" Width="88" Click="onRemoveTestClick"/>
+        <Button x:Name="RemoveTestFromOrderButton" Content="Remove Test" Margin="474,309,0,0" VerticalAlignment="Top" Width="100" Click="onRemoveTestClick"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,138,0,0" Text="Ordering tests for patient:" TextWrapping="Wrap" VerticalAlignment="Top" Height="52" FontSize="36"/>
         <TextBlock x:Name="PatientNameTextBlock" HorizontalAlignment="Center" Margin="0,208,0,0" Text="patient name" TextWrapping="Wrap" VerticalAlignment="Top" Height="52" FontSize="20"/>
+
     </Grid>
+
+
+
 </ContentDialog>

@@ -119,7 +119,6 @@ namespace LightholderCintronHealthcareSystem.View
 
         private void updateTests()
         {
-            
             this.testDataView.ItemsSource = this.getTests(this.appointment.Appointmentid);
         }
         private List<Test> getTests(int appointmentid)
@@ -213,6 +212,7 @@ namespace LightholderCintronHealthcareSystem.View
             await dialog.ShowAsync();
             dialog.Hide();
             var t = this.ShowAsync();
+            this.updateTests();
         }
 
         private void onEnterTestsClick(object sender, RoutedEventArgs e)
