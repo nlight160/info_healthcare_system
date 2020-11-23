@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Model\AppointmentDataGrid.cs" />
     <Compile Include="Model\Checkup.cs" />
+    <Compile Include="Model\DatabaseAccess\AdminDatabaseAccess.cs" />
     <Compile Include="Model\DatabaseAccess\CheckupDatabaseAccess.cs" />
     <Compile Include="Model\DatabaseAccess\DoctorDatabaseAccess.cs" />
     <Compile Include="Model\DatabaseAccess\SpecialtyDatabaseAccess.cs" />
@@ -149,7 +150,6 @@
     <Compile Include="Model\PatientManager.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\People\Time.cs" />
-    <Compile Include="Model\QueryBuilder.cs" />
     <Compile Include="Model\SearchOption.cs" />
     <Compile Include="Model\TestOrder.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
