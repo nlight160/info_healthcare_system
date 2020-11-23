@@ -17,8 +17,9 @@ namespace LightholderCintronHealthcareSystem.View
         public MenuPage()
         {
             this.InitializeComponent();
+            this.isAdminPageButtonViewable();
             this.userWelcomeTextBlock.Text = "Welcome, " +"User: " + ViewModel.ViewModel.ActiveUser.UserId + ", " 
-                                        + ViewModel.ViewModel.ActiveUser.PersonInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.PersonInfo.Lastname;
+                                             + ViewModel.ViewModel.ActiveUser.PersonInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.PersonInfo.Lastname;
         }
 
         /// <summary>
@@ -60,6 +61,23 @@ namespace LightholderCintronHealthcareSystem.View
         private void onViewAppointments(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(ViewAllAppointmentsPage));
+        }
+
+        private void onAdminControls(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AdminPage));
+        }
+
+        private void isAdminPageButtonViewable()
+        {
+            if (ViewModel.ViewModel.ActiveUser.IsAdmin)
+            {
+                this.adminControlsButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.adminControlsButton.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

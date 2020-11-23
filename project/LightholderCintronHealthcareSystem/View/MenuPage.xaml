@@ -13,6 +13,7 @@
         <Button x:Name="viewAllAppointmentsButton" Content="View Appointments" Margin="0,596,0,0" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Center" Width="200" Click="onViewAppointments"/>
         <TextBlock x:Name="userWelcomeTextBlock" HorizontalAlignment="Center" Margin="0,200,0,0" Text="Welcome, ?????" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Segoe UI" FontSize="72"/>
         <Button x:Name="logoutButton" Content="Logout" HorizontalAlignment="Center" Margin="0,696,0,0" VerticalAlignment="Top" FontSize="20" Width="200" Click="onLogout"/>
+        <Button x:Name="adminControlsButton" Content="Admin Controls" Margin="0,393,0,0" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Center" Width="200" Click="onAdminControls"/>
 
     </Grid>
 </Page>
