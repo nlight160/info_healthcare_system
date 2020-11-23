@@ -27,7 +27,7 @@ namespace LightholderCintronHealthcareSystem.View
             this.zipCodeTextBox.MaxLength = 5;
             this.birthdateDatePicker.MaxYear = DateTimeOffset.Now;
             this.userTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
-                                 + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
+                                 + ViewModel.ViewModel.ActiveUser.PersonInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.PersonInfo.Lastname;
         }
 
         /// <summary>

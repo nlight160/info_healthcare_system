@@ -137,6 +137,7 @@
     <Compile Include="Model\People\Address.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\DatabaseAccess\AppointmentDatabaseAccess.cs" />
+    <Compile Include="Model\People\Admin.cs" />
     <Compile Include="Model\People\Date.cs" />
     <Compile Include="Model\People\Gender.cs" />
     <Compile Include="Model\DatabaseAccess\NurseDatabaseAccess.cs" />

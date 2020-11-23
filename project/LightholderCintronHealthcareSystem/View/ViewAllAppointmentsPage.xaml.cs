@@ -41,8 +41,8 @@ namespace LightholderCintronHealthcareSystem.View
             this.InitializeComponent();
             this.appointmentDataView.ItemsSource = ViewModel.ViewModel.getAllAppointments();
             this.userTextBlock.Text = "User: " + ViewModel.ViewModel.ActiveUser.UserId + ", "
-                                      + ViewModel.ViewModel.ActiveUser.NurseInfo.Firstname + " " +
-                                      ViewModel.ViewModel.ActiveUser.NurseInfo.Lastname;
+                                      + ViewModel.ViewModel.ActiveUser.PersonInfo.Firstname + " " +
+                                      ViewModel.ViewModel.ActiveUser.PersonInfo.Lastname;
         }
 
         /// <summary>

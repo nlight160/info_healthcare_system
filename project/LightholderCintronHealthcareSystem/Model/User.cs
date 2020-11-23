@@ -15,7 +15,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <value>
         /// The nurse information.
         /// </value>
-        public Nurse NurseInfo { get; }
+        public Person PersonInfo { get; }
         /// <summary>
         /// Gets the user identifier.
         /// </summary>
@@ -25,15 +25,24 @@ namespace LightholderCintronHealthcareSystem.Model
         public int UserId { get; }
 
         /// <summary>
+        /// Gets the IsAdmin identifier.
+        /// </summary>
+        /// <value>
+        /// The IsAdmin identifier.
+        /// </value>
+        public bool IsAdmin { get; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
         /// <param name="person">The person.</param>
         /// <param name="userid">The userid.</param>
         /// <exception cref="ArgumentNullException">person - can not be null</exception>
-        public User(Nurse person, int userid)
+        public User(Person person, int userid)
         {
-            this.NurseInfo = person ?? throw new ArgumentNullException(nameof(person), "can not be null");
+            this.PersonInfo = person ?? throw new ArgumentNullException(nameof(person), "can not be null");
             this.UserId = userid;
+            this.IsAdmin = this.PersonInfo.GetType() == typeof(Admin);
         }
 
 
