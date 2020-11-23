@@ -20,7 +20,7 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             {
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
-                using var cmd = new MySqlCommand { Connection = conn };
+                using var cmd = new MySqlCommand {Connection = conn};
 
                 cmd.CommandText = query;
 
@@ -37,6 +37,38 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
             }
 
 
+        }
+
+        public List<string> AuthenticateAdminLogin(string adminid)
+        {
+            var information = new List<string>();
+            try
+            {
+                var user = int.Parse(adminid);
+                const string query = "SELECT n.password, n.salt FROM admin n WHERE n.adminid = @adminid;";
+                using var conn = new MySqlConnection(ConStr);
+                conn.Open();
+                using var cmd = new MySqlCommand {CommandText = query, Connection = conn};
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@adminid", user);
+
+                using var reader = cmd.ExecuteReader();
+                var passwordOrdinal = reader.GetOrdinal("password");
+                if (!reader.HasRows)
+                {
+                    Console.WriteLine("No rows exist in table");
+                    return information;
+                }
+
+                reader.Read();
+                information.Add(reader.GetString(passwordOrdinal));
+                return information;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in the AuthenticateLogin: " + ex);
+                return information;
+            }
         }
     }
 }

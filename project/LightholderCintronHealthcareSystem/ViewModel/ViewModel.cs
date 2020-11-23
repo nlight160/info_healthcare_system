@@ -58,6 +58,26 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return false;
         }
 
+        public static bool AttemptAdminLogin(string username, string password)
+        {
+            try
+            {
+                var dba = new AdminDatabaseAccess();
+                var information = dba.AuthenticateAdminLogin(username);
+                var loginCredentials = new Admin(username, information[0]);
+                ActiveUser = new User(loginCredentials, int.Parse(username))
+                {
+                    IsAdmin = true
+                };
+                return true;
+            }
+            catch (Exception error)
+            {
+                return false;
+            }
+
+        }
+
 
         /// <summary>
         /// Registers the patient.

@@ -30,7 +30,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <value>
         /// The IsAdmin identifier.
         /// </value>
-        public bool IsAdmin { get; }
+        public bool IsAdmin { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.

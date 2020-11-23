@@ -39,6 +39,11 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 Frame.Navigate(typeof(MenuPage));
             }
+            if (ViewModel.ViewModel.AttemptAdminLogin(this.usernameTextBox.Text.Trim(),
+                              this.passwordTextBox.Text.Trim()))
+            {
+                Frame.Navigate(typeof(MenuPage));
+            }
             else
             {
                 this.invalidLoginTextBlock.Visibility = Visibility.Visible;

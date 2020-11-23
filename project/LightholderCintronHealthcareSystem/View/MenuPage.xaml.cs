@@ -17,7 +17,7 @@ namespace LightholderCintronHealthcareSystem.View
         public MenuPage()
         {
             this.InitializeComponent();
-            //this.isAdminPageButtonViewable();
+            this.isAdminPageButtonViewable();
             this.userWelcomeTextBlock.Text = "Welcome, " +"User: " + ViewModel.ViewModel.ActiveUser.UserId + ", " 
                                              + ViewModel.ViewModel.ActiveUser.PersonInfo.Firstname + " " + ViewModel.ViewModel.ActiveUser.PersonInfo.Lastname;
         }
