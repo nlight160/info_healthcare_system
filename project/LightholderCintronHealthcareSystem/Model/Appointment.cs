@@ -9,7 +9,7 @@ namespace LightholderCintronHealthcareSystem.Model
     public class Appointment
     {
         /// <summary>
-        /// Gets or sets the appointmentid.
+        /// Gets or sets the appointmentid. 
         /// </summary>
         /// <value>
         /// The appointmentid.
@@ -28,7 +28,7 @@ namespace LightholderCintronHealthcareSystem.Model
         /// <value>
         /// The patient.
         /// </value>
-        public Patient Patient { get; }
+        public Patient Patient { get; } 
         /// <summary>
         /// Gets the doctor.
         /// </summary>
