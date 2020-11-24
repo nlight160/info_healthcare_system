@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -23,19 +24,9 @@ namespace LightholderCintronHealthcareSystem.View
         private Dictionary<string, string> checkupDictionary;
         private readonly int appointmentid;
         private readonly AppointmentDataGrid appointment;
+        private ToolTip dateTip;
 
         private int checkupid;
-        /*  TODO
-         *  Would like to have some structure on the top right of the dialog with the checkup information filled out (if checkup was already done if not grey everything out + context menu saying to fill
-         *      checkout out.
-         *  then on the lower to mid right have a spot for ordering tests and entering tests and below that have a data grid with a dictionary to show test results
-         *  
-         *  Finally below all that have a final diagnosis textbox which is only active after checkup and all tests that were ordered were completed. grayed out with context menu until it is.
-         *      + have to make sure user is sure to submit final diagnosis.
-         *
-         *
-         */
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewAppointmentDetails"/> class.
@@ -60,17 +51,19 @@ namespace LightholderCintronHealthcareSystem.View
 
             this.checkupDictionary = new Dictionary<string, string>();
             this.checkupDataView.ItemsSource = this.checkupDictionary;
-            this.enterTestsButton.IsEnabled = false;
+            
             this.orderTestsButton.IsEnabled = false;
             this.makeCheckupButton.IsEnabled = false;
+            this.dateTip = new ToolTip {IsOpen = false};
+            this.flyoutButton.IsEnabled = false;
             this.updateTests();
             this.updateCheckupInformation();
 
             this.updateIfAllTestsDone();
 
             this.checkIfCheckupDone();
+            this.enterTestsButton.IsEnabled = false;
 
-            
 
             if (this.checkIfAppointmentPassed() | this.checkIfFinalDiagnosis())
             {
@@ -268,7 +261,10 @@ namespace LightholderCintronHealthcareSystem.View
             bool isAbnormal = flyoutCheckboxIsChecked != null && (bool) flyoutCheckboxIsChecked;
             var result = this.flyoutTextBox.Text;
 
-            tdb.EditTestResults(result, !isAbnormal, int.Parse(testid?.TestId ?? throw new InvalidOperationException()));
+            var dateTime = new DateTime(this.datePicker.Date.Year, this.datePicker.Date.Month, this.datePicker.Date.Day, this.timePicker.Time.Hours, this.timePicker.Time.Minutes, 0);
+
+
+            tdb.EditTestResults(result, !isAbnormal, int.Parse(testid?.TestId ?? throw new InvalidOperationException()), dateTime);
 
             this.flyoutTextBox.Text = "";
             this.flyoutCheckbox.IsChecked = false;
@@ -287,7 +283,59 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 this.enterTestsButton.IsEnabled = true;
             }
+            else
+            {
+                this.enterTestsButton.IsEnabled = false;
+            }
 
+        }
+
+        /// <summary>
+        /// Checks for time.
+        /// </summary>
+        /// <returns></returns>
+        private bool checkForTime()
+        {
+            if (this.timePicker.Time.Hours == DateTime.Now.Hour)
+            {
+                if (this.timePicker.Time.Minutes == DateTime.Now.Minute)
+                {
+                    return false;
+                }
+
+                if (this.datePicker.Date.Minute <= DateTime.Now.Minute)
+                {
+                    return false;
+                }
+            }
+            return this.timePicker.Time.Hours >= DateTime.Now.Hour;
+        }
+
+        /// <summary>
+        /// Checks for date.
+        /// </summary>
+        /// <returns></returns>
+        private bool checkForDate()
+        {
+            if (this.datePicker.Date.Year == DateTime.Now.Year)
+            {
+                if (this.datePicker.Date.Month < DateTime.Now.Month)
+                {
+                    return false;
+                }
+                if (this.datePicker.Date.Month == DateTime.Now.Month)
+                {
+                    if (this.datePicker.Date.Day < DateTime.Now.Day)
+                    {
+                        return false;
+                    }
+                    if (this.datePicker.Date.Day == DateTime.Now.Day)
+                    {
+                        return this.checkForTime();
+                    }
+                }
+            }
+            return this.datePicker.Date.Year >= DateTime.Now.Year;
         }
 
         /// <summary>
@@ -316,7 +364,6 @@ namespace LightholderCintronHealthcareSystem.View
             this.enterTestFlyout.Hide();
             if (this.confirmationCheckBox.IsChecked == true)
             {
-                //TODO do final diagnosis
                 var db = new CheckupDatabaseAccess();
                 db.EditCheckupFinalDiagnosis(this.finalDiagnosisTextBox.Text, this.checkupid);
                 this.enterTestsButton.IsEnabled = false;
@@ -326,9 +373,32 @@ namespace LightholderCintronHealthcareSystem.View
             }
         }
 
-        private void disableButtonsIfFinalDiagnosisExists()
+        /// <summary>
+        /// Ons the date time changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DatePickerValueChangedEventArgs"/> instance containing the event data.</param>
+        private void onDateTimeChanged(object sender, DatePickerValueChangedEventArgs e)
         {
+            if (this.checkForDate())
+            {
+                
+                this.flyoutButton.IsEnabled = false;
+                ToolTipService.SetToolTip(this.flyoutButton, this.dateTip);
+                this.dateTip.Placement = PlacementMode.Bottom;
+                this.dateTip.Content = "Test Date/Time must be in the future not in the past.";
+                this.dateTip.IsOpen = true;
+            }
+            else
+            {
+                this.dateTip.IsOpen = false;
+                this.flyoutButton.IsEnabled = true;
+            }
+        }
 
+        private void onTimeChanged(object sender, TimePickerValueChangedEventArgs e)
+        {
+            this.onDateTimeChanged(null, null);
         }
     }
 }

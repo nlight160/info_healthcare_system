@@ -127,16 +127,20 @@
                 <Button.Flyout>
                     <Flyout x:Name="enterTestFlyout">
 
-                        <Grid Width="300" Height="110" BorderThickness="10">
+                        <Grid Width="330" Height="210" BorderThickness="10">
                             <TextBox x:Name="flyoutTextBox" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" PlaceholderText="Result" TextWrapping="Wrap"/>
                             <CheckBox x:Name="flyoutCheckbox" Content="Is Abnormal" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                             <Button x:Name="flyoutButton" Content="Submit" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="onEnterTestsClick"/>
-                        </Grid>
+                            <DatePicker x:Name="datePicker" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,47,0,0" DateChanged="onDateTimeChanged"/>
+                            <TimePicker x:Name="timePicker" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,94,0,0" TimeChanged="onTimeChanged"/>
 
+                        </Grid>
 
                     </Flyout>
                 </Button.Flyout>
             </Button>
+            
+
 
             <TextBox x:Name="finalDiagnosisTextBox"  HorizontalAlignment="Right"  VerticalAlignment="Top" Height="100" Width="300" PlaceholderText="Enter Final diagnosis here." Margin="0,25,10,0"/>
             <Button x:Name="submitFinalDiagnosisButton" Width="300" Content="Submit Final Diagnosis" Margin="386,130,0,0" VerticalAlignment="Top">
@@ -157,7 +161,7 @@
 
             </Button>
 
-            
+
 
 
         </Grid>
