@@ -83,12 +83,12 @@
 
             <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" Text="Tests" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-            <controls:DataGrid x:Name="testDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="304" Width="350" Margin="0,25,0,0" VerticalAlignment="Top" SelectionChanged="onTestSelectionChange">
+            <controls:DataGrid x:Name="testDataView" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns ="False" Height="304" Width="428" Margin="0,25,0,0" VerticalAlignment="Top" SelectionChanged="onTestSelectionChange">
                 <controls:DataGrid.Columns>
 
                     <controls:DataGridTextColumn
                         Header="Test"
-                        Width="130"
+                        Width="108"
                         Binding="{Binding TestName}">
                         <controls:DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -99,7 +99,7 @@
                     </controls:DataGridTextColumn>
                     <controls:DataGridTextColumn
                         Header="Value"
-                        Width="130"
+                        Width="90"
                         Binding="{Binding TestResults}">
                         <controls:DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -117,7 +117,16 @@
                             </Style>
                         </controls:DataGridTextColumn.ElementStyle>
                     </controls:DataGridTextColumn>
-
+                    <controls:DataGridTextColumn
+                        Header="Date/Time"
+                        Width="140"
+                        Binding="{Binding DatePerformed}">
+                        <controls:DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </controls:DataGridTextColumn.ElementStyle>
+                    </controls:DataGridTextColumn>
 
 
                 </controls:DataGrid.Columns>
@@ -139,11 +148,11 @@
                     </Flyout>
                 </Button.Flyout>
             </Button>
-            
 
 
-            <TextBox x:Name="finalDiagnosisTextBox"  HorizontalAlignment="Right"  VerticalAlignment="Top" Height="100" Width="300" PlaceholderText="Enter Final diagnosis here." Margin="0,25,10,0"/>
-            <Button x:Name="submitFinalDiagnosisButton" Width="300" Content="Submit Final Diagnosis" Margin="386,130,0,0" VerticalAlignment="Top">
+
+            <TextBox x:Name="finalDiagnosisTextBox"  HorizontalAlignment="Right"  VerticalAlignment="Top" Height="100" Width="253" PlaceholderText="Enter Final diagnosis here." Margin="0,25,10,0"/>
+            <Button x:Name="submitFinalDiagnosisButton" Width="253" Content="Submit Final Diagnosis" Margin="433,130,0,0" VerticalAlignment="Top">
 
                 <Button.Flyout>
                     <Flyout x:Name="confirmationFinalDiagnosisFlyout">
