@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid KeyDown="onKeyDown">
         <Button x:Name="SubmitButton" Content="Submit Query" Margin="612,750,0,0" VerticalAlignment="Top" Click="onSubmit"/>
         <Custom:DataGrid x:Name="ResultsDataGrid" HorizontalAlignment="Center" Height="294" VerticalAlignment="Top" Width="816" Margin="0,412,0,0" AutoGenerateColumns="False"/>
         <TextBox x:Name="QueryTextBox" HorizontalAlignment="Center" Margin="0,255,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="480" Height="103" LosingFocus="onDisableSubmit"/>

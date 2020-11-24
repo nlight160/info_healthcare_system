@@ -88,5 +88,15 @@ namespace LightholderCintronHealthcareSystem.View
         {
             this.disableSubmit();
         }
+
+        /// <summary>
+        /// Ons the key down.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="KeyRoutedEventArgs"/> instance containing the event data.</param>
+        private void onKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            this.disableSubmit();
+        }
     }
 }
