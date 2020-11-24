@@ -38,7 +38,7 @@ namespace LightholderCintronHealthcareSystem.View
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-/        private void onGoBack(object sender, RoutedEventArgs e)
+        private void onGoBack(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MenuPage));
         }

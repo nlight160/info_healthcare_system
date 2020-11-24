@@ -91,19 +91,21 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
         /// <summary>
         /// Updates test results in the data base using testid
         /// </summary>
-        public bool EditTestResults(string results, bool normality, int testid)
+        public bool EditTestResults(string results, bool normality, int testid, DateTime dateTime)
         {
+            var dateTimeString = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
             try
             {
                 using var conn = new MySqlConnection(ConStr);
                 conn.Open();
                 using var cmd = new MySqlCommand { Connection = conn };
 
-                const string updateCheckup = "UPDATE `test` SET `results` = @results, `normailty` = @normality WHERE `testid` = @testid;";
+                const string updateCheckup = "UPDATE `test` SET `results` = @results, `normailty` = @normality, `datetime` = @dateTime WHERE `testid` = @testid;";
                 cmd.CommandText = updateCheckup;
                 cmd.Parameters.AddWithValue("@results", results);
                 cmd.Parameters.AddWithValue("@normality", normality);
                 cmd.Parameters.AddWithValue("@testid", testid);
+                cmd.Parameters.AddWithValue("@dateTime", dateTimeString);
 
                 var confirmation = cmd.ExecuteNonQuery();
                 return confirmation == 1;

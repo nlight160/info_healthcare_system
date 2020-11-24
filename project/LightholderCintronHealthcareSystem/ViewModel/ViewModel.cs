@@ -63,15 +63,31 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             try
             {
                 var dba = new AdminDatabaseAccess();
-                var information = dba.AuthenticateAdminLogin(username);
-                var loginCredentials = new Admin(username, information[0]);
-                ActiveUser = new User(loginCredentials, int.Parse(username))
+                var hashAndSalt = dba.AuthenticateAdminLogin(username);
+                var t = new HashSalt();
+                t.makeHashSalt(password);
+                var h = t.Hash;
+                var s = t.Salt;
+                if (hashAndSalt.Count == 2)
                 {
-                    IsAdmin = true
-                };
-                return true;
+                    var hashSalt = new HashSalt();
+                    var hash = hashAndSalt[0];
+                    var salt = hashAndSalt[1];
+                    var verify = hashSalt.verifyPassword(password, hash, salt);
+                    if (verify)
+                    {
+                        var information = dba.GetAdminsName(username);
+                        var loginCredentials = new Admin(information[0], information[1]);
+                        ActiveUser = new User(loginCredentials, int.Parse(username))
+                        {
+                            IsAdmin = true
+                        };
+                        return true;
+                    }
+                }
+                return false;
             }
-            catch (Exception error)
+            catch (Exception)
             {
                 return false;
             }
