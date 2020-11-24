@@ -72,7 +72,20 @@ namespace LightholderCintronHealthcareSystem.Model
         /// </value>
         public DateTime DateTime { get; }
 
+        /// <summary>
+        /// Gets the dob.
+        /// </summary>
+        /// <value>
+        /// The dob.
+        /// </value>
         public string Dob { get; }
+
+        /// <summary>
+        /// Gets or sets the doctorid.
+        /// </summary>
+        /// <value>
+        /// The doctorid.
+        /// </value>
         public int Doctorid { get; set; }
 
         /// <summary>

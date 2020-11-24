@@ -9,7 +9,9 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
     {
         private const string ConStr = "server=160.10.25.16; port=3306; uid=cs3230f20j;" +
                                       "pwd=F1UgUzIjwlhLAQ9a;database=cs3230f20j;";
-
+        /// <summary>
+        /// Adds a test to the data base
+        /// </summary>
         public bool AddTests(Test test)
         {
             try
@@ -40,6 +42,9 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
         }
 
+        /// <summary>
+        /// Gets tests from the database
+        /// </summary>
         public List<List<string>> GetTests(int appointmentid)
         {
             var testList = new List<List<string>>();
@@ -83,6 +88,9 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
         }
 
+        /// <summary>
+        /// Updates test results in the data base using testid
+        /// </summary>
         public bool EditTestResults(string results, bool normality, int testid)
         {
             try

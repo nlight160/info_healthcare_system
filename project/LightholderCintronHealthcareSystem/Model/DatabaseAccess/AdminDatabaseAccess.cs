@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 {
+    /// <summary>
+    /// Data access layer for admin in the database
+    /// </summary>
     public class AdminDatabaseAccess
     {
         private const string ConStr = "server=160.10.25.16; port=3306; uid=cs3230f20j;" +
@@ -39,6 +42,9 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
         }
 
+        /// <summary>
+        /// Autheticates the admin login
+        /// </summary>
         public List<string> AuthenticateAdminLogin(string adminid)
         {
             var information = new List<string>();

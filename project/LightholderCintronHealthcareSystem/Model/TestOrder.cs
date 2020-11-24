@@ -6,9 +6,27 @@ namespace LightholderCintronHealthcareSystem.Model
 {
     public class TestOrder
     {
+        /// <summary>
+        /// Gets the order.
+        /// </summary>
+        /// <value>
+        /// The order.
+        /// </value>
         public ObservableCollection<Test> Order { get; }
+
+        /// <summary>
+        /// Gets or sets the date ordered.
+        /// </summary>
+        /// <value>
+        /// The date ordered.
+        /// </value>
         public Date DateOrdered { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestOrder"/> class.
+        /// </summary>
+        /// <param name="testsToOrder">The tests to order.</param>
+        /// <exception cref="ArgumentException">Tests to order can not be null - testsToOrder</exception>
         public TestOrder(ObservableCollection<Test> testsToOrder)
         {
             this.Order = testsToOrder ?? throw new ArgumentException("Tests to order can not be null", nameof(testsToOrder));
@@ -16,20 +34,5 @@ namespace LightholderCintronHealthcareSystem.Model
             this.DateOrdered = new Date("" + DateTime.Now.Year, "" + DateTime.Now.Month, "" + DateTime.Now.Day);
         }
 
-        //Gets the amount of tests with the matching name
-        //in the order
-        public int getTestAmount(string testName)
-        {
-            int count = 0;
-            foreach (var test in this.Order)
-            {
-                if (test.TestName.Equals(testName))
-                {
-                    count++;
-                }
-            }
-
-            return count;
-        }
     }
 }

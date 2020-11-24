@@ -119,6 +119,9 @@ namespace LightholderCintronHealthcareSystem.Model.DatabaseAccess
 
         }
 
+        /// <summary>
+        /// Updates the final diagnosis of the check up
+        /// </summary>
         public bool EditCheckupFinalDiagnosis(string finalDiagnosis, int checkupid)
         {
             try

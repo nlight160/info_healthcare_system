@@ -8,9 +8,27 @@ namespace LightholderCintronHealthcareSystem.Model
     /// </summary>
     public class HashSalt
     {
+        /// <summary>
+        /// The size
+        /// </summary>
         private const int Size = 64;
+        /// <summary>
+        /// The iterations
+        /// </summary>
         private const int Iterations = 64;
+        /// <summary>
+        /// Gets or sets the hash.
+        /// </summary>
+        /// <value>
+        /// The hash.
+        /// </value>
         public string Hash { get; set; }
+        /// <summary>
+        /// Gets or sets the salt.
+        /// </summary>
+        /// <value>
+        /// The salt.
+        /// </value>
         public string Salt { get; set; }
 
         /// <summary>

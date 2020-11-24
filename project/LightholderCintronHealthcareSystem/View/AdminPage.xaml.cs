@@ -33,11 +33,21 @@ namespace LightholderCintronHealthcareSystem.View
                                                      + " " + ViewModel.ViewModel.ActiveUser.PersonInfo.Firstname;
         }
 
-        private void onGoBack(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Ons the go back.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+/        private void onGoBack(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MenuPage));
         }
 
+        /// <summary>
+        /// Ons the submit.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="Windows.UI.Xaml.RoutedEventArgs" /> instance containing the event data.</param>
         private async void onSubmit(object sender, RoutedEventArgs e)
         {
             AdminDatabaseAccess ada = new AdminDatabaseAccess();
@@ -46,7 +56,7 @@ namespace LightholderCintronHealthcareSystem.View
                 ViewModel.ViewModel.FillDataGrid(ada.MakeAdminQuery(this.QueryTextBox.Text), this.ResultsDataGrid);
                 var dialog = new MessageDialog("Query has been successfully processed", "Success");
                 await dialog.ShowAsync();
-            } 
+            }
             catch (Exception error)
             {
                 var dialog = new MessageDialog("Something went wrong check your syntax and try again!", "Uh-Oh");
@@ -54,6 +64,9 @@ namespace LightholderCintronHealthcareSystem.View
             }
         }
 
+        /// <summary>
+        /// Disables the submit.
+        /// </summary>
         private void disableSubmit()
         {
             if (string.IsNullOrEmpty(this.QueryTextBox.Text))
@@ -64,6 +77,16 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 this.SubmitButton.IsEnabled = true;
             }
+        }
+
+        /// <summary>
+        /// Ons the disable submit.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Windows.UI.Xaml.Input.LosingFocusEventArgs" /> instance containing the event data.</param>
+        private void onDisableSubmit(UIElement sender, LosingFocusEventArgs args)
+        {
+            this.disableSubmit();
         }
     }
 }

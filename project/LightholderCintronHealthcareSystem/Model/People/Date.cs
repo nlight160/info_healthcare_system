@@ -62,6 +62,10 @@ namespace LightholderCintronHealthcareSystem.Model.People
             this.Day = day.PadLeft(2, '0');
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Date"/> class.
+        /// </summary>
+        /// <param name="dateTime">The date time.</param>
         public Date(DateTime dateTime)
         {
             this.Year = dateTime.Year.ToString().PadLeft(4, '0');
