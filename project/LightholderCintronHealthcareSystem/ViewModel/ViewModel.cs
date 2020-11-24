@@ -58,6 +58,12 @@ namespace LightholderCintronHealthcareSystem.ViewModel
             return false;
         }
 
+        /// <summary>
+        /// Attempts the admin login.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
         public static bool AttemptAdminLogin(string username, string password)
         {
             try

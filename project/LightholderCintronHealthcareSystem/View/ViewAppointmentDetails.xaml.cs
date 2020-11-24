@@ -143,7 +143,7 @@ namespace LightholderCintronHealthcareSystem.View
             {
                 var test1 = new Test(test[1]) {TestId = test[0]};
                 var date = DateTime.Parse(test[3]);
-                test1.DatePerformed = new Date("" + date.Year, "" + date.Month, "" + date.Day);
+                test1.DatePerformed = date;
                 test1.TestResults = test[4];
                 test1.IsNormal = bool.Parse(test[5]);
                 tests.Add(test1);

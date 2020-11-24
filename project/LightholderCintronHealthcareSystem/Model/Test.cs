@@ -19,19 +19,15 @@ namespace LightholderCintronHealthcareSystem.Model
         /// The test identifier.
         /// </value>
         public string TestId { get; set; }
+
         /// <summary>
         /// Gets or sets the date performed.
         /// </summary>
         /// <value>
         /// The date performed.
         /// </value>
-        public Date DatePerformed { get; set; }
-        /// <summary>
-        /// Gets or sets the appointment identifier.
-        /// </summary>
-        /// <value>
-        /// The appointment identifier.
-        /// </value>
+        public DateTime DatePerformed { get; set; }
+
         public int AppointmentId { get; set; }
         /// <summary>
         /// Gets or sets the test results.
@@ -60,7 +56,7 @@ namespace LightholderCintronHealthcareSystem.Model
                 throw new ArgumentException("test name can not be null or empty", nameof(testName));
             }
             this.TestName = testName;
-            this.DatePerformed = new Date("" + DateTime.Now.Year, "" + DateTime.Now.Month, "" + DateTime.Now.Day);
+            this.DatePerformed = DateTime.MinValue;
             this.TestResults = "";
             this.IsNormal = false;
         }
